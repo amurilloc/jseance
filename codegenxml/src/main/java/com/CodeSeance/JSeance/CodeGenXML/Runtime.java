@@ -37,6 +37,8 @@ import com.CodeSeance.JSeance.CodeGenXML.XMLElements.Template;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
 
 import java.io.File;
 import java.net.URL;
@@ -53,6 +55,17 @@ public class Runtime
     {
         // Create a local logger for the static context
         Log log = CreateLogger(Runtime.class);
+
+        CommandLineExecution options = new CommandLineExecution();
+        CmdLineParser parser = new CmdLineParser(options);
+        try {
+            parser.parseArgument(args);
+        } catch( CmdLineException e ) {
+            System.err.println(e.getMessage());
+            System.err.println("java -jar codegenxml-1.0.jar [options...] arguments...");
+            parser.printUsage(System.err);
+            return;
+        }
 
         for(String fileName : args)
         {
