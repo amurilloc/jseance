@@ -85,11 +85,6 @@ public class Runtime
     @Argument
     private List<String> arguments = new ArrayList<String>();
 
-    public Runtime()
-    {
-
-    }
-
     // static entry point for executable jar
     public static void main(String[] args) throws IOException
     {
@@ -99,6 +94,7 @@ public class Runtime
     // Parses the command line arguments and executes the specified templates
     public String run(String[] args) throws IOException
     {
+        ConfigureLogger();
         CmdLineParser parser = new CmdLineParser(this);
 
         // if you have a wider console, you could increase the value;
@@ -153,8 +149,6 @@ public class Runtime
 
     private String run() throws IOException
     {
-        ConfigureLogger();
-
         StringBuffer buffer = new StringBuffer();
         // access non-option arguments and generate the templates
         for (String fileName : arguments)
