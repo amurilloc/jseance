@@ -153,5 +153,4 @@ abstract class Node
     {
         // No action by default
     }
-
 }

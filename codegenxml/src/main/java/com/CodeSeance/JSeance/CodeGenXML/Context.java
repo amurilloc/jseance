@@ -37,7 +37,6 @@ import org.apache.commons.logging.Log;
 import org.mozilla.javascript.xml.XMLObject;
 import org.w3c.dom.Document;
 
-import java.io.File;
 import java.util.Hashtable;
 
 /**
@@ -58,10 +57,9 @@ public class Context
     /*
     * Constructor for creating the root context manager
     */
-    public Context(ContextManager manager, File parentPath)
+    public Context(ContextManager manager)
     {
         this.manager = manager;
-        this.parentPath = parentPath;
     }
 
     /*
@@ -79,15 +77,12 @@ public class Context
             models.put(key, modelCopy);
         }
 
-        parentPath = parent.parentPath;
         logSpacing = parent.logSpacing + " ";
     }
 
     private ContextManager manager = null;
 
     private Context parent = null;
-
-    private File parentPath;
 
     private String logSpacing = "";
 
@@ -97,23 +92,6 @@ public class Context
         {
             log.info(String.format("%s<%s> - %s", logSpacing, tagName, message));
         }
-    }
-
-    /*
-    * Returns the current parent path, that is the directory where all resources should be loaded relative to
-     */
-    public File getParentPath()
-    {
-        return parentPath;
-    }
-
-    /*
-    * Sets thge current parent path, this shuold be called from included templates to change the current context
-    * reference directory
-     */
-    public void setParentPath(File parentPath)
-    {
-        this.parentPath = parentPath;
     }
 
     /**
@@ -140,9 +118,9 @@ public class Context
         }
         else
         {
-            xmlLoader = XMLLoader.buildFromXSDFileName(parentPath, xsdFileName);
+            xmlLoader = XMLLoader.buildFromXSDFileName(this.manager.modelsDir, xsdFileName);
         }
-        Document xmlDoc = xmlLoader.loadXML(parentPath, fileName);
+        Document xmlDoc = xmlLoader.loadXML(this.manager.modelsDir, fileName);
 
         XMLObject jsXML = manager.createXMLObject(xmlDoc);
 

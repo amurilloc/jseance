@@ -104,7 +104,17 @@ public class TestCase
             String templateContents = resolvePlaceholders(template.toString());
             File templateFile = convertStringToTempFile("template", ".xml", templateContents);
 
-            outcome = com.CodeSeance.JSeance.CodeGenXML.Runtime.run(templateFile.getParentFile(), templateFile.getName());
+            String parentPath = templateFile.getParentFile().toString();
+            String[] args = {"-consoleDebugLog",
+                             "-templatesDir", parentPath,
+                             "-modelsDir", parentPath,
+                             "-targetDir", parentPath,
+                             templateFile.getName()
+                            };
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime();
+            outcome = runtime.run(args);
+
+            //outcome = com.CodeSeance.JSeance.CodeGenXML.Runtime.run(templateFile.getParentFile(), templateFile.getName());
 
             if (!result.equals(outcome))
             {
