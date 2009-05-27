@@ -70,6 +70,9 @@ public class Runtime
     @Option(name = "-consoleDebugLog", usage = "outputs debug info to the console")
     private boolean consoleDebugLog = false;
 
+    @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
+    private boolean consoleTemplateOut = false;
+
     @Option(name = "-templatesDir", usage = "Directory from where to load template files (relative to), default is './templates'")
     private File templatesDir = new File("./templates");
 
@@ -94,7 +97,6 @@ public class Runtime
     // Parses the command line arguments and executes the specified templates
     public String run(String[] args) throws IOException
     {
-        ConfigureLogger();
         CmdLineParser parser = new CmdLineParser(this);
 
         // if you have a wider console, you could increase the value;
@@ -113,6 +115,9 @@ public class Runtime
             System.err.println();
             return "Error";
         }
+
+        ConfigureLogger();
+        
         return run();
     }
 
@@ -158,7 +163,10 @@ public class Runtime
             {
                 String result = Template.run(templatesDir, modelsDir, targetDir, fileName);
                 buffer.append(result);
-                System.out.print(result);
+                if (consoleTemplateOut)
+                {
+                    System.out.print(result);
+                }
             }
             else
             {
