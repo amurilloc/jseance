@@ -84,20 +84,20 @@ public class Template extends HierarchicalNode
         }
     }
 
-    public static String run(File parentPath, String fileName)
+    public static String run(File templatesDir, File modelsDir, File targetDir, String fileName)
     {
         // Create a local logger for the static context
         Log log = com.CodeSeance.JSeance.CodeGenXML.Runtime.CreateLogger(Template.class);
         if (log.isInfoEnabled())
         {
-            log.info(String.format("Loading Template:[%s]", parentPath + File.separator + fileName));
+            log.info(String.format("Loading Template:[%s]", templatesDir + File.separator + fileName));
         }
 
         // Load the default schema validator
         XMLLoader xmlLoader = XMLLoader.buildFromCodeTemplateSchema();
 
         // Loads the XML document
-        Document document = xmlLoader.loadXML(parentPath, fileName);
+        Document document = xmlLoader.loadXML(templatesDir, fileName);
 
         // Load the object hierarchy from the XMLDocument
         Template template = new Template(document.getDocumentElement());
@@ -108,7 +108,7 @@ public class Template extends HierarchicalNode
         }
 
         // Create a new ContextManager
-        ContextManager contextManager = new ContextManager(parentPath);
+        ContextManager contextManager = new ContextManager(templatesDir, modelsDir, targetDir);
         try
         {
             // Enter and leave the context on the new template element

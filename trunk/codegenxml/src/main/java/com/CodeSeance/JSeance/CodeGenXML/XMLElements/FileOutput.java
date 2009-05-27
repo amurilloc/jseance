@@ -71,10 +71,10 @@ class FileOutput extends HierarchicalNode
     @Override
     public void onContextEnter(Context context)
     {
-        context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to file:[%s]", context.getParentPath() + File.pathSeparator + fileName));
+        context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to file:[%s]", context.getManager().targetDir + File.pathSeparator + fileName));
 
         // Create the output file from the ccurrent path
-        file = new File(context.getParentPath(), fileName);
+        file = new File(context.getManager().targetDir, fileName);
 
         // Check if the file is writable before proceeding
         if (!file.canWrite())
