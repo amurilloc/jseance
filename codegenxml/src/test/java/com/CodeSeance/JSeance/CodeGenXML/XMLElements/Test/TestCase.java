@@ -109,6 +109,9 @@ public class TestCase
                              "-templatesDir", parentPath,
                              "-modelsDir", parentPath,
                              "-targetDir", parentPath,
+                             "-errorLogFile", parentPath + File.separator + "errors.log",
+                             "-infoLogFile", parentPath + File.separator + "info.log",
+                             "-debugLogFile", parentPath + File.separator + "debug.log",
                              templateFile.getName()
                             };
             com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime();
