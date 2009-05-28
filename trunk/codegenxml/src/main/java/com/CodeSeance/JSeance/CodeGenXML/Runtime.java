@@ -82,16 +82,28 @@ public class Runtime
     @Option(name = "-targetDir", usage = "Directory from where to load model(xml) files (relative to), default is './target'")
     private File targetDir = new File("./target");
 
-    @Option(name = "-rebuild", usage = "forces output files to be re-created regadless of dependency state, default is 'false'")
-    private boolean forceRebuild = false;
+    @Option(name = "-ignoreReadOnlyOuputFiles", usage = "Skips production of ouput files with readonly flag")
+    private boolean ignoreReadOnlyOuputFiles = false;
 
-    @Argument
+    @Argument // The lisi of files to process
     private List<String> arguments = new ArrayList<String>();
 
+    // The class logger
+    private static Log log = LogFactory.getLog("Runtime");
+
     // static entry point for executable jar
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args)
     {
-        new Runtime().run(args);
+        try
+        {
+            new Runtime().run(args);
+        }
+        catch (Exception e)
+        {
+            log.fatal(e);
+            System.err.println(e.getMessage());
+            System.exit(2);
+        }
     }
 
     // Parses the command line arguments and executes the specified templates
@@ -113,7 +125,7 @@ public class Runtime
             System.err.println("java -jar codegenxml-1.0.jar [options...] templatefiles...");
             parser.printUsage(System.err);
             System.err.println();
-            return "Error";
+            System.exit(1);
         }
 
         ConfigureLogger();
@@ -150,7 +162,7 @@ public class Runtime
          }
     }
 
-    private boolean logConfigured = false;
+    private static boolean logConfigured = false;
 
     private String run() throws IOException
     {
@@ -161,7 +173,7 @@ public class Runtime
             File file = new File(templatesDir, fileName);
             if (file.canRead())
             {
-                String result = Template.run(templatesDir, modelsDir, targetDir, fileName);
+                String result = Template.run(templatesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles);
                 buffer.append(result);
                 if (consoleTemplateOut)
                 {

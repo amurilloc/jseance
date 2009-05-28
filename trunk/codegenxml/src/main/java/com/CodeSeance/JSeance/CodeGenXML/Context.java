@@ -34,8 +34,6 @@
 package com.CodeSeance.JSeance.CodeGenXML;
 
 import org.apache.commons.logging.Log;
-import org.mozilla.javascript.xml.XMLObject;
-import org.w3c.dom.Document;
 
 import java.util.Hashtable;
 
@@ -94,53 +92,15 @@ public class Context
         }
     }
 
-    /**
-     * Adds an XML Model to the current context, these are available in JavaScript context as: For Named Models:
-     * Models['<name>'].rootNode or Models['<name>'].currentNode For unnamed or default models:
-     * Models['default'].rootNode or Models['default'].currentNode
-     *
-     * @param fileName    The Model fileName to add
-     * @param name        The name to assign to this model, if empty or null 'default' will be used
-     * @param e4XPath     The E4X Path to use for the currentNode element, if empty or null the root node will be used
-     * @param validate    Specifies if the XML Parser should validate the XML file against a schema (specified in the
-     *                    file or in the next parameter)
-     * @param xsdFileName Optional, the fileName of a schema file to use for XML validation
-     */
-    public void addModel(String fileName, String name, String e4XPath, boolean validate, String xsdFileName)
+    public void addModel(String name, JSModel model)
     {
         name = setDefaultModelNameIfEmpty(name);
-        // Load the XML File
-        XMLLoader xmlLoader;
-
-        if ("".equals(xsdFileName) || xsdFileName == null || !validate)
-        {
-            xmlLoader = XMLLoader.build(validate);
-        }
-        else
-        {
-            xmlLoader = XMLLoader.buildFromXSDFileName(this.manager.modelsDir, xsdFileName);
-        }
-        Document xmlDoc = xmlLoader.loadXML(this.manager.modelsDir, fileName);
-
-        XMLObject jsXML = manager.createXMLObject(xmlDoc);
-
-        // Evaluate the path if required
-        Object jsCurrentNodeObj = manager.evaluateE4XPath(jsXML, e4XPath);
-        if (!(jsCurrentNodeObj instanceof XMLObject))
-        {
-            throw new RuntimeException("Invalid e4XPath Expression:[" + e4XPath + "], was expecting XMLObject instance");
-        }
-        XMLObject jsCurrentNode = (XMLObject) jsCurrentNodeObj;
-
-        // Create and add the new model
-        JSModel model = new JSModel();
-        model.SetRootNode(jsXML);
-        model.SetCurrentNode(jsCurrentNode);
         models.put(name, model);
     }
 
     private final static String UNNAMED_MODEL_NAME = "default";
 
+    // Returns the default model name if the specified string is empty
     private String setDefaultModelNameIfEmpty(String name)
     {
         return ("".equals(name) || name == null) ? UNNAMED_MODEL_NAME : name;

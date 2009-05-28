@@ -68,44 +68,56 @@ class FileOutput extends HierarchicalNode
     // The file to write to
     private File file = null;
 
+    private boolean skipFile = false;
+
     @Override
     public void onContextEnter(Context context)
     {
-        context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to file:[%s]", context.getManager().targetDir + File.pathSeparator + fileName));
-
-        // Create the output file from the ccurrent path
         file = new File(context.getManager().targetDir, fileName);
-
-        // Check if the file is writable before proceeding
-        if (!file.canWrite())
+        
+        skipFile = file.exists() && !file.canWrite() && context.getManager().ignoreReadOnlyOuputFiles;
+        if (skipFile)
         {
-            throw new RuntimeException(String.format("Cannot write to file:[%s]", file.toString()));
+            context.LogInfoMessage(log, "FileOutput", String.format("Skipping file:[%s], dependencies up to date", context.getManager().targetDir + File.pathSeparator + fileName));
         }
+        else
+        {
+            context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to file:[%s]", context.getManager().targetDir + File.pathSeparator + fileName));
 
-        // Change the sink of the current context
-        context.setTextSink(buffer);
-        ExecuteChildren(context);
+            // Check if the file is writable before proceeding
+            if (file.exists() && !file.canWrite())
+            {
+                throw new RuntimeException(String.format("Cannot write to file:[%s]", file.toString()));
+            }
+
+            // Change the sink of the current context
+            context.setTextSink(buffer);
+            ExecuteChildren(context);
+        }
     }
 
     @Override
     public void onContextExit(Context context)
     {
-        String text = buffer.toString();
-        context.LogInfoMessage(log, "FileOutput", String.format("Children produced:[%s]", text));
-
-        try
+        if (!skipFile)
         {
-            // Write the text to disk
-            FileWriter fileWriter = new FileWriter(file, append);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String text = buffer.toString();
+            context.LogInfoMessage(log, "FileOutput", String.format("Children produced:[%s]", text));
 
-            bufferedWriter.write(text);
-            bufferedWriter.close();
-        }
-        catch (IOException exception)
-        {
-            log.error(String.format("Cannot write file to disk:[%s]", fileName));
-            throw new RuntimeException(exception);
+            try
+            {
+                // Write the text to disk
+                FileWriter fileWriter = new FileWriter(file, append);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                bufferedWriter.write(text);
+                bufferedWriter.close();
+            }
+            catch (IOException exception)
+            {
+                log.error(String.format("Cannot write file to disk:[%s]", fileName));
+                throw new RuntimeException(exception);
+            }
         }
     }
 
