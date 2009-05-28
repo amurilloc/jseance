@@ -62,11 +62,12 @@ public class ContextManager
     * dispose needs to be called when the ContextManager is no longer needed to release
     * resources
     */
-    public ContextManager(File templatesDir, File modelsDir, File targetDir)
+    public ContextManager(File templatesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles)
     {
         this.templatesDir = templatesDir;
         this.modelsDir = modelsDir;
         this.targetDir = targetDir;
+        this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
         initializeJavaScriptEngine();
         contextStack.push(new Context(this));
     }
@@ -75,6 +76,7 @@ public class ContextManager
     public final File templatesDir;
     public final File modelsDir;
     public final File targetDir;
+    public final boolean ignoreReadOnlyOuputFiles;
 
     // The context factory to be used across all instances
     final static ContextFactory factory = new ContextFactory();

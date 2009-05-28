@@ -35,7 +35,11 @@ package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
 import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
+import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
+import com.CodeSeance.JSeance.CodeGenXML.JSModel;
 import org.w3c.dom.Element;
+import org.w3c.dom.Document;
+import org.mozilla.javascript.xml.XMLObject;
 
 /**
  * Class for loading an XML model into the parent context
@@ -70,7 +74,34 @@ class Model extends Node
     public void onContextEnter(Context context)
     {
         context.LogInfoMessage(log, "Model", String.format("Loading model: fileName:[%s], name:[%s], e4XPath:[%s], validate:[%s], xsdFileName[%s]", fileName, name, e4XPath, validate, xsdFileName));
-        // Register the model within the parent context
-        context.getParent().addModel(fileName, name, e4XPath, validate, xsdFileName);
+        
+        // Load the XML File
+        XMLLoader xmlLoader;
+
+        if ("".equals(xsdFileName) || xsdFileName == null || !validate)
+        {
+            xmlLoader = XMLLoader.build(validate);
+        }
+        else
+        {
+            xmlLoader = XMLLoader.buildFromXSDFileName(context.getManager().modelsDir, xsdFileName);
+        }
+        Document xmlDoc = xmlLoader.loadXML(context.getManager().modelsDir, fileName);
+        
+        XMLObject jsXML = context.getManager().createXMLObject(xmlDoc);
+
+        // Evaluate the path if required
+        Object jsCurrentNodeObj = context.getManager().evaluateE4XPath(jsXML, e4XPath);
+        if (!(jsCurrentNodeObj instanceof XMLObject))
+        {
+            throw new RuntimeException("Invalid e4XPath Expression:[" + e4XPath + "], was expecting XMLObject instance");
+        }
+        XMLObject jsCurrentNode = (XMLObject) jsCurrentNodeObj;
+
+        // Create and add the new model
+        JSModel model = new JSModel();
+        model.SetRootNode(jsXML);
+        model.SetCurrentNode(jsCurrentNode);
+        context.getParent().addModel(name, model);
     }
 }
