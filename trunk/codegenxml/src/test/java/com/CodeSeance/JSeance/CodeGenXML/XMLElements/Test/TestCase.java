@@ -63,7 +63,9 @@ public class TestCase
         xmlContent.put(name, model);
         try
         {
-            xmlFiles.put(name, File.createTempFile(name, ".xml"));
+            File file = File.createTempFile(name, ".xml");
+            file.deleteOnExit();
+            xmlFiles.put(name, file);
         }
         catch (Exception e)
         {
@@ -76,7 +78,9 @@ public class TestCase
     {
         try
         {
-            ouputFiles.put(name, File.createTempFile(name, ".xml"));
+            File file = File.createTempFile(name, ".txt");
+            file.deleteOnExit();
+            ouputFiles.put(name, file);
         }
         catch (Exception e)
         {
@@ -176,6 +180,7 @@ public class TestCase
     private File convertStringToTempFile(String prefix, String suffix, String fileContents) throws Exception
     {
         File resultFile = File.createTempFile(prefix, suffix);
+        resultFile.deleteOnExit();
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(resultFile));
         bufferedWriter.write(fileContents);
         bufferedWriter.close();
