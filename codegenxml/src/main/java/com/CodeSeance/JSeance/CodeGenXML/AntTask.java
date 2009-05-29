@@ -34,8 +34,12 @@
 package com.CodeSeance.JSeance.CodeGenXML;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.types.FileSet;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the entrypoint for Ant builds
@@ -45,43 +49,82 @@ import java.io.File;
  */
 public class AntTask extends org.apache.tools.ant.Task
 {
+    public AntTask()
+    {
+        setTaskName("JSeance.CodeGenXML");    
+    }
+
+    private com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime();
+
+    public void setErrorLogFile(File file)
+    {
+        runtime.errorLogFile = file;
+    }
+
+    public void setInfoLogFile(File file)
+    {
+        runtime.infoLogFile = file;
+    }
+
+    public void setDebugLogFile(File file)
+    {
+        runtime.debugLogFile = file;
+    }
+
     public void setConsoleDebugLog(boolean val)
     {
-        consoleDebugLog = val;
+        runtime.consoleDebugLog = val;
     }
-
-    private boolean consoleDebugLog = false;
-
-    public void setTemplatesDir(File file)
-    {
-        templatesDir = file;
-    }
-
-    private File templatesDir = new File("./templates");
 
     public void setModelsDir(File file)
     {
-        modelsDir = file;    
+        runtime.modelsDir = file;
     }
-
-    private File modelsDir = new File("./models");
 
     public void setTargetDir(File file)
     {
-        targetDir = file;
+        runtime.targetDir = file;
     }
-
-    private File targetDir = new File("./target");
 
     public void setIgnoreReadOnlyOuputFiles(boolean val)
     {
-        ignoreReadOnlyOuputFiles = val;
+        runtime.ignoreReadOnlyOuputFiles = val;
     }
 
-    private boolean ignoreReadOnlyOuputFiles = false;
-
-    public void Execute() throws BuildException
+    public void addFileset(FileSet fileset)
     {
-        
+        filesets.add(fileset);
     }
+
+    private List<FileSet> filesets = new ArrayList<FileSet>();
+
+    @Override
+    public void execute() throws BuildException
+    {
+        for(FileSet fileSet : filesets)
+        {
+            DirectoryScanner dirScanner = fileSet.getDirectoryScanner(getProject());
+            runtime.templatesDir =  dirScanner.getBasedir();
+
+            String[] includedFiles = dirScanner.getIncludedFiles();
+            runtime.arguments = new ArrayList<String>();
+
+            // Replace windows-only slashes with platform independant representation and populate the files
+            for(String fileName : includedFiles)
+            {
+                runtime.arguments.add(fileName.replace('\\','/'));
+            }
+
+            try
+            {
+                runtime.run();
+            }
+            catch (Exception ex)
+            {
+                //log("", Project.MSG_ERR);
+                throw new BuildException(ex);
+            }
+        }
+    }
+
 }

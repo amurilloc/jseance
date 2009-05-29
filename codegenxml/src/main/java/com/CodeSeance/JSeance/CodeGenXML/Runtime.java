@@ -44,10 +44,10 @@ import org.kohsuke.args4j.Option;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.net.URL;
 
 /**
  * This is the args4j class to define command line options for the executable Jar execution method also is the entry
@@ -58,38 +58,36 @@ import java.net.URL;
  */
 public class Runtime
 {
-    @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is './target/jseance-errors.log'")
-    private File errorLogFile = new File("./target/jseance-errors.log");
+    @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is disabled")
+    File errorLogFile = null;
 
-    @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is './target/jseance-info.log'")
-    private File infoLogFile = new File("./target/jseance-info.log");
+    @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is disabled")
+    File infoLogFile = null;
 
-    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is './target/jseance-debug.log'")
-    private File debugLogFile = new File("./target/jseance-debug.log");
+    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is disabled")
+    File debugLogFile = null;
 
     @Option(name = "-consoleDebugLog", usage = "outputs debug info to the console")
-    private boolean consoleDebugLog = false;
+    boolean consoleDebugLog = false;
 
     @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
-    private boolean consoleTemplateOut = false;
+    boolean consoleTemplateOut = false;
 
     @Option(name = "-templatesDir", usage = "Directory from where to load template files (relative to), default is './templates'")
-    private File templatesDir = new File("./templates");
+    File templatesDir = new File("./templates");
 
     @Option(name = "-modelsDir", usage = "Directory from where to load model(xml) files (relative to), default is './models'")
-    private File modelsDir = new File("./models");
+    File modelsDir = new File("./models");
 
     @Option(name = "-targetDir", usage = "Directory from where to load model(xml) files (relative to), default is './target'")
-    private File targetDir = new File("./target");
+    File targetDir = new File("./target");
 
     @Option(name = "-ignoreReadOnlyOuputFiles", usage = "Skips production of ouput files with readonly flag")
-    private boolean ignoreReadOnlyOuputFiles = false;
+    boolean ignoreReadOnlyOuputFiles = false;
 
-    @Argument // The lisi of files to process
-    private List<String> arguments = new ArrayList<String>();
-
-    // The class logger
-    private static Log log = LogFactory.getLog("Runtime");
+    @Argument
+    // The lisi of files to process
+    List<String> arguments = new ArrayList<String>();
 
     // static entry point for executable jar
     public static void main(String[] args)
@@ -98,16 +96,15 @@ public class Runtime
         {
             new Runtime().run(args);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            log.fatal(e);
-            System.err.println(e.getMessage());
+            System.err.println(ex.getMessage());
             System.exit(2);
         }
     }
 
     // Parses the command line arguments and executes the specified templates
-    public String run(String[] args) throws IOException
+    public String run(String[] args) throws Exception
     {
         CmdLineParser parser = new CmdLineParser(this);
 
@@ -128,64 +125,81 @@ public class Runtime
             System.exit(1);
         }
 
-        ConfigureLogger();
-        
         return run();
     }
 
     private void ConfigureLogger() throws IOException
     {
-         if (!logConfigured)
-         {
+        if (!logConfigured)
+        {
             // Configure the logger
             URL log4Jresource = Runtime.class.getClassLoader().getResource("log4j.properties");
             Properties log4Jproperties = new Properties();
             log4Jproperties.load(log4Jresource.openStream());
 
             // override the logger config
-            log4Jproperties.setProperty("log4j.rootLogger", "DEBUG, ErrorLog, InfoLog, DebugLog"
-                                                            + (consoleDebugLog ? ", Console" : ""));
+            log4Jproperties.setProperty("log4j.rootLogger", "DEBUG" + (errorLogFile != null ? ", ErrorLog" : "") + (infoLogFile != null ? ", InfoLog" : "") + (debugLogFile != null ? ", DebugLog" : "") + (consoleDebugLog ? ", Console" : ""));
 
             // override the log filenames and append mode
-            log4Jproperties.setProperty("log4j.appender.ErrorLog.File", errorLogFile.toString());
-            log4Jproperties.setProperty("log4j.appender.ErrorLog.Append", "true");
+            if (errorLogFile != null)
+            {
+                log4Jproperties.setProperty("log4j.appender.ErrorLog.File", errorLogFile.toString());
+                log4Jproperties.setProperty("log4j.appender.ErrorLog.Append", "true");
+            }
 
-            log4Jproperties.setProperty("log4j.appender.InfoLog.File", infoLogFile.toString());
-            log4Jproperties.setProperty("log4j.appender.InfoLog.Append", "true");
+            if (infoLogFile != null)
+            {
+                log4Jproperties.setProperty("log4j.appender.InfoLog.File", infoLogFile.toString());
+                log4Jproperties.setProperty("log4j.appender.InfoLog.Append", "true");
+            }
 
-            log4Jproperties.setProperty("log4j.appender.DebugLog.File", debugLogFile.toString());
-            log4Jproperties.setProperty("log4j.appender.DebugLog.Append", "true");
+            if (debugLogFile != null)
+            {
+                log4Jproperties.setProperty("log4j.appender.DebugLog.File", debugLogFile.toString());
+                log4Jproperties.setProperty("log4j.appender.DebugLog.Append", "true");
+            }
 
             // Configure log4j
             PropertyConfigurator.configure(log4Jproperties);
             logConfigured = true;
-         }
+        }
     }
 
     private static boolean logConfigured = false;
 
-    private String run() throws IOException
+    public String run() throws Exception
     {
-        StringBuffer buffer = new StringBuffer();
-        // access non-option arguments and generate the templates
-        for (String fileName : arguments)
+        Log log = LogFactory.getLog("Runtime");
+        try
         {
-            File file = new File(templatesDir, fileName);
-            if (file.canRead())
+            ConfigureLogger();
+
+            StringBuffer buffer = new StringBuffer();
+            // access non-option arguments and generate the templates
+            for (String fileName : arguments)
             {
-                String result = Template.run(templatesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles);
-                buffer.append(result);
-                if (consoleTemplateOut)
+                File file = new File(templatesDir, fileName);
+                if (file.canRead())
                 {
-                    System.out.print(result);
+                    String result = Template.run(templatesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles);
+                    buffer.append(result);
+                    if (consoleTemplateOut)
+                    {
+                        System.out.print(result);
+                    }
+                }
+                else
+                {
+                    throw new RuntimeException(String.format("Cannot read file:[%s]", file));
                 }
             }
-            else
-            {
-                throw new RuntimeException(String.format("Cannot read file:[%s]", file));
-            }
+            return buffer.toString();
         }
-        return buffer.toString();
+        catch(Exception ex)
+        {
+            log.fatal(ex);
+            throw ex;
+        }
     }
 
     public static Log CreateLogger(Class classObj)
