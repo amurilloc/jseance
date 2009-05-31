@@ -108,14 +108,17 @@ public class TestCase
             String templateContents = resolvePlaceholders(template.toString());
             File templateFile = convertStringToTempFile("template", ".xml", templateContents);
 
+            String projectBasedir = System.getProperty("PROJECT_BASEDIR");
+            System.out.println("HERE:" + projectBasedir);
+
             String parentPath = templateFile.getParentFile().toString();
             String[] args = {"-consoleDebugLog",
                              "-templatesDir", parentPath,
                              "-modelsDir", parentPath,
                              "-targetDir", parentPath,
-                             //"-errorLogFile", parentPath + File.separator + "errors.log",
-                             //"-infoLogFile", parentPath + File.separator + "info.log",
-                             //"-debugLogFile", parentPath + File.separator + "debug.log",
+                             "-errorLogFile", "target/errors.log",
+                             "-infoLogFile", "target/info.log",
+                             "-debugLogFile", "target/debug.log",
                              templateFile.getName()
                             };
             com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime();
