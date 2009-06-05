@@ -39,15 +39,10 @@ import com.CodeSeance.JSeance.CodeGenXML.XMLElements.Template;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -60,110 +55,96 @@ import java.util.Properties;
  */
 public class Runtime
 {
-    @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is disabled")
-    File errorLogFile = null;
-
-    @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is disabled")
-    File infoLogFile = null;
-
-    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is disabled")
-    File debugLogFile = null;
-
-    @Option(name = "-consoleDebugLog", usage = "outputs debug info to the console")
-    boolean consoleDebugLog = false;
-
-    @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
-    boolean consoleTemplateOut = false;
-
-    @Option(name = "-templatesDir", usage = "Directory from where to load template files (relative to), default is './templates'")
-    File templatesDir = new File("./templates");
-
-    @Option(name = "-includesDir", usage = "Directory from where to load include files (relative to), default is './includes'")
-    File includesDir = new File("./includes");
-
-    @Option(name = "-modelsDir", usage = "Directory from where to load model(xml) files (relative to), default is './models'")
-    File modelsDir = new File("./models");
-
-    @Option(name = "-targetDir", usage = "Directory from where to load model(xml) files (relative to), default is './target'")
-    File targetDir = new File("./target");
-
-    @Option(name = "-ignoreReadOnlyOuputFiles", usage = "Skips production of ouput files with readonly flag")
-    boolean ignoreReadOnlyOuputFiles = false;
-
-    @Option(name = "-forceRebuild", usage = "Skips dependency checks and forces a rebuild")
-    boolean forceRebuild = false;
-
-    @Argument
-    // The list of files to process
-    List<String> arguments = new ArrayList<String>();
-
-    // static entry point for executable jar
-    public static void main(String[] args)
+    public Runtime(String errorLogFileName,
+                   String infoLogFileName,
+                   String debugLogFileName,
+                   boolean consoleDebugLog,
+                   boolean consoleTemplateOut,
+                   File includesDir,
+                   File modelsDir,
+                   File targetDir,
+                   boolean ignoreReadOnlyOuputFiles,
+                   boolean forceRebuild)
     {
-        try
-        {
-            new Runtime().run(args);
-        }
-        catch (Exception ex)
-        {
-            System.err.println(ex.getMessage());
-            System.exit(2);
-        }
+        this.errorLogFileName = errorLogFileName;
+        this.infoLogFileName = infoLogFileName;
+        this.debugLogFileName = debugLogFileName;
+        this.consoleDebugLog = consoleDebugLog;
+        this.consoleTemplateOut = consoleTemplateOut;
+        this.includesDir = includesDir;
+        this.modelsDir = modelsDir;
+        this.targetDir = targetDir;
+        this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
+        this.forceRebuild = forceRebuild;
+
+        ConfigureLogger();
     }
+    //Uses the specified filename for error logging
+    private final String errorLogFileName;
 
-    // Parses the command line arguments and executes the specified templates
-    public String run(String[] args) throws Exception
-    {
-        CmdLineParser parser = new CmdLineParser(this);
+    //Uses the specified filename for info logging
+    private final String infoLogFileName;
 
-        // if you have a wider console, you could increase the value;
-        // here 80 is also the default
-        parser.setUsageWidth(80);
+    //Uses the specified filename for debugging
+    private final String debugLogFileName;
 
-        try
-        {
-            parser.parseArgument(args);
-        }
-        catch (CmdLineException e)
-        {
-            System.err.println(e.getMessage());
-            System.err.println("java -jar codegenxml-1.0.jar [options...] templatefiles...");
-            parser.printUsage(System.err);
-            System.err.println();
-            System.exit(1);
-        }
+    //Outputs debug info to the console
+    private final boolean consoleDebugLog;
 
-        return run();
-    }
+    //outputs Template resulting text to the console
+    private final boolean consoleTemplateOut;
 
-    private void ConfigureLogger() throws IOException
+    // Directory from where to load include files (relative to)
+    private final File includesDir;
+
+    //Directory from where to load model(xml) files (relative to)
+    private final File modelsDir;
+
+    //Directory from where to load model(xml) files (relative to)
+    private final File targetDir;
+
+   //Skips production of ouput files with readonly flag
+    private final boolean ignoreReadOnlyOuputFiles;
+
+    //Skips dependency checks and forces a rebuild
+    private final boolean forceRebuild;
+
+    private void ConfigureLogger()
     {
         if (!logConfigured)
         {
             // Configure the logger
             URL log4Jresource = Runtime.class.getClassLoader().getResource("log4j.properties");
             Properties log4Jproperties = new Properties();
-            log4Jproperties.load(log4Jresource.openStream());
+            try
+            {
+                log4Jproperties.load(log4Jresource.openStream());
+            }
+            catch (IOException ex)
+            {
+                // The caller wont be able to handle the exception anyway, wrap in a RuntimeException and rethrow
+                throw new RuntimeException(ex);
+            }
 
             // override the logger config
-            log4Jproperties.setProperty("log4j.rootLogger", "DEBUG" + (errorLogFile != null ? ", ErrorLog" : "") + (infoLogFile != null ? ", InfoLog" : "") + (debugLogFile != null ? ", DebugLog" : "") + (consoleDebugLog ? ", Console" : ""));
+            log4Jproperties.setProperty("log4j.rootLogger", "DEBUG" + (errorLogFileName != null ? ", ErrorLog" : "") + (infoLogFileName != null ? ", InfoLog" : "") + (debugLogFileName != null ? ", DebugLog" : "") + (consoleDebugLog ? ", Console" : ""));
 
             // override the log filenames and append mode
-            if (errorLogFile != null)
+            if (errorLogFileName != null)
             {
-                log4Jproperties.setProperty("log4j.appender.ErrorLog.File", errorLogFile.toString());
+                log4Jproperties.setProperty("log4j.appender.ErrorLog.File", errorLogFileName);
                 log4Jproperties.setProperty("log4j.appender.ErrorLog.Append", "true");
             }
 
-            if (infoLogFile != null)
+            if (infoLogFileName != null)
             {
-                log4Jproperties.setProperty("log4j.appender.InfoLog.File", infoLogFile.toString());
+                log4Jproperties.setProperty("log4j.appender.InfoLog.File", infoLogFileName);
                 log4Jproperties.setProperty("log4j.appender.InfoLog.Append", "true");
             }
 
-            if (debugLogFile != null)
+            if (debugLogFileName != null)
             {
-                log4Jproperties.setProperty("log4j.appender.DebugLog.File", debugLogFile.toString());
+                log4Jproperties.setProperty("log4j.appender.DebugLog.File", debugLogFileName);
                 log4Jproperties.setProperty("log4j.appender.DebugLog.Append", "true");
             }
 
@@ -175,19 +156,17 @@ public class Runtime
 
     private static boolean logConfigured = false;
 
-    public String run() throws Exception
+    public String run(File templatesDir, List<String> templateFileNames) throws Exception
     {
         Log log = LogFactory.getLog("Runtime");
         try
         {
-            ConfigureLogger();
-
             StringBuffer buffer = new StringBuffer();
             // access non-option arguments and generate the templates
 
             DependencyManager dependencyManager =  new DependencyManager(targetDir);
             
-            for (String fileName : arguments)
+            for (String fileName : templateFileNames)
             {
                 if (!targetDir.exists())
                 {
