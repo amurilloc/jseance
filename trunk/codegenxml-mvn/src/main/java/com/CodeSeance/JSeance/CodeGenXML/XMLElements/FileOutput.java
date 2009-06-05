@@ -46,7 +46,7 @@ import java.io.IOException;
  * Class for creating a TextSink with file destination
  *
  * @author Andres Murillo
- * @version %I%, %G%
+ * @version 1.0
  */
 class FileOutput extends HierarchicalNode
 {
@@ -74,11 +74,13 @@ class FileOutput extends HierarchicalNode
     public void onContextEnter(Context context)
     {
         file = new File(context.getManager().targetDir, fileName);
+
         
+
         skipFile = file.exists() && !file.canWrite() && context.getManager().ignoreReadOnlyOuputFiles;
         if (skipFile)
         {
-            context.LogInfoMessage(log, "FileOutput", String.format("Skipping file:[%s], dependencies up to date", context.getManager().targetDir + File.pathSeparator + fileName));
+            context.LogInfoMessage(log, "FileOutput", String.format("Readonly flag set, skipping file:[%s]", context.getManager().targetDir + File.pathSeparator + fileName));
         }
         else
         {

@@ -36,6 +36,7 @@ package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
 import com.CodeSeance.JSeance.CodeGenXML.ContextManager;
 import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
+import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.TemplateDependencies;
 import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -46,7 +47,7 @@ import java.io.File;
  * Top element of a CodeSeance Template, provides a loader to parse and execute a template
  *
  * @author Andres Murillo
- * @version %I%, %G%
+ * @version 1.0
  */
 public class Template extends HierarchicalNode
 {
@@ -84,11 +85,12 @@ public class Template extends HierarchicalNode
         }
     }
 
-    public static String run(File templatesDir, File modelsDir, File targetDir, String fileName,
-                             boolean ignoreReadOnlyOuputFiles)
+    public static String run(File templatesDir, File includesDir, File modelsDir, File targetDir, String fileName,
+                             boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
     {
         // Create a local logger for the static context
         Log log = com.CodeSeance.JSeance.CodeGenXML.Runtime.CreateLogger(Template.class);
+
         if (log.isInfoEnabled())
         {
             log.info(String.format("Loading Template:[%s]", templatesDir + File.separator + fileName));
@@ -109,8 +111,8 @@ public class Template extends HierarchicalNode
         }
 
         // Create a new ContextManager
-        ContextManager contextManager = new ContextManager(templatesDir, modelsDir, targetDir,
-                                                           ignoreReadOnlyOuputFiles);
+        ContextManager contextManager = new ContextManager(templatesDir, includesDir, modelsDir, targetDir,
+                                                           ignoreReadOnlyOuputFiles, templateDependencies);
 
         try
         {

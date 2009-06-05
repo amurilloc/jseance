@@ -33,6 +33,8 @@
 
 package com.CodeSeance.JSeance.CodeGenXML;
 
+import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.DependencyManager;
+import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.TemplateDependencies;
 import com.CodeSeance.JSeance.CodeGenXML.XMLElements.Template;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -76,6 +78,9 @@ public class Runtime
     @Option(name = "-templatesDir", usage = "Directory from where to load template files (relative to), default is './templates'")
     File templatesDir = new File("./templates");
 
+    @Option(name = "-includesDir", usage = "Directory from where to load include files (relative to), default is './includes'")
+    File includesDir = new File("./includes");
+
     @Option(name = "-modelsDir", usage = "Directory from where to load model(xml) files (relative to), default is './models'")
     File modelsDir = new File("./models");
 
@@ -85,8 +90,11 @@ public class Runtime
     @Option(name = "-ignoreReadOnlyOuputFiles", usage = "Skips production of ouput files with readonly flag")
     boolean ignoreReadOnlyOuputFiles = false;
 
+    @Option(name = "-forceRebuild", usage = "Skips dependency checks and forces a rebuild")
+    boolean forceRebuild = false;
+
     @Argument
-    // The lisi of files to process
+    // The list of files to process
     List<String> arguments = new ArrayList<String>();
 
     // static entry point for executable jar
@@ -176,6 +184,9 @@ public class Runtime
 
             StringBuffer buffer = new StringBuffer();
             // access non-option arguments and generate the templates
+
+            DependencyManager dependencyManager =  new DependencyManager(targetDir);
+            
             for (String fileName : arguments)
             {
                 if (!targetDir.exists())
@@ -189,11 +200,21 @@ public class Runtime
                 File file = new File(templatesDir, fileName);
                 if (file.canRead())
                 {
-                    String result = Template.run(templatesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles);
-                    buffer.append(result);
-                    if (consoleTemplateOut)
+                    TemplateDependencies templateDependencies =  dependencyManager.getTemplateDependencies(file);
+
+                    if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
                     {
-                        System.out.print(result);
+                        String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
+                        buffer.append(result);
+                        if (consoleTemplateOut)
+                        {
+                            System.out.print(result);
+                        }
+                        dependencyManager.commit();
+                    }
+                    else
+                    {
+                        log.info(String.format("File dependencies are up to date, skipping template generation:[%s]", file));
                     }
                 }
                 else

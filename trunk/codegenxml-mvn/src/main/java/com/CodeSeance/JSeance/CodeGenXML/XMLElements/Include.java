@@ -60,10 +60,10 @@ class Include extends HierarchicalNode
     @Override
     public void onContextEnter(Context context)
     {
-        context.LogInfoMessage(log, "Include", String.format("Loading file:[%s]", context.getManager().templatesDir + File.pathSeparator + fileName));
+        context.LogInfoMessage(log, "Include", String.format("Loading file:[%s]", context.getManager().includesDir + File.pathSeparator + fileName));
 
         XMLLoader xmlLoader = XMLLoader.buildFromCodeTemplateSchema();
-        Document document = xmlLoader.loadXML(context.getManager().templatesDir, fileName);
+        Document document = xmlLoader.loadXML(context.getManager().includesDir, fileName);
         context.LogInfoMessage(log, "Include", "XMLSchema validated, processing children");
 
         LoadChildren(document.getDocumentElement().getChildNodes());

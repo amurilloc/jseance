@@ -48,7 +48,7 @@ import java.lang.reflect.Field;
  * attributes or XML structure since that is the responsibility of the XSD validator used in XMLLoader
  *
  * @author Andres Murillo
- * @version %I%, %G%
+  * @version 1.0
  */
 abstract class Node
 {

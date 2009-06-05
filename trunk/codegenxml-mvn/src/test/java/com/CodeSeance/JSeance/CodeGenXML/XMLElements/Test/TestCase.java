@@ -114,6 +114,7 @@ public class TestCase
             String parentPath = templateFile.getParentFile().toString();
             String[] args = {"-consoleDebugLog",
                              "-templatesDir", parentPath,
+                             "-includesDir", parentPath,
                              "-modelsDir", parentPath,
                              "-targetDir", parentPath,
                              "-errorLogFile", "target/jseance-errors.log",

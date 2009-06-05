@@ -55,7 +55,7 @@ import java.io.*;
  * </pre>
  *
  * @author Andres Murillo
- * @version %I%, %G%
+ * @version 1.0
  */
 public class XMLLoader
 {

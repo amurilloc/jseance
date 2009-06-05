@@ -45,7 +45,7 @@ import org.mozilla.javascript.xml.XMLObject;
  * Class for loading an XML model into the parent context
  *
  * @author Andres Murillo
- * @version %I%, %G%
+  * @version 1.0
  */
 class Model extends Node
 {
