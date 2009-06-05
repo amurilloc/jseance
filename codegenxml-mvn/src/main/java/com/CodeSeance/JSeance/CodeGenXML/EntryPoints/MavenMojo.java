@@ -207,6 +207,10 @@ public class MavenMojo extends AbstractMojo implements Logger
         {
             throw new MojoExecutionException(String.format("Cannot load XML Templates from:[%s]", templatesDir), ex);
         }
+        catch (Exception ex)
+        {
+            throw new MojoExecutionException(ex.getMessage(), ex);            
+        }
     }
 
     public void infoMessage(String message)

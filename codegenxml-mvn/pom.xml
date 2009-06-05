@@ -94,7 +94,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>com.CodeSeance.JSeance.CodeGenXML.Runtime</mainClass>
+							<mainClass>com.CodeSeance.JSeance.CodeGenXML.EntryPoints.CommandLine</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

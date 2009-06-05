@@ -33,17 +33,23 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
+import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class TestCase
+public class TestCase implements Logger
 {
     protected Hashtable<String, StringBuilder> xmlContent = new Hashtable<String, StringBuilder>();
     Hashtable<String, File> xmlFiles = new Hashtable<String, File>();
     protected Hashtable<String, File> ouputFiles = new Hashtable<String, File>();
     protected StringBuilder template = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+
+    protected Log log = LogFactory.getLog("TestCase");
 
     protected void reset()
     {
@@ -110,9 +116,6 @@ public class TestCase
             String templateContents = resolvePlaceholders(template.toString());
             File templateFile = convertStringToTempFile("template", ".xml", templateContents);
 
-            String projectBasedir = System.getProperty("PROJECT_BASEDIR");
-            System.out.println("HERE:" + projectBasedir);
-
             File parentPath = templateFile.getParentFile();
                com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
                 "target/jseance-errors.log",
@@ -127,7 +130,7 @@ public class TestCase
                 false);
             List<String> templateFileNames = new ArrayList<String>();
             templateFileNames.add(templateFile.getName());
-            outcome = runtime.run(parentPath, templateFileNames);
+            outcome = runtime.run(parentPath, templateFileNames, this);
 
             // Cleanup the dependencies file
             runtime.dependencyManager.cleanup();
@@ -218,5 +221,15 @@ public class TestCase
         }
 
         return stringBuffer.toString();
+    }
+
+    public void infoMessage(String message)
+    {
+        log.info(message);
+    }
+
+    public void errorMessage(String message)
+    {
+        log.error(message);    
     }
 }
