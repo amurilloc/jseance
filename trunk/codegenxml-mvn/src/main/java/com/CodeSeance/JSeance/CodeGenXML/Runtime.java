@@ -35,6 +35,7 @@ package com.CodeSeance.JSeance.CodeGenXML;
 
 import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.DependencyManager;
 import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.TemplateDependencies;
+import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Logger;
 import com.CodeSeance.JSeance.CodeGenXML.XMLElements.Template;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,16 +56,7 @@ import java.util.Properties;
  */
 public class Runtime
 {
-    public Runtime(String errorLogFileName,
-                   String infoLogFileName,
-                   String debugLogFileName,
-                   boolean consoleDebugLog,
-                   boolean consoleTemplateOut,
-                   File includesDir,
-                   File modelsDir,
-                   File targetDir,
-                   boolean ignoreReadOnlyOuputFiles,
-                   boolean forceRebuild)
+    public Runtime(String errorLogFileName, String infoLogFileName, String debugLogFileName, boolean consoleDebugLog, boolean consoleTemplateOut, File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, boolean forceRebuild)
     {
         this.errorLogFileName = errorLogFileName;
         this.infoLogFileName = infoLogFileName;
@@ -79,8 +71,9 @@ public class Runtime
 
         ConfigureLogger();
 
-        dependencyManager =  new DependencyManager(targetDir);
+        dependencyManager = new DependencyManager(targetDir);
     }
+
     //Uses the specified filename for error logging
     private final String errorLogFileName;
 
@@ -105,7 +98,7 @@ public class Runtime
     //Directory from where to load model(xml) files (relative to)
     private final File targetDir;
 
-   //Skips production of ouput files with readonly flag
+    //Skips production of ouput files with readonly flag
     private final boolean ignoreReadOnlyOuputFiles;
 
     //Skips dependency checks and forces a rebuild
@@ -161,30 +154,32 @@ public class Runtime
 
     private static boolean logConfigured = false;
 
-    public String run(File templatesDir, List<String> templateFileNames) throws Exception
+    public String run(File templatesDir, List<String> templateFileNames, Logger externalLog)
     {
         Log log = LogFactory.getLog("Runtime");
-        try
+
+        StringBuffer buffer = new StringBuffer();
+        // access non-option arguments and generate the templates
+
+        for (String fileName : templateFileNames)
         {
-            StringBuffer buffer = new StringBuffer();
-            // access non-option arguments and generate the templates
-            
-            for (String fileName : templateFileNames)
+            if (!targetDir.exists())
             {
-                if (!targetDir.exists())
+                if (!targetDir.mkdirs())
                 {
-                    if (!targetDir.mkdirs())
-                    {
-                        throw new RuntimeException(String.format("Cannot create ouput directory:[%s]", targetDir));
-                    }
+                    throw new RuntimeException(String.format("Cannot create ouput directory:[%s]", targetDir));
                 }
+            }
 
-                File file = new File(templatesDir, fileName);
-                if (file.canRead())
+            File file = new File(templatesDir, fileName);
+            if (file.canRead())
+            {
+                TemplateDependencies templateDependencies = dependencyManager.getTemplateDependencies(file);
+
+                if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
                 {
-                    TemplateDependencies templateDependencies =  dependencyManager.getTemplateDependencies(file);
-
-                    if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
+                    externalLog.infoMessage(String.format("Processing template file:[%s]", fileName));
+                    try
                     {
                         String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
                         buffer.append(result);
@@ -194,23 +189,25 @@ public class Runtime
                         }
                         dependencyManager.commit();
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        log.info(String.format("File dependencies are up to date, skipping template generation:[%s]", file));
+                        externalLog.errorMessage(ex.getMessage());
+                        log.error(ex.getMessage());
                     }
                 }
                 else
                 {
-                    throw new RuntimeException(String.format("Cannot read file:[%s]", file));
+                    String message = String.format("File dependencies are up to date, skipping template generation:[%s]", file);
+                    externalLog.infoMessage(message);
+                    log.info(message);
                 }
             }
-            return buffer.toString();
+            else
+            {
+                throw new RuntimeException(String.format("Cannot read file:[%s]", file));
+            }
         }
-        catch(Exception ex)
-        {
-            log.fatal(ex);
-            throw ex;
-        }
+        return buffer.toString();
     }
 
     public static Log CreateLogger(Class classObj)

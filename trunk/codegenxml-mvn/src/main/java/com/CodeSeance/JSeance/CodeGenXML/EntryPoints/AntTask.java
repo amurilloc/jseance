@@ -35,6 +35,7 @@ package com.CodeSeance.JSeance.CodeGenXML.EntryPoints;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 
 import java.io.File;
@@ -47,7 +48,7 @@ import java.util.List;
  * @author Andres Murillo
  * @version 1.0
  */
-public class AntTask extends org.apache.tools.ant.Task
+public class AntTask extends org.apache.tools.ant.Task implements Logger
 {
     public AntTask()
     {
@@ -145,7 +146,7 @@ public class AntTask extends org.apache.tools.ant.Task
 
             try
             {
-                runtime.run(templatesDir, templateFileNames);
+                runtime.run(templatesDir, templateFileNames, this);
             }
             catch (Exception ex)
             {
@@ -155,4 +156,13 @@ public class AntTask extends org.apache.tools.ant.Task
         }
     }
 
+    public void infoMessage(String message)
+    {
+        log(message, Project.MSG_INFO);
+    }
+
+    public void errorMessage(String message)
+    {
+        log(message, Project.MSG_ERR);
+    }
 }

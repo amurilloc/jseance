@@ -35,16 +35,14 @@ package com.CodeSeance.JSeance.CodeGenXML.EntryPoints;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.codehaus.plexus.compiler.util.scan.InclusionScanException;
 import org.codehaus.plexus.compiler.util.scan.SimpleSourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
 import org.codehaus.plexus.compiler.util.scan.mapping.SuffixMapping;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * JSeance CodeGenXML Maven Mojo.
@@ -52,16 +50,8 @@ import java.util.Set;
  * @goal generate-sources
  * @phase generate-sources
  */
-public class MavenMojo extends AbstractMojo
+public class MavenMojo extends AbstractMojo implements Logger
 {
-    /**
-     * Location of the file.
-     *
-     * @parameter expression="${project.build.directory}"
-     * @required
-     */
-    private File outputDirectory;
-
     /**
      * Location of the error log file.
      *
@@ -127,23 +117,30 @@ public class MavenMojo extends AbstractMojo
     private boolean ignoreReadOnlyOuputFiles;
 
     /**
+     * Skips dependency checks and forces a rebuild
+     *
+     * @parameter expression="${jseance.forceRebuild}" default-value="false"
+     */
+    private boolean forceRebuild;
+
+    /**
      * List of files to include, default is all .xml files in the templates dir
      *
      * @parameter
      */
-    private Set includes = new HashSet();
+    private Set<String> includes = new HashSet<String>();
 
     /**
      * List of files to exclude
      *
      * @parameter
      */
-    private Set excludes = new HashSet();
+    private Set<String> excludes = new HashSet<String>();
 
 
     private SourceInclusionScanner buildInclusionScanner()
     {
-        SourceInclusionScanner inclusionScanner = null;
+        SourceInclusionScanner inclusionScanner;
 
         if (includes.isEmpty() && excludes.isEmpty())
         {
@@ -165,41 +162,60 @@ public class MavenMojo extends AbstractMojo
         return inclusionScanner;
     }
 
-    public void execute() throws MojoExecutionException
+    public void execute() throws MojoExecutionException, MojoFailureException
     {
-        File f = outputDirectory;
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
+            errorLogFile.toString(),
+            infoLogFile.toString(),
+            debugLogFile.toString(),
+            consoleDebugLog,
+            false,
+            includesDir,
+            modelsDir,
+            targetDir,
+            ignoreReadOnlyOuputFiles,
+            forceRebuild);
 
-        if (!f.exists())
-        {
-            f.mkdirs();
-        }
+        SourceInclusionScanner scanner = buildInclusionScanner();
 
-        File touch = new File(f, "touch.txt");
-
-        FileWriter w = null;
         try
         {
-            w = new FileWriter(touch);
+            Set files = scanner.getIncludedSources(templatesDir, null);
 
-            w.write("touch.txt");
-        }
-        catch (IOException e)
-        {
-            throw new MojoExecutionException("Error creating file " + touch, e);
-        }
-        finally
-        {
-            if (w != null)
+            Hashtable<File, List<String>> fileGroups = new Hashtable<File, List<String>>();
+
+            // Group the files by parent dir
+            for (Object source : files)
             {
-                try
+                File sourceFile = (File)source;
+                File parentFile = sourceFile.getParentFile();
+                if (!fileGroups.containsKey(parentFile))
                 {
-                    w.close();
+                    List<String> fileList = new ArrayList<String>();
+                    fileGroups.put(parentFile, fileList);
                 }
-                catch (IOException e)
-                {
-                    // ignore
-                }
+                fileGroups.get(parentFile).add(sourceFile.getName());
+            }
+
+            // Execute the teplates
+            for (File parentFile : fileGroups.keySet())
+            {
+                runtime.run(parentFile, fileGroups.get(parentFile), this);
             }
         }
+        catch (InclusionScanException ex)
+        {
+            throw new MojoExecutionException(String.format("Cannot load XML Templates from:[%s]", templatesDir), ex);
+        }
+    }
+
+    public void infoMessage(String message)
+    {
+        getLog().info(message);
+    }
+
+    public void errorMessage(String message)
+    {
+        getLog().error(message);
     }
 }
