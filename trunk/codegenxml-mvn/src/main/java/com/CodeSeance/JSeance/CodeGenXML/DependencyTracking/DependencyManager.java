@@ -65,7 +65,7 @@ public class DependencyManager
         this.outputDirectory = targetDir;
 
         // Load the dependencies from disk
-        File dependencyFile = new File(targetDir, DEPENDENCY_FILENAME);
+        dependencyFile = new File(targetDir, DEPENDENCY_FILENAME);
         if (dependencyFile.exists())
         {
             boolean deleteFile = false;
@@ -127,6 +127,8 @@ public class DependencyManager
         }
     }
 
+    private final File dependencyFile;
+
     private final String DEPENDENCY_FILENAME = ".jseance-dependencies.xml";
     private final File outputDirectory;
 
@@ -141,6 +143,14 @@ public class DependencyManager
     }
 
     Hashtable<String, TemplateDependencies> templateDependencies = new Hashtable<String, TemplateDependencies>();
+
+    public void cleanup()
+    {
+        if (dependencyFile.exists() && !dependencyFile.delete())
+        {
+            throw new RuntimeException(String.format("Cannot delete dependencies file:[%s]", dependencyFile));
+        }
+    }
 
     public void commit()
     {
@@ -161,7 +171,7 @@ public class DependencyManager
 
             // Write the XML Document
             DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(new File(outputDirectory, DEPENDENCY_FILENAME));
+            StreamResult streamResult = new StreamResult(dependencyFile);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.transform(domSource, streamResult);

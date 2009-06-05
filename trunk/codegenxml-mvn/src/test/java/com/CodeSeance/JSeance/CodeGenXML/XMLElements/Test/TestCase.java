@@ -129,7 +129,8 @@ public class TestCase
             templateFileNames.add(templateFile.getName());
             outcome = runtime.run(parentPath, templateFileNames);
 
-            //outcome = com.CodeSeance.JSeance.CodeGenXML.Runtime.run(templateFile.getParentFile(), templateFile.getName());
+            // Cleanup the dependencies file
+            runtime.dependencyManager.cleanup();
 
             if (!result.equals(outcome))
             {

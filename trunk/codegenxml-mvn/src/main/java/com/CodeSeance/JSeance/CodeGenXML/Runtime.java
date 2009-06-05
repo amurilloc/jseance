@@ -78,6 +78,8 @@ public class Runtime
         this.forceRebuild = forceRebuild;
 
         ConfigureLogger();
+
+        dependencyManager =  new DependencyManager(targetDir);
     }
     //Uses the specified filename for error logging
     private final String errorLogFileName;
@@ -108,6 +110,9 @@ public class Runtime
 
     //Skips dependency checks and forces a rebuild
     private final boolean forceRebuild;
+
+    // The dependency manager used to avoid unnecessary builds
+    public final DependencyManager dependencyManager;
 
     private void ConfigureLogger()
     {
@@ -163,8 +168,6 @@ public class Runtime
         {
             StringBuffer buffer = new StringBuffer();
             // access non-option arguments and generate the templates
-
-            DependencyManager dependencyManager =  new DependencyManager(targetDir);
             
             for (String fileName : templateFileNames)
             {
