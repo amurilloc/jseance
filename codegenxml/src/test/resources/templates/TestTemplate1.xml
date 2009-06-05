@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
-	<Model fileName="TestModel.xml"/>
-	<Text>@JavaScript{Models['default'].currentNode.A.@val;}@</Text>
-</Template>
