@@ -49,7 +49,7 @@ import java.util.List;
  * @author Andres Murillo
  * @version 1.0
  */
-public class CommandLine
+public class CommandLine implements Logger
 {
     @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is disabled")
     String errorLogFileName = null;
@@ -136,6 +136,22 @@ public class CommandLine
             System.exit(1);
         }
 
-        return runtime.run(templatesDir, arguments);
+        return runtime.run(templatesDir, arguments, this);
+    }
+
+    public void infoMessage(String message)
+    {
+        if (!consoleTemplateOut)
+        {
+            System.out.print(message);
+        }
+    }
+
+    public void errorMessage(String message)
+    {
+        if (!consoleTemplateOut)
+        {
+            System.out.print(message);
+        }
     }
 }
