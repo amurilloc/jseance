@@ -121,7 +121,7 @@
 		<snapshotRepository>
 			<uniqueVersion>false</uniqueVersion>
 			<id>jseance.googlecode.com</id>
-			<url>svn:https://jseance.code.com/svn/maven2-snapshots</url>
+			<url>svn:https://jseance.googlecode.com/svn/maven2-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
