@@ -33,13 +33,15 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
-import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
-import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
 import com.CodeSeance.JSeance.CodeGenXML.JSModel;
-import org.w3c.dom.Element;
-import org.w3c.dom.Document;
+import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
+import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
 import org.mozilla.javascript.xml.XMLObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.io.File;
 
 /**
  * Class for loading an XML model into the parent context
@@ -87,7 +89,10 @@ class Model extends Node
             xmlLoader = XMLLoader.buildFromXSDFileName(context.getManager().modelsDir, xsdFileName);
         }
         Document xmlDoc = xmlLoader.loadXML(context.getManager().modelsDir, fileName);
-        
+
+        // Add the dependency to the file
+        context.getManager().templateDependencies.addInputFile(new File(context.getManager().modelsDir, fileName));
+
         XMLObject jsXML = context.getManager().createXMLObject(xmlDoc);
 
         // Evaluate the path if required

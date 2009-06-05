@@ -75,7 +75,7 @@ class FileOutput extends HierarchicalNode
     {
         file = new File(context.getManager().targetDir, fileName);
 
-        
+
 
         skipFile = file.exists() && !file.canWrite() && context.getManager().ignoreReadOnlyOuputFiles;
         if (skipFile)
@@ -114,6 +114,10 @@ class FileOutput extends HierarchicalNode
 
                 bufferedWriter.write(text);
                 bufferedWriter.close();
+
+                // Add the dependency to the file
+                context.getManager().templateDependencies.addOutputFile(file);
+
             }
             catch (IOException exception)
             {

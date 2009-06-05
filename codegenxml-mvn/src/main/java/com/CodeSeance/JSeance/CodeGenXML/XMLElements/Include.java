@@ -64,6 +64,10 @@ class Include extends HierarchicalNode
 
         XMLLoader xmlLoader = XMLLoader.buildFromCodeTemplateSchema();
         Document document = xmlLoader.loadXML(context.getManager().includesDir, fileName);
+
+        // Add the dependency to the file
+        context.getManager().templateDependencies.addInputFile(new File(context.getManager().includesDir, fileName));
+
         context.LogInfoMessage(log, "Include", "XMLSchema validated, processing children");
 
         LoadChildren(document.getDocumentElement().getChildNodes());
