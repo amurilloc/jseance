@@ -34,7 +34,9 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 public class TestCase
 {
@@ -111,19 +113,21 @@ public class TestCase
             String projectBasedir = System.getProperty("PROJECT_BASEDIR");
             System.out.println("HERE:" + projectBasedir);
 
-            String parentPath = templateFile.getParentFile().toString();
-            String[] args = {"-consoleDebugLog",
-                             "-templatesDir", parentPath,
-                             "-includesDir", parentPath,
-                             "-modelsDir", parentPath,
-                             "-targetDir", parentPath,
-                             "-errorLogFile", "target/jseance-errors.log",
-                             "-infoLogFile", "target/jseance-info.log",
-                             "-debugLogFile", "target/jseance-debug.log",
-                             templateFile.getName()
-                            };
-            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime();
-            outcome = runtime.run(args);
+            File parentPath = templateFile.getParentFile();
+               com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
+                "target/jseance-errors.log",
+                "target/jseance-info.log",
+                "target/jseance-debug.log",
+                true,
+                false,
+                parentPath,
+                parentPath,
+                parentPath,
+                false,
+                false);
+            List<String> templateFileNames = new ArrayList<String>();
+            templateFileNames.add(templateFile.getName());
+            outcome = runtime.run(parentPath, templateFileNames);
 
             //outcome = com.CodeSeance.JSeance.CodeGenXML.Runtime.run(templateFile.getParentFile(), templateFile.getName());
 
