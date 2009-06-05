@@ -76,6 +76,11 @@ public class AntTask extends org.apache.tools.ant.Task
         runtime.consoleDebugLog = val;
     }
 
+    public void setIncludesDir(File file)
+    {
+        runtime.includesDir = file;
+    }
+
     public void setModelsDir(File file)
     {
         runtime.modelsDir = file;

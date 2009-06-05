@@ -49,16 +49,33 @@
 			<scope>test</scope>
 			<classifier>jdk15</classifier>
 		</dependency>
+		<!-- Plexus -->
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-compiler-api</artifactId>
+			<version>1.6-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.codehaus.plexus</groupId>
+					<artifactId>plexus-component-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>codehaus.snapshots</id>
+			<url>http://snapshots.repository.codehaus.org/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-plugin-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<goalPrefix>jseance</goalPrefix>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

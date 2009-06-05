@@ -33,6 +33,7 @@
 
 package com.CodeSeance.JSeance.CodeGenXML;
 
+import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.TemplateDependencies;
 import org.apache.commons.logging.Log;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.ScriptableObject;
@@ -51,7 +52,7 @@ import java.util.Stack;
  * the stack of Context objets that become active as Template scopes execute.
  *
  * @author Andres Murillo
- * @version %I%, %G%
+ * @version 1.0
  */
 public class ContextManager
 {
@@ -62,21 +63,28 @@ public class ContextManager
     * dispose needs to be called when the ContextManager is no longer needed to release
     * resources
     */
-    public ContextManager(File templatesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles)
+    public ContextManager(File templatesDir, File includesDir, File modelsDir, File targetDir,
+                          boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
     {
         this.templatesDir = templatesDir;
+        this.includesDir = templatesDir;
         this.modelsDir = modelsDir;
         this.targetDir = targetDir;
         this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
+        this.templateDependencies = templateDependencies;
         initializeJavaScriptEngine();
         contextStack.push(new Context(this));
     }
 
     // The working directories and runtime configuration
     public final File templatesDir;
+    public final File includesDir;
     public final File modelsDir;
     public final File targetDir;
     public final boolean ignoreReadOnlyOuputFiles;
+
+    // Dependency manager, readers and writers need to use it
+    public final TemplateDependencies templateDependencies;
 
     // The context factory to be used across all instances
     final static ContextFactory factory = new ContextFactory();
