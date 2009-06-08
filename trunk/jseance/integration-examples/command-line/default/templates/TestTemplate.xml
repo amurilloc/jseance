@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+	<FileOutput fileName="template.out.txt">
+		<Include fileName="IncludeTest.xml"/>
+	</FileOutput>
+</Template>
