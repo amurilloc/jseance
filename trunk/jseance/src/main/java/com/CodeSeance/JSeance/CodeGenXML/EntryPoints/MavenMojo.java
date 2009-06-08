@@ -47,6 +47,7 @@ import java.util.*;
 /**
  * JSeance CodeGenXML Maven Mojo.
  *
+ * @author <a href="mailto:andres.murillo@gmail.com">Andres Murillo</a>
  * @goal generate-sources
  * @phase generate-sources
  */
