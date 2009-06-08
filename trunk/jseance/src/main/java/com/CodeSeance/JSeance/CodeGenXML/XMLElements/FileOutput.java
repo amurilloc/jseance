@@ -75,16 +75,14 @@ class FileOutput extends HierarchicalNode
     {
         file = new File(context.getManager().targetDir, fileName);
 
-
-
         skipFile = file.exists() && !file.canWrite() && context.getManager().ignoreReadOnlyOuputFiles;
         if (skipFile)
         {
-            context.LogInfoMessage(log, "FileOutput", String.format("Readonly flag set, skipping file:[%s]", context.getManager().targetDir + File.pathSeparator + fileName));
+            context.LogInfoMessage(log, "FileOutput", String.format("Readonly flag set, skipping file:[%s]", context.getManager().targetDir + File.separator + fileName));
         }
         else
         {
-            context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to file:[%s]", context.getManager().targetDir + File.pathSeparator + fileName));
+            context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to file:[%s]", context.getManager().targetDir + File.separator + fileName));
 
             // Check if the file is writable before proceeding
             if (file.exists() && !file.canWrite())
