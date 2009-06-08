@@ -51,14 +51,14 @@ import java.util.List;
  */
 public class CommandLine implements Logger
 {
-    @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is disabled")
-    String errorLogFileName = null;
+    @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is 'jseance-errors.log'")
+    String errorLogFileName = "./jseance-errors.log";
 
-    @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is disabled")
-    String infoLogFileName = null;
+    @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is 'jseance-info.log'")
+    String infoLogFileName = "./jseance-info.log";
 
-    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is disabled")
-    String debugLogFileName = null;
+    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is 'jseance-debug.log'")
+    String debugLogFileName = "./jseance-debug.log";
 
     @Option(name = "-consoleDebugLog", usage = "outputs debug info to the console")
     boolean consoleDebugLog = false;

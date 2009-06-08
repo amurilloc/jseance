@@ -67,7 +67,7 @@ public class ContextManager
                           boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
     {
         this.templatesDir = templatesDir;
-        this.includesDir = templatesDir;
+        this.includesDir = includesDir;
         this.modelsDir = modelsDir;
         this.targetDir = targetDir;
         this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
@@ -127,7 +127,7 @@ public class ContextManager
         catch (Exception ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException("Unexpected Exception", ex);
+            throw new RuntimeException("Unexpected Internal Exception", ex);
         }
     }
 
@@ -148,7 +148,7 @@ public class ContextManager
         catch (TransformerConfigurationException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException("Unexpected Exception: " + ex.getClass(), ex);
+            throw new RuntimeException(String.format("Unexpected Exception:[%s], Error:[%s] ",  ex.getClass(), ex.getMessage()), ex);
         }
 
         // The next section is required in order for the JS engine to parse the XML
@@ -162,7 +162,7 @@ public class ContextManager
         catch (TransformerException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException("Unexpected Exception: " + ex.getClass(), ex);
+            throw new RuntimeException(String.format("Unexpected Exception:[%s], Error:[%s] ",  ex.getClass(), ex.getMessage()), ex);
         }
 
         String xmlString = result.getWriter().toString();

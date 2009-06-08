@@ -112,7 +112,7 @@ public class Runtime
         if (!logConfigured)
         {
             // Configure the logger
-            URL log4Jresource = Runtime.class.getClassLoader().getResource("log4j.properties");
+            URL log4Jresource = Runtime.class.getClassLoader().getResource("/log4j.properties");
             Properties log4Jproperties = new Properties();
             try
             {
@@ -131,19 +131,16 @@ public class Runtime
             if (errorLogFileName != null)
             {
                 log4Jproperties.setProperty("log4j.appender.ErrorLog.File", errorLogFileName);
-                log4Jproperties.setProperty("log4j.appender.ErrorLog.Append", "true");
             }
 
             if (infoLogFileName != null)
             {
                 log4Jproperties.setProperty("log4j.appender.InfoLog.File", infoLogFileName);
-                log4Jproperties.setProperty("log4j.appender.InfoLog.Append", "true");
             }
 
             if (debugLogFileName != null)
             {
                 log4Jproperties.setProperty("log4j.appender.DebugLog.File", debugLogFileName);
-                log4Jproperties.setProperty("log4j.appender.DebugLog.Append", "true");
             }
 
             // Configure log4j
