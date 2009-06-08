@@ -164,17 +164,7 @@ public class MavenMojo extends AbstractMojo implements Logger
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
-            errorLogFile.toString(),
-            infoLogFile.toString(),
-            debugLogFile.toString(),
-            consoleDebugLog,
-            false,
-            includesDir,
-            modelsDir,
-            targetDir,
-            ignoreReadOnlyOuputFiles,
-            forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile.toString(), infoLogFile.toString(), debugLogFile.toString(), consoleDebugLog, false, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
 
         SourceInclusionScanner scanner = buildInclusionScanner();
 
@@ -187,7 +177,7 @@ public class MavenMojo extends AbstractMojo implements Logger
             // Group the files by parent dir
             for (Object source : files)
             {
-                File sourceFile = (File)source;
+                File sourceFile = (File) source;
                 File parentFile = sourceFile.getParentFile();
                 if (!fileGroups.containsKey(parentFile))
                 {
@@ -209,7 +199,7 @@ public class MavenMojo extends AbstractMojo implements Logger
         }
         catch (Exception ex)
         {
-            throw new MojoExecutionException(ex.getMessage(), ex);            
+            throw new MojoExecutionException(ex.getMessage(), ex);
         }
     }
 
@@ -221,5 +211,55 @@ public class MavenMojo extends AbstractMojo implements Logger
     public void errorMessage(String message)
     {
         getLog().error(message);
+    }
+
+    private void setErrorLogFile(File errorLogFile)
+    {
+        this.errorLogFile = errorLogFile;
+    }
+
+    private void setInfoLogFile(File infoLogFile)
+    {
+        this.infoLogFile = infoLogFile;
+    }
+
+    private void setDebugLogFile(File debugLogFile)
+    {
+        this.debugLogFile = debugLogFile;
+    }
+
+    private void setConsoleDebugLog(boolean consoleDebugLog)
+    {
+        this.consoleDebugLog = consoleDebugLog;
+    }
+
+    private void setIncludesDir(File includesDir)
+    {
+        this.includesDir = includesDir;
+    }
+
+    private void setModelsDir(File modelsDir)
+    {
+        this.modelsDir = modelsDir;
+    }
+
+    private void setTemplatesDir(File templatesDir)
+    {
+        this.templatesDir = templatesDir;
+    }
+
+    private void setTargetDir(File targetDir)
+    {
+        this.targetDir = targetDir;
+    }
+
+    private void setIgnoreReadOnlyOuputFiles(boolean ignoreReadOnlyOuputFiles)
+    {
+        this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
+    }
+
+    private void setForceRebuild(boolean forceRebuild)
+    {
+        this.forceRebuild = forceRebuild;
     }
 }
