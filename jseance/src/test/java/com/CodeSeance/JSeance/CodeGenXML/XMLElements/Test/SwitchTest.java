@@ -34,6 +34,7 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
+import com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test.TestCase;
 
 /**
  * User: Administrator Date: May 3, 2009 Time: 5:23:01 PM To change this template use File | Settings | File Templates.

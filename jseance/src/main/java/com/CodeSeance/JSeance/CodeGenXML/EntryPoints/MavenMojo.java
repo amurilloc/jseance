@@ -75,13 +75,6 @@ public class MavenMojo extends AbstractMojo implements Logger
     private File debugLogFile;
 
     /**
-     * Outputs debug info to the console during build.
-     *
-     * @parameter expression="${jseance.consoleDebugLog}" default-value="false"
-     */
-    private boolean consoleDebugLog;
-
-    /**
      * Location of the models.
      *
      * @parameter expression="${jseance.includesDir}"  default-value="${project.build.sourceDirectory}/jseance/includes"
@@ -165,7 +158,7 @@ public class MavenMojo extends AbstractMojo implements Logger
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile.toString(), infoLogFile.toString(), debugLogFile.toString(), consoleDebugLog, false, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile.toString(), infoLogFile.toString(), debugLogFile.toString(), includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
 
         SourceInclusionScanner scanner = buildInclusionScanner();
 
@@ -227,11 +220,6 @@ public class MavenMojo extends AbstractMojo implements Logger
     private void setDebugLogFile(File debugLogFile)
     {
         this.debugLogFile = debugLogFile;
-    }
-
-    private void setConsoleDebugLog(boolean consoleDebugLog)
-    {
-        this.consoleDebugLog = consoleDebugLog;
     }
 
     private void setIncludesDir(File includesDir)
