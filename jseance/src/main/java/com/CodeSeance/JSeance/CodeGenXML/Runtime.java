@@ -42,8 +42,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
@@ -107,22 +105,21 @@ public class Runtime
     // The dependency manager used to avoid unnecessary builds
     public final DependencyManager dependencyManager;
 
+    private void ConfigureLogger(Properties properties, String logName, String threshold, String fileName)
+    {
+        properties.setProperty(String.format("log4j.appender.%s", logName), "org.apache.log4j.FileAppender");
+        properties.setProperty(String.format("log4j.appender.%s.File", logName), fileName);
+        properties.setProperty(String.format("log4j.appender.%s.Append", logName), "false");
+        properties.setProperty(String.format("log4j.appender.%s.layout", logName), "org.apache.log4j.PatternLayout");
+        properties.setProperty(String.format("log4j.appender.%s.layout.ConversionPattern", logName), "%-5p %30c - %m%n");
+        properties.setProperty(String.format("log4j.appender.%s.threshold", logName), threshold);
+    }
+
     private void ConfigureLogger()
     {
         if (!logConfigured)
         {
-            // Configure the logger
-            URL log4Jresource = Runtime.class.getClassLoader().getResource("/log4j.properties");
             Properties log4Jproperties = new Properties();
-            try
-            {
-                log4Jproperties.load(log4Jresource.openStream());
-            }
-            catch (IOException ex)
-            {
-                // The caller wont be able to handle the exception anyway, wrap in a RuntimeException and rethrow
-                throw new RuntimeException(ex);
-            }
 
             // override the logger config
             log4Jproperties.setProperty("log4j.rootLogger", "DEBUG" + (errorLogFileName != null ? ", ErrorLog" : "") + (infoLogFileName != null ? ", InfoLog" : "") + (debugLogFileName != null ? ", DebugLog" : "") + (consoleDebugLog ? ", Console" : ""));
@@ -130,17 +127,24 @@ public class Runtime
             // override the log filenames and append mode
             if (errorLogFileName != null)
             {
-                log4Jproperties.setProperty("log4j.appender.ErrorLog.File", errorLogFileName);
+                ConfigureLogger(log4Jproperties, "ErrorLog", "WARN", errorLogFileName);
             }
 
             if (infoLogFileName != null)
             {
-                log4Jproperties.setProperty("log4j.appender.InfoLog.File", infoLogFileName);
+                ConfigureLogger(log4Jproperties, "InfoLog", "INFO", infoLogFileName);
             }
 
             if (debugLogFileName != null)
             {
-                log4Jproperties.setProperty("log4j.appender.DebugLog.File", debugLogFileName);
+                ConfigureLogger(log4Jproperties, "DebugLog", "DEBUG", debugLogFileName);
+            }
+            if (consoleDebugLog)
+            {
+                log4Jproperties.setProperty("log4j.appender.Console", "org.apache.log4j.ConsoleAppender");
+                log4Jproperties.setProperty("log4j.appender.Console.layout", "org.apache.log4j.PatternLayout");
+                log4Jproperties.setProperty("log4j.appender.Console.layout.ConversionPattern", "%-5p %30c - %m%n");
+                log4Jproperties.setProperty("log4j.appender.Console.threshold", "DEBUG");
             }
 
             // Configure log4j
