@@ -57,11 +57,11 @@ public class CommandLine implements Logger
     @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is 'jseance-info.log'")
     String infoLogFileName = "./jseance-info.log";
 
-    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is 'jseance-debug.log'")
-    String debugLogFileName = "./jseance-debug.log";
+    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is off")
+    String debugLogFileName = null;
 
-    @Option(name = "-consoleDebugLog", usage = "outputs debug info to the console")
-    boolean consoleDebugLog = false;
+    @Option(name = "-consoleInfoLog", usage = "outputs status info to the console")
+    boolean consoleInfoLog = false;
 
     @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
     boolean consoleTemplateOut = false;
@@ -93,7 +93,12 @@ public class CommandLine implements Logger
     {
         try
         {
-            new CommandLine().run(args);
+            CommandLine commandLine = new CommandLine();
+            String result = commandLine.run(args);
+            if (commandLine.consoleTemplateOut)
+            {
+                System.out.println(result);         
+            }
         }
         catch (Exception ex)
         {
@@ -109,8 +114,6 @@ public class CommandLine implements Logger
             errorLogFileName,
             infoLogFileName,
             debugLogFileName,
-            consoleDebugLog,
-            consoleTemplateOut,
             includesDir,
             modelsDir,
             targetDir,
@@ -141,17 +144,17 @@ public class CommandLine implements Logger
 
     public void infoMessage(String message)
     {
-        if (!consoleTemplateOut)
+        if (consoleInfoLog)
         {
-            System.out.print(message);
+            System.out.println(message);
         }
     }
 
     public void errorMessage(String message)
     {
-        if (!consoleTemplateOut)
+        if (consoleInfoLog)
         {
-            System.out.print(message);
+            System.out.println(message);
         }
     }
 }

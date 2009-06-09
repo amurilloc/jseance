@@ -73,12 +73,6 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
     }
     private File debugLogFile;
 
-    public void setConsoleDebugLog(boolean val)
-    {
-        consoleDebugLog = val;
-    }
-    private boolean consoleDebugLog;
-
     public void setIncludesDir(File file)
     {
         includesDir = file;
@@ -122,8 +116,6 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
             errorLogFile.toString(),
             infoLogFile.toString(),
             debugLogFile.toString(),
-            consoleDebugLog,
-            false,
             includesDir,
             modelsDir,
             targetDir,

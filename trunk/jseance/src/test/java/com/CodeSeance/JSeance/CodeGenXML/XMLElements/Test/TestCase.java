@@ -34,8 +34,6 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Logger;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -48,8 +46,6 @@ public class TestCase implements Logger
     Hashtable<String, File> xmlFiles = new Hashtable<String, File>();
     protected Hashtable<String, File> ouputFiles = new Hashtable<String, File>();
     protected StringBuilder template = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-
-    protected Log log = LogFactory.getLog("TestCase");
 
     protected void reset()
     {
@@ -121,8 +117,6 @@ public class TestCase implements Logger
                 "target/jseance-errors.log",
                 "target/jseance-info.log",
                 "target/jseance-debug.log",
-                true,
-                false,
                 parentPath,
                 parentPath,
                 parentPath,
@@ -189,7 +183,7 @@ public class TestCase implements Logger
         bufferedWriter.close();
     }
 
-    private File convertStringToTempFile(String prefix, String suffix, String fileContents) throws Exception
+    public static File convertStringToTempFile(String prefix, String suffix, String fileContents) throws Exception
     {
         File resultFile = File.createTempFile(prefix, suffix);
         resultFile.deleteOnExit();
@@ -225,11 +219,11 @@ public class TestCase implements Logger
 
     public void infoMessage(String message)
     {
-        log.info(message);
+        System.out.println(message);
     }
 
     public void errorMessage(String message)
     {
-        log.error(message);    
+        System.out.println(message);    
     }
 }

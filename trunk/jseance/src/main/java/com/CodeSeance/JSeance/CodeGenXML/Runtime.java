@@ -54,13 +54,11 @@ import java.util.Properties;
  */
 public class Runtime
 {
-    public Runtime(String errorLogFileName, String infoLogFileName, String debugLogFileName, boolean consoleDebugLog, boolean consoleTemplateOut, File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, boolean forceRebuild)
+    public Runtime(String errorLogFileName, String infoLogFileName, String debugLogFileName, File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, boolean forceRebuild)
     {
         this.errorLogFileName = errorLogFileName;
         this.infoLogFileName = infoLogFileName;
         this.debugLogFileName = debugLogFileName;
-        this.consoleDebugLog = consoleDebugLog;
-        this.consoleTemplateOut = consoleTemplateOut;
         this.includesDir = includesDir;
         this.modelsDir = modelsDir;
         this.targetDir = targetDir;
@@ -80,12 +78,6 @@ public class Runtime
 
     //Uses the specified filename for debugging
     private final String debugLogFileName;
-
-    //Outputs debug info to the console
-    private final boolean consoleDebugLog;
-
-    //outputs Template resulting text to the console
-    private final boolean consoleTemplateOut;
 
     // Directory from where to load include files (relative to)
     private final File includesDir;
@@ -122,7 +114,7 @@ public class Runtime
             Properties log4Jproperties = new Properties();
 
             // override the logger config
-            log4Jproperties.setProperty("log4j.rootLogger", "DEBUG" + (errorLogFileName != null ? ", ErrorLog" : "") + (infoLogFileName != null ? ", InfoLog" : "") + (debugLogFileName != null ? ", DebugLog" : "") + (consoleDebugLog ? ", Console" : ""));
+            log4Jproperties.setProperty("log4j.rootLogger", "DEBUG" + (errorLogFileName != null ? ", ErrorLog" : "") + (infoLogFileName != null ? ", InfoLog" : "") + (debugLogFileName != null ? ", DebugLog" : ""));
 
             // override the log filenames and append mode
             if (errorLogFileName != null)
@@ -139,13 +131,6 @@ public class Runtime
             {
                 ConfigureLogger(log4Jproperties, "DebugLog", "DEBUG", debugLogFileName);
             }
-            if (consoleDebugLog)
-            {
-                log4Jproperties.setProperty("log4j.appender.Console", "org.apache.log4j.ConsoleAppender");
-                log4Jproperties.setProperty("log4j.appender.Console.layout", "org.apache.log4j.PatternLayout");
-                log4Jproperties.setProperty("log4j.appender.Console.layout.ConversionPattern", "%-5p %30c - %m%n");
-                log4Jproperties.setProperty("log4j.appender.Console.threshold", "DEBUG");
-            }
 
             // Configure log4j
             PropertyConfigurator.configure(log4Jproperties);
@@ -160,18 +145,18 @@ public class Runtime
         Log log = LogFactory.getLog("Runtime");
 
         StringBuffer buffer = new StringBuffer();
-        // access non-option arguments and generate the templates
 
+        if (!(targetDir.exists() || targetDir.mkdirs()))
+        {
+            String message = String.format("Cannot read or create ouput directory:[%s]", targetDir);
+            externalLog.errorMessage(message);
+            log.error(message);
+            return null;
+        }
+
+        // access non-option arguments and generate the templates
         for (String fileName : templateFileNames)
         {
-            if (!targetDir.exists())
-            {
-                if (!targetDir.mkdirs())
-                {
-                    throw new RuntimeException(String.format("Cannot create ouput directory:[%s]", targetDir));
-                }
-            }
-
             File file = new File(templatesDir, fileName);
             if (file.canRead())
             {
@@ -184,10 +169,6 @@ public class Runtime
                     {
                         String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
                         buffer.append(result);
-                        if (consoleTemplateOut)
-                        {
-                            System.out.print(result);
-                        }
                         dependencyManager.commit();
                     }
                     catch (Exception ex)
@@ -205,7 +186,9 @@ public class Runtime
             }
             else
             {
-                throw new RuntimeException(String.format("Cannot read file:[%s]", file));
+                String message = String.format("Cannot read file:[%s]", file);
+                externalLog.errorMessage(message);
+                log.error(message);
             }
         }
         return buffer.toString();
