@@ -100,7 +100,7 @@ abstract class Node
                 }
                 catch (IllegalAccessException e)
                 {
-                    throw new RuntimeException("Programming Error: IllegalAccessException during Node sttribute construction:");
+                    throw new RuntimeException("Programming ExecutionError: IllegalAccessException during Node sttribute construction:");
                 }
             }
             else if (field.isAnnotationPresent(XMLTextContent.class))
@@ -112,7 +112,7 @@ abstract class Node
                 }
                 catch (IllegalAccessException e)
                 {
-                    throw new RuntimeException("Programming Error: IllegalAccessException during Node sttribute construction:");
+                    throw new RuntimeException("Programming ExecutionError: IllegalAccessException during Node sttribute construction:");
                 }
             }
         }
@@ -135,7 +135,7 @@ abstract class Node
         }
         else
         {
-            throw new RuntimeException("Programming Error: Unsupported class attribute type during Node construction:" + type.toString());
+            throw new RuntimeException("Programming ExecutionError: Unsupported class attribute type during Node construction:" + type.toString());
         }
     }
 

@@ -34,6 +34,7 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 
 public class IncludeTest extends TestCase
 {
@@ -91,5 +92,22 @@ public class IncludeTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
 
         expectResult("Ok");
+    }
+
+    @Test
+    public void includeTest_InvalidIncludesDir()
+    {
+        StringBuilder include = createXMLFile("INCLUDE");
+        include.append(INCLUDE_HEADER_OPEN);
+        include.append(" <Template>");
+        include.append("  <Text>Ok</Text>");
+        include.append(" </Template>");
+        include.append(INCLUDE_HEADER_CLOSE);
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Include fileName=\"{INCLUDE}\"/>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_INCLUDES_DIR, false, true, true, true, false);
     }
 }

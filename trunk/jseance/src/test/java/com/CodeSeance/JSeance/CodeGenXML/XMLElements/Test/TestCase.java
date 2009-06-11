@@ -34,6 +34,7 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Logger;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,14 +46,18 @@ public class TestCase implements Logger
     protected Hashtable<String, StringBuilder> xmlContent = new Hashtable<String, StringBuilder>();
     Hashtable<String, File> xmlFiles = new Hashtable<String, File>();
     protected Hashtable<String, File> ouputFiles = new Hashtable<String, File>();
-    protected StringBuilder template = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+    public StringBuilder template = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
-    protected void reset()
+    private List<String> errors = new ArrayList<String>();
+
+    public void reset()
     {
         xmlContent = new Hashtable<String, StringBuilder>();
         xmlFiles = new Hashtable<String, File>();
         ouputFiles = new Hashtable<String, File>();
         template = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+
+        errors = new ArrayList<String>();
     }
 
     public static final String TEMPLATE_HEADER_OPEN = "<Template xmlns:JSeance=\"http://www.codeseance.com/JSeance\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.codeseance.com/JSeance\">";
@@ -61,7 +66,7 @@ public class TestCase implements Logger
     public static final String INCLUDE_HEADER_OPEN = "<Include xmlns:JSeance=\"http://www.codeseance.com/JSeance\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.codeseance.com/JSeance\">";
     public static final String INCLUDE_HEADER_CLOSE = "</Include>";
 
-    protected StringBuilder createXMLFile(String name)
+    public StringBuilder createXMLFile(String name)
     {
         StringBuilder model = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         xmlContent.put(name, model);
@@ -97,9 +102,8 @@ public class TestCase implements Logger
         expectResult(result, true);
     }
 
-    protected void expectResult(String result, boolean reset)
+    public File persist()
     {
-        String outcome;
         try
         {
             // Write the XML files
@@ -110,18 +114,24 @@ public class TestCase implements Logger
             }
 
             String templateContents = resolvePlaceholders(template.toString());
-            File templateFile = convertStringToTempFile("template", ".xml", templateContents);
+            return convertStringToTempFile("template", ".xml", templateContents);
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+    protected void expectResult(String result, boolean reset)
+    {
+        String outcome;
+        try
+        {
+            File templateFile = persist();
 
             File parentPath = templateFile.getParentFile();
-               com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
-                "target/jseance-errors.log",
-                "target/jseance-info.log",
-                "target/jseance-debug.log",
-                parentPath,
-                parentPath,
-                parentPath,
-                false,
-                false);
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(null, null, null, parentPath, parentPath, parentPath, false, false);
             List<String> templateFileNames = new ArrayList<String>();
             templateFileNames.add(templateFile.getName());
             outcome = runtime.run(parentPath, templateFileNames, this);
@@ -147,6 +157,43 @@ public class TestCase implements Logger
             }
         }
 
+    }
+
+    protected void expectError(ExecutionError error, boolean validIncludesDir, boolean validModelsDir, boolean validTargetDir, boolean validTemplatesDir, boolean ignoreReadOnlyOuputFiles)
+    {
+        try
+        {
+
+            File templateFile = persist();
+
+            File parentPath = templateFile.getParentFile();
+            File incorrectDir = new File("\\//\\incorrectDir\\//\\");
+
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(null, null, null, validIncludesDir ? parentPath : incorrectDir, validModelsDir ? parentPath : incorrectDir, validTargetDir ? parentPath : incorrectDir, ignoreReadOnlyOuputFiles, false);
+
+            List<String> templateFileNames = new ArrayList<String>();
+            templateFileNames.add(templateFile.getName());
+            runtime.run(validTemplatesDir ? parentPath : incorrectDir, templateFileNames, this);
+
+            // Cleanup the dependencies file
+            runtime.dependencyManager.cleanup();
+
+            if (!validIncludesDir || !validModelsDir || !validTargetDir)
+            {
+                if (!errors.get(0).contains(incorrectDir.getName()))
+                {
+                    throw new RuntimeException("ExecutionError: Message does not contain target dir");
+                }
+            }
+            if (!errors.get(0).contains(error.getErrorCode()))
+            {
+                throw new RuntimeException("ExecutionError: Message does not contain correct error code");
+            }
+        }
+        finally
+        {
+            reset();
+        }
     }
 
     protected void expectFileOutput(String filePlaceholder, String result)
@@ -224,6 +271,7 @@ public class TestCase implements Logger
 
     public void errorMessage(String message)
     {
-        System.out.println(message);    
+        errors.add(message);
+        System.out.println(message);
     }
 }

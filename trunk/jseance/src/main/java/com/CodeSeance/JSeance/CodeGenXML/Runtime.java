@@ -148,7 +148,7 @@ public class Runtime
 
         if (!(targetDir.exists() || targetDir.mkdirs()))
         {
-            String message = String.format("Cannot read or create ouput directory:[%s]", targetDir);
+            String message = ExecutionError.INVALID_TARGET_DIR.getMessage(targetDir);
             externalLog.errorMessage(message);
             log.error(message);
             return null;
@@ -186,7 +186,7 @@ public class Runtime
             }
             else
             {
-                String message = String.format("Cannot read file:[%s]", file);
+                String message = ExecutionError.INVALID_TEMPLATE_FILE.getMessage(file);
                 externalLog.errorMessage(message);
                 log.error(message);
             }

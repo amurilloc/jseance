@@ -47,10 +47,10 @@ public class ConditionalTest extends TestCase
         template.append("   <Text>Ok</Text>");   // << Executed Statement
         template.append("  </If>");
         template.append("  <ElseIf jsExpression=\"1 == 1\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </ElseIf>");
         template.append("  <Else>");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Else>");
         template.append(" </Conditional>");
         template.append(TEMPLATE_HEADER_CLOSE);
@@ -64,13 +64,13 @@ public class ConditionalTest extends TestCase
         template.append(TEMPLATE_HEADER_OPEN);
         template.append(" <Conditional>");
         template.append("  <If jsExpression=\"1 > 2\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </If>");
         template.append("  <ElseIf jsExpression=\"1 > 0\">");
         template.append("   <Text>Ok</Text>");   // << Executed Statement
         template.append("  </ElseIf>");
         template.append("  <Else>");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Else>");
         template.append(" </Conditional>");
         template.append(TEMPLATE_HEADER_CLOSE);
@@ -84,10 +84,10 @@ public class ConditionalTest extends TestCase
         template.append(TEMPLATE_HEADER_OPEN);
         template.append(" <Conditional>");
         template.append("  <If jsExpression=\"1 > 2\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </If>");
         template.append("  <ElseIf jsExpression=\"1 > 2\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </ElseIf>");
         template.append("  <Else>");
         template.append("   <Text>Ok</Text>");   // << Executed Statement

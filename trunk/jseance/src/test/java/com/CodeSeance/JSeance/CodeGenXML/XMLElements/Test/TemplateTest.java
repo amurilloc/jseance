@@ -34,6 +34,7 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 
 public class TemplateTest extends TestCase
 {
@@ -46,5 +47,16 @@ public class TemplateTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
 
         expectResult("A.B");
+    }
+
+    @Test
+    public void templateTest_InvalidTargetDir()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Text>A.</Text>");
+        template.append(" <Text>B</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_TARGET_DIR, true, true, false, true, false);
     }
 }

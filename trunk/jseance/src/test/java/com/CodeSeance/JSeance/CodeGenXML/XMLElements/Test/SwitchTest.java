@@ -47,19 +47,19 @@ public class SwitchTest extends TestCase
         template.append(TEMPLATE_HEADER_OPEN);
         template.append(" <Switch jsExpression=\"2*3\">");
         template.append("  <Case value=\"1\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Case>");
         template.append("  <Case value=\"true\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Case>");
         template.append("  <Case value=\"6\">");
         template.append("   <Text>Ok</Text>");  // << Executed Statement
         template.append("  </Case>");
         template.append("  <Case value=\"6\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Case>");
         template.append("  <Case value=\"7\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Case>");
         template.append(" </Switch>");
         template.append(TEMPLATE_HEADER_CLOSE);
@@ -73,10 +73,10 @@ public class SwitchTest extends TestCase
         template.append(TEMPLATE_HEADER_OPEN);
         template.append(" <Switch jsExpression=\"2*3\">");
         template.append("  <Case value=\"1\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Case>");
         template.append("  <Case value=\"true\">");
-        template.append("   <Text>Error</Text>");
+        template.append("   <Text>ExecutionError</Text>");
         template.append("  </Case>");
         template.append("  <Case value=\"5\">");
         template.append("   <Text>A.</Text>");

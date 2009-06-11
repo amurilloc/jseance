@@ -225,7 +225,7 @@ public class XMLLoader
     {
         private String FormatMessage(SAXParseException ex)
         {
-            return String.format("XML Parsing Error - LineNumber:[%d], ColumnNumber:[%d], Message:[%s]", ex.getLineNumber(), ex.getColumnNumber(), ex.getMessage());
+            return String.format("XML Parsing ExecutionError - LineNumber:[%d], ColumnNumber:[%d], Message:[%s]", ex.getLineNumber(), ex.getColumnNumber(), ex.getMessage());
         }
 
         public void warning(SAXParseException ex)

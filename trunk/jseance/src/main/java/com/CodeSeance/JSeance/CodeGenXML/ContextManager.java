@@ -148,7 +148,7 @@ public class ContextManager
         catch (TransformerConfigurationException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException(String.format("Unexpected Exception:[%s], Error:[%s] ",  ex.getClass(), ex.getMessage()), ex);
+            throw new RuntimeException(String.format("Unexpected Exception:[%s], ExecutionError:[%s] ",  ex.getClass(), ex.getMessage()), ex);
         }
 
         // The next section is required in order for the JS engine to parse the XML
@@ -162,7 +162,7 @@ public class ContextManager
         catch (TransformerException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException(String.format("Unexpected Exception:[%s], Error:[%s] ",  ex.getClass(), ex.getMessage()), ex);
+            throw new RuntimeException(String.format("Unexpected Exception:[%s], ExecutionError:[%s] ",  ex.getClass(), ex.getMessage()), ex);
         }
 
         String xmlString = result.getWriter().toString();

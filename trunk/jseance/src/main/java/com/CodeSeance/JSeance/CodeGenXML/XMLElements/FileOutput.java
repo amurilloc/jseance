@@ -33,8 +33,9 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
-import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
+import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import org.w3c.dom.Element;
 
 import java.io.BufferedWriter;
@@ -62,9 +63,6 @@ class FileOutput extends HierarchicalNode
     @XMLAttribute
     String fileName;
 
-    @XMLAttribute
-    boolean append;
-
     // The file to write to
     private File file = null;
 
@@ -78,17 +76,11 @@ class FileOutput extends HierarchicalNode
         skipFile = file.exists() && !file.canWrite() && context.getManager().ignoreReadOnlyOuputFiles;
         if (skipFile)
         {
-            context.LogInfoMessage(log, "FileOutput", String.format("Readonly flag set, skipping file:[%s]", context.getManager().targetDir + File.separator + fileName));
+            context.LogInfoMessage(log, "FileOutput", String.format("Readonly flag set, skipping output fileName:[%s]", fileName));
         }
         else
         {
-            context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to file:[%s]", context.getManager().targetDir + File.separator + fileName));
-
-            // Check if the file is writable before proceeding
-            if (file.exists() && !file.canWrite())
-            {
-                throw new RuntimeException(String.format("Cannot write to file:[%s]", file.toString()));
-            }
+            context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to fileName:[%s]", fileName));
 
             // Change the sink of the current context
             context.setTextSink(buffer);
@@ -107,7 +99,7 @@ class FileOutput extends HierarchicalNode
             try
             {
                 // Write the text to disk
-                FileWriter fileWriter = new FileWriter(file, append);
+                FileWriter fileWriter = new FileWriter(file);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
                 bufferedWriter.write(text);
@@ -119,8 +111,7 @@ class FileOutput extends HierarchicalNode
             }
             catch (IOException exception)
             {
-                log.error(String.format("Cannot write file to disk:[%s]", fileName));
-                throw new RuntimeException(exception);
+                throw new RuntimeException(ExecutionError.CANNOT_WRITE_TARGET_FILE.getMessage(file));
             }
         }
     }
