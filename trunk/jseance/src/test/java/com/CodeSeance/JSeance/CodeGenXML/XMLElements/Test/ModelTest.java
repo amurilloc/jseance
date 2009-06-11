@@ -34,7 +34,7 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
-import com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test.TestCase;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 
 public class ModelTest extends TestCase
 {
@@ -258,5 +258,34 @@ public class ModelTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
 
         expectResult("A");
+    }
+
+    @Test
+    public void modelTest_InvalidModelsDir()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A val=\"A\"/>");
+        model.append("</Model>");
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Model fileName=\"{MODEL}\"/>");
+        template.append(" <Text>@JavaScript{Models['default'].currentNode.A.@val;}@</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_MODELS_DIR, true, false, true, true, false, null, false);
+    }
+
+    @Test
+    public void modelTest_InvalidModelFile()
+    {
+        String invalidModelFile = "InvalidModelFile.xml";
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Model fileName=\"");
+        template.append(invalidModelFile);
+        template.append("\"/>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_MODEL_FILE, true, true, true, true, false, invalidModelFile, false);
     }
 }

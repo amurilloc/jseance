@@ -34,7 +34,6 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
-import com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test.TestCase;
 
 public class DefinitionTest extends TestCase
 {

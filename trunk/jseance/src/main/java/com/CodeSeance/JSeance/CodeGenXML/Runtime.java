@@ -146,6 +146,14 @@ public class Runtime
 
         StringBuffer buffer = new StringBuffer();
 
+        if (!templatesDir.exists())
+        {
+            String message = ExecutionError.INVALID_TEMPLATES_DIR.getMessage(templatesDir);
+            externalLog.errorMessage(message);
+            log.error(message);
+            return null;
+        }
+
         if (!(targetDir.exists() || targetDir.mkdirs()))
         {
             String message = ExecutionError.INVALID_TARGET_DIR.getMessage(targetDir);
