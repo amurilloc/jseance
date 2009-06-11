@@ -33,8 +33,8 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
-import org.testng.annotations.Test;
 import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
+import org.testng.annotations.Test;
 
 public class IncludeTest extends TestCase
 {
@@ -108,6 +108,19 @@ public class IncludeTest extends TestCase
         template.append(" <Include fileName=\"{INCLUDE}\"/>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_INCLUDES_DIR, false, true, true, true, false);
+        expectError(ExecutionError.INVALID_INCLUDES_DIR, false, true, true, true, false, null, false);
+    }
+
+    @Test
+    public void includeTest_InvalidIncludeFile()
+    {
+        String invalidIncludeFile = "InvalidIncludeFile.xml";
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Include fileName=\"");
+        template.append(invalidIncludeFile);
+        template.append("\"/>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_INCLUDE_FILE, true, true, true, true, false, invalidIncludeFile, false);
     }
 }

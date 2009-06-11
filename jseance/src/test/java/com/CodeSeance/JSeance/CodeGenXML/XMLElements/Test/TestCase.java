@@ -159,12 +159,15 @@ public class TestCase implements Logger
 
     }
 
-    protected void expectError(ExecutionError error, boolean validIncludesDir, boolean validModelsDir, boolean validTargetDir, boolean validTemplatesDir, boolean ignoreReadOnlyOuputFiles)
+    protected void expectError(ExecutionError error, boolean validIncludesDir, boolean validModelsDir, boolean validTargetDir, boolean validTemplatesDir, boolean ignoreReadOnlyOuputFiles, String invalidFile, boolean deleteTemplateFile)
     {
         try
         {
-
             File templateFile = persist();
+            if (deleteTemplateFile)
+            {
+                templateFile.delete();
+            }
 
             File parentPath = templateFile.getParentFile();
             File incorrectDir = new File("\\//\\incorrectDir\\//\\");
@@ -182,7 +185,21 @@ public class TestCase implements Logger
             {
                 if (!errors.get(0).contains(incorrectDir.getName()))
                 {
-                    throw new RuntimeException("ExecutionError: Message does not contain target dir");
+                    throw new RuntimeException("ExecutionError: Message does not contain dir");
+                }
+            }
+            else if (invalidFile != null)
+            {
+                if (!errors.get(0).contains(invalidFile))
+                {
+                    throw new RuntimeException("ExecutionError: Message does not contain file");
+                }
+            }
+            else if (deleteTemplateFile)
+            {
+                if (!errors.get(0).contains(templateFile.getName()))
+                {
+                    throw new RuntimeException("ExecutionError: Message does not contain file");
                 }
             }
             if (!errors.get(0).contains(error.getErrorCode()))
