@@ -56,7 +56,6 @@ Models have the following characteristics:
 									<xs:documentation>The filename to open, relative to the current template</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
-							<xs:attribute name="append" type="xs:boolean" default="false"/>
 						</xs:extension>
 					</xs:complexContent>
 				</xs:complexType>

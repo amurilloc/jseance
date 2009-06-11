@@ -33,9 +33,10 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
+import com.CodeSeance.JSeance.CodeGenXML.Context;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
-import com.CodeSeance.JSeance.CodeGenXML.Context;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -60,10 +61,23 @@ class Include extends HierarchicalNode
     @Override
     public void onContextEnter(Context context)
     {
-        context.LogInfoMessage(log, "Include", String.format("Loading file:[%s]", context.getManager().includesDir + File.separator + fileName));
+        File includesDir = context.getManager().includesDir;
+
+        File includeFile = new File(includesDir, fileName);
+        context.LogInfoMessage(log, "Include", String.format("Loading include fileName:[%s]",  fileName));
+
+        if (!includesDir.exists())
+        {
+            throw new RuntimeException(ExecutionError.INVALID_INCLUDES_DIR.getMessage(includesDir));
+        }
+
+        if (!includeFile.canRead())
+        {
+            throw new RuntimeException(String.format(ExecutionError.INVALID_INCLUDE_FILE.getMessage(includeFile)));
+        }
 
         XMLLoader xmlLoader = XMLLoader.buildFromCodeTemplateSchema();
-        Document document = xmlLoader.loadXML(context.getManager().includesDir, fileName);
+        Document document = xmlLoader.loadXML(includesDir, fileName);
 
         // Add the dependency to the file
         context.getManager().templateDependencies.addInputFile(new File(context.getManager().includesDir, fileName));

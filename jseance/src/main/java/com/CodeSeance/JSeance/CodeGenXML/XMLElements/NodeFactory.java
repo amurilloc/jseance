@@ -44,7 +44,7 @@ import org.w3c.dom.Element;
  */
 class NodeFactory
 {
-    protected NodeFactory()
+    private NodeFactory()
     {
     }
 

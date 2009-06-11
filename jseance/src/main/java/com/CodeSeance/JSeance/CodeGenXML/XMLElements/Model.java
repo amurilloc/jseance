@@ -33,10 +33,7 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
-import com.CodeSeance.JSeance.CodeGenXML.Context;
-import com.CodeSeance.JSeance.CodeGenXML.JSModel;
-import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
-import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
+import com.CodeSeance.JSeance.CodeGenXML.*;
 import org.mozilla.javascript.xml.XMLObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -76,7 +73,22 @@ class Model extends Node
     public void onContextEnter(Context context)
     {
         context.LogInfoMessage(log, "Model", String.format("Loading model: fileName:[%s], name:[%s], e4XPath:[%s], validate:[%s], xsdFileName[%s]", fileName, name, e4XPath, validate, xsdFileName));
-        
+
+        File modelsDir = context.getManager().modelsDir;
+
+        File modelFile = new File(modelsDir, fileName);
+        context.LogInfoMessage(log, "Include", String.format("Loading model fileName:[%s], name:[%s], e4XPath:[%s], validate:[%s], xsdFileName[%s]\", fileName, name, e4XPath, validate, xsdFileName",  fileName, name, e4XPath, validate, xsdFileName));
+
+        if (!modelsDir.exists())
+        {
+            throw new RuntimeException(ExecutionError.INVALID_MODELS_DIR.getMessage(modelsDir));
+        }
+
+        if (!modelFile.canRead())
+        {
+            throw new RuntimeException(String.format(ExecutionError.INVALID_MODEL_FILE.getMessage(modelFile)));
+        }
+
         // Load the XML File
         XMLLoader xmlLoader;
 

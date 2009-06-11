@@ -35,8 +35,8 @@ package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
 import com.CodeSeance.JSeance.CodeGenXML.Context;
 import com.CodeSeance.JSeance.CodeGenXML.ContextManager;
-import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
 import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.TemplateDependencies;
+import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
 import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

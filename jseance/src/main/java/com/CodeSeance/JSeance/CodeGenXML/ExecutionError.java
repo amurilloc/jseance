@@ -31,44 +31,40 @@
 *
 * ***** END LICENSE BLOCK ***** */
 
-package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
+package com.CodeSeance.JSeance.CodeGenXML;
 
-import org.testng.annotations.Test;
-
-public class FileOutputTest extends TestCase
+/**
+ * Class used to represent all possible application errors
+ *
+ * @author Andres Murillo
+ * @version 1.0
+ */
+public enum ExecutionError
 {
-    @Test
-    public void fileOutputTest_Basic()
+   INVALID_TARGET_DIR(1, "Cannot read or create target directory:[%s]"),
+   CANNOT_WRITE_TARGET_FILE(1, "Cannot write to target file:[%s]"),
+   INVALID_TEMPLATE_FILE(2, "Cannot read template file:[%s]"),
+   INVALID_INCLUDES_DIR(3, "Cannot read includes directory:[%s]"),
+   INVALID_INCLUDE_FILE(4, "Cannot read include file:[%s]"),
+   INVALID_MODELS_DIR(5, "Cannot read models directory:[%s]"),
+   INVALID_MODEL_FILE(6, "Cannot read model file:[%s]");
+    
+    private int id;
+    private String message;
+
+    ExecutionError(int id, String message)
     {
-        createOutputFile("FILE");
-
-        template.append(TEMPLATE_HEADER_OPEN);
-        template.append(" <FileOutput fileName=\"{FILE}\">");
-        template.append("  <Text>Test</Text>");
-        template.append(" </FileOutput>");
-        template.append(TEMPLATE_HEADER_CLOSE);
-        expectResult("", false);
-
-        expectFileOutput("FILE", "Test");
-        reset();
+        this.id = id;
+        this.message = message;
     }
 
-    @Test
-    public void fileOutputTest_NoAppend()
+    public String getMessage(Object args)
     {
-        createOutputFile("FILE");
+        return getErrorCode() + " - " + String.format(message, args);
+    }
 
-        template.append(TEMPLATE_HEADER_OPEN);
-        template.append(" <FileOutput fileName=\"{FILE}\">");
-        template.append("  <Text>A.</Text>");
-        template.append(" </FileOutput>");
-        template.append(" <FileOutput fileName=\"{FILE}\">");
-        template.append("  <Text>B</Text>");
-        template.append(" </FileOutput>");
-        template.append(TEMPLATE_HEADER_CLOSE);
-        expectResult("", false);
-
-        expectFileOutput("FILE", "B");
-        reset();
+    public String getErrorCode()
+    {
+        return String.format("ExecutionError[%05d]", id);
     }
 }
