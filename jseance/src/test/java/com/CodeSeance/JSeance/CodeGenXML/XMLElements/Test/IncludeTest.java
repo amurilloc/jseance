@@ -76,7 +76,7 @@ public class IncludeTest extends TestCase
         expectResult("Ok");
     }
 
-    @Test(expectedExceptions = {RuntimeException.class})
+    @Test
     public void includeTest_RequiredDefineFail()
     {
         StringBuilder include = createXMLFile("INCLUDE");
@@ -91,7 +91,7 @@ public class IncludeTest extends TestCase
         template.append(" <Include fileName=\"{INCLUDE}\"/>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectResult("Ok");
+        expectError(ExecutionError.MISSING_INCLUDE_DEFINITION, true, true, true, true, false, "TestDefinition", false);
     }
 
     @Test

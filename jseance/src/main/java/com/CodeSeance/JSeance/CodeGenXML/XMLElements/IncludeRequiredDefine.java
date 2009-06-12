@@ -33,8 +33,9 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
-import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
+import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import org.w3c.dom.Element;
 
 /**
@@ -59,7 +60,7 @@ class IncludeRequiredDefine extends Node
         context.LogInfoMessage(log, "RequiredDefine", String.format("Validating Include Required Definition:[%s]", name));
         if (context.getDefinition(name) == null)
         {
-            throw new RuntimeException(String.format("Missing Include Definition:[%s]", name));
+            throw new RuntimeException(ExecutionError.MISSING_INCLUDE_DEFINITION.getMessage(name));
         }
     }
 }
