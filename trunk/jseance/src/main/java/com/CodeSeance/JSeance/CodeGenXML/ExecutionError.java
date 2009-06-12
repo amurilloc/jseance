@@ -42,14 +42,17 @@ package com.CodeSeance.JSeance.CodeGenXML;
 public enum ExecutionError
 {
    INVALID_TARGET_DIR(1, "Cannot read or create target directory:[%s]"),
-   CANNOT_WRITE_TARGET_FILE(1, "Cannot write to target file:[%s]"),
-   INVALID_TEMPLATE_FILE(2, "Cannot read template file:[%s]"),
-   INVALID_TEMPLATES_DIR(3, "Cannot read templates directory:[%s]"),
-   INVALID_INCLUDES_DIR(4, "Cannot read includes directory:[%s]"),
-   INVALID_INCLUDE_FILE(5, "Cannot read include file:[%s]"),
-   INVALID_MODELS_DIR(6, "Cannot read models directory:[%s]"),
-   INVALID_MODEL_FILE(7, "Cannot read model file:[%s]");
-    
+   CANNOT_WRITE_TARGET_FILE(2, "Cannot write to target file:[%s]"),
+   TARGET_FILE_READONLY(3, "Cannot write to target file:[%s] because of readonly flag, use the 'ignoreReadOnlyOuputFiles' option to ignore readonly target files"),
+   INVALID_TEMPLATE_FILE(4, "Cannot read template file:[%s]"),
+   INVALID_TEMPLATES_DIR(5, "Cannot read templates directory:[%s]"),
+   INVALID_INCLUDES_DIR(6, "Cannot read includes directory:[%s]"),
+   INVALID_INCLUDE_FILE(7, "Cannot read include file:[%s]"),
+   INVALID_MODELS_DIR(8, "Cannot read models directory:[%s]"),
+   INVALID_MODEL_FILE(9, "Cannot read model file:[%s]");
+
+    public static boolean simulate_CANNOT_WRITE_TARGET_FILE = false;
+
     private int id;
     private String message;
 

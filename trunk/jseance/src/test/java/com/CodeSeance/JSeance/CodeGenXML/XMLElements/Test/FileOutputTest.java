@@ -33,7 +33,10 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import org.testng.annotations.Test;
+
+import java.io.File;
 
 public class FileOutputTest extends TestCase
 {
@@ -47,10 +50,9 @@ public class FileOutputTest extends TestCase
         template.append("  <Text>Test</Text>");
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
-        expectResult("", false);
+        expectResult("");
 
         expectFileOutput("FILE", "Test");
-        reset();
     }
 
     @Test
@@ -66,9 +68,55 @@ public class FileOutputTest extends TestCase
         template.append("  <Text>B</Text>");
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
-        expectResult("", false);
+        expectResult("");
 
         expectFileOutput("FILE", "B");
-        reset();
+    }
+
+    @Test
+    public void fileOutputTest_CannotWriteTargetFile()
+    {
+        String simulatedFile = "SimulatedFile.txt";
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <FileOutput fileName=\"");
+        template.append(simulatedFile);
+        template.append("\">");
+        template.append("  <Text>Test</Text>");
+        template.append(" </FileOutput>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+        ExecutionError.simulate_CANNOT_WRITE_TARGET_FILE = true;
+        expectError(ExecutionError.CANNOT_WRITE_TARGET_FILE, true, true, true, true, false, simulatedFile, false);
+    }
+
+    @Test
+    public void fileOutputTest_TargetFileReadonly()
+    {
+        File outputFile = createOutputFile("FILE");
+        boolean result = outputFile.setReadOnly();
+        assert result;
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <FileOutput fileName=\"{FILE}\">");
+        template.append("  <Text>Test</Text>");
+        template.append(" </FileOutput>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+        expectResult("", true, true);
+    }
+
+    @Test
+    public void fileOutputTest_TargetFileReadonlyFail()
+    {
+        File outputFile = createOutputFile("FILE");
+        boolean result = outputFile.setReadOnly();
+        assert result;
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <FileOutput fileName=\"{FILE}\">");
+        template.append("  <Text>Test</Text>");
+        template.append(" </FileOutput>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.TARGET_FILE_READONLY, true, true, true, true, false, outputFile.getName(), false);
+
     }
 }
