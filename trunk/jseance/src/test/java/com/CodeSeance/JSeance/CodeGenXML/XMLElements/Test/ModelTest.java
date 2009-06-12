@@ -288,4 +288,25 @@ public class ModelTest extends TestCase
 
         expectError(ExecutionError.INVALID_MODEL_FILE, true, true, true, true, false, invalidModelFile, false);
     }
+
+    @Test
+    public void modelTest_InvalidModelE4XExpression()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A>");
+        model.append("  <B val=\"A\"/>");
+        model.append(" </A>");
+        model.append("</Model>");
+
+        String e4XPath = "A.B.toString()";
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Model fileName=\"{MODEL}\" e4XPath=\"");
+        template.append(e4XPath);
+        template.append("\"/>");
+        template.append(" <Text>@JavaScript{Models['default'].currentNode.@val;}@</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_MODEL_E4X_EXPRESSION, true, true, true, true, false, e4XPath, false);
+    }
 }

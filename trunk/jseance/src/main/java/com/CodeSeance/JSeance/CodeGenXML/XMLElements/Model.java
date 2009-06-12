@@ -111,7 +111,7 @@ class Model extends Node
         Object jsCurrentNodeObj = context.getManager().evaluateE4XPath(jsXML, e4XPath);
         if (!(jsCurrentNodeObj instanceof XMLObject))
         {
-            throw new RuntimeException("Invalid e4XPath Expression:[" + e4XPath + "], was expecting XMLObject instance");
+            throw new RuntimeException(ExecutionError.INVALID_MODEL_E4X_EXPRESSION.getMessage(e4XPath, jsCurrentNodeObj.getClass()));
         }
         XMLObject jsCurrentNode = (XMLObject) jsCurrentNodeObj;
 
