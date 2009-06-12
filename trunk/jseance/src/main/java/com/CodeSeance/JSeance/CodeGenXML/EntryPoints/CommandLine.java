@@ -108,7 +108,7 @@ public class CommandLine implements Logger
     }
 
     // Parses the command line arguments and executes the specified templates
-    public String run(String[] args) throws Exception
+    public String run(String[] args)
     {
         com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
             errorLogFileName,

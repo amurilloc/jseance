@@ -142,7 +142,6 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
             }
             catch (Exception ex)
             {
-                //log("", Project.MSG_ERR);
                 throw new BuildException(ex);
             }
         }

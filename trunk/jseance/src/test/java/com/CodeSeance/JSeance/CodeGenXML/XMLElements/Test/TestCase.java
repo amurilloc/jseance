@@ -144,11 +144,6 @@ public class TestCase implements Logger
                 throw new RuntimeException("Test Failed: Was expecting:[" + result + "] and obtained:[" + outcome + "]");
             }
         }
-        catch (Exception e)
-        {
-            throw new RuntimeException("Test Failed:" + this.getClass().toString(), e);
-
-        }
         finally
         {
             if (reset)

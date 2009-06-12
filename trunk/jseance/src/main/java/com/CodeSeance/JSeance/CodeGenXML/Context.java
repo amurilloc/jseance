@@ -124,14 +124,10 @@ public class Context
     */
     public void setTextSink(StringBuffer sink)
     {
-        if (textSink == null)
-        {
-            textSink = sink;
-        }
-        else
-        {
-            throw new RuntimeException("Current context already has a TextSink");
-        }
+        // only one call to this method should be performed within a context
+        assert textSink == null;
+
+        textSink = sink;
     }
 
     private StringBuffer textSink = null;
@@ -152,7 +148,8 @@ public class Context
         }
         else
         {
-            throw new RuntimeException("Cannot find valid TextSink in context");
+            // Cannot find a valid text sink in context, the top Template element should always have one
+            assert false : textSink;
         }
     }
 
