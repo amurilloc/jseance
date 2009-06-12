@@ -34,6 +34,7 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 
 public class OutputIteratorTest extends TestCase
 {
@@ -95,5 +96,28 @@ public class OutputIteratorTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
 
         expectResult("A.B.C");
+    }
+
+    @Test
+    public void outputIteratorTest_InvalidOutputIteratorE4XExpression()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A val=\"A\"/>");
+        model.append(" <A val=\"B\"/>");
+        model.append(" <A val=\"C\"/>");
+        model.append("</Model>");
+
+        String e4XPath = "A.toString()";
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Model fileName=\"{MODEL}\"/>");
+        template.append(" <OutputIterator e4XPath=\"");
+        template.append(e4XPath);
+        template.append("\" separator=\".\">");
+        template.append("  <Text>@JavaScript{Models['default'].currentNode.@val;}@</Text>");
+        template.append(" </OutputIterator>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION, true, true, true, true, false, e4XPath, false);
     }
 }

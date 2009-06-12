@@ -54,7 +54,9 @@ public enum ExecutionError
 
    INVALID_MODELS_DIR(9, "Cannot read models directory:[%s]"),
    INVALID_MODEL_FILE(10, "Cannot read model file:[%s]"),
-   INVALID_MODEL_E4X_EXPRESSION(11, "Invalid model e4XPath expression:[%s], expecting XMLObject type, found:[%s]");
+   INVALID_MODEL_E4X_EXPRESSION(11, "Invalid model e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
+
+   INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION(12, "Invalid output iterator e4XPath expression:[%s], expecting XMLObject type, found:[%s]");
 
     public static boolean simulate_CANNOT_WRITE_TARGET_FILE = false;
 

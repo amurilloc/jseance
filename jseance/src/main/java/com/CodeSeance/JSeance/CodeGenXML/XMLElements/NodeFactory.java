@@ -131,7 +131,9 @@ class NodeFactory
         }
         else
         {
-            throw new RuntimeException("Unknown XML Node Type:" + localName);
+            // this should never happen since the XML Document is validated by XSD
+            assert false : localName;
+            return null;
         }
     }
 }
