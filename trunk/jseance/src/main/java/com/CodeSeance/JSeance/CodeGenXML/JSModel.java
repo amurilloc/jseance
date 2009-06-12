@@ -33,146 +33,41 @@
 
 package com.CodeSeance.JSeance.CodeGenXML;
 
-import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 
-public class JSModel implements Scriptable
+public class JSModel extends ScriptableObject
 {
-
-    public JSModel DeepClone()
-    {
-        JSModel result = new JSModel();
-        result.rootNode = this.rootNode;
-        result.currentNode = this.currentNode;
-        return result;
-    }
-
-    public org.mozilla.javascript.xml.XMLObject GetRootNode()
-    {
-        return rootNode;
-    }
-
-    public org.mozilla.javascript.xml.XMLObject GetCurrentNode()
-    {
-        return currentNode;
-    }
-
-    public void SetRootNode(org.mozilla.javascript.xml.XMLObject rootNode)
-    {
-        this.rootNode = rootNode;
-    }
-
-    public void SetCurrentNode(org.mozilla.javascript.xml.XMLObject currentNode)
-    {
-        this.currentNode = currentNode;
-    }
-
-    private org.mozilla.javascript.xml.XMLObject rootNode = null;
-    private org.mozilla.javascript.xml.XMLObject currentNode = null;
 
     public String getClassName()
     {
         return "ModelClass";
     }
 
-    public boolean has(String name, Scriptable start)
+    public JSModel deepClone()
     {
-        return (name.equals("rootNode") || name.equals("currentNode"));
+        JSModel result = new JSModel();
+        result.put("rootNode", result, getRootNode());
+        result.put("currentNode", result, getCurrentNode());
+        return result;
     }
 
-    public boolean has(int index, Scriptable start)
+    public org.mozilla.javascript.xml.XMLObject getRootNode()
     {
-        return false;
+        return (org.mozilla.javascript.xml.XMLObject) (has("rootNode", this)? get("rootNode", this) : null);
     }
 
-    public Object get(String name, Scriptable start)
+    public void setRootNode(org.mozilla.javascript.xml.XMLObject val)
     {
-        if (name.equals("rootNode"))
-        {
-            return rootNode;
-        }
-        else if (name.equals("currentNode"))
-        {
-            return currentNode;
-        }
-        else
-        {
-            return NOT_FOUND;
-        }
+        put("rootNode", this, val);
     }
 
-    public Object get(int index, Scriptable start)
+    public org.mozilla.javascript.xml.XMLObject getCurrentNode()
     {
-        return null;
+        return (org.mozilla.javascript.xml.XMLObject) (has("currentNode", this)? get("currentNode", this) : null);
     }
 
-    public void put(String name, Scriptable start, Object value)
+    public void setCurrentNode(org.mozilla.javascript.xml.XMLObject val)
     {
-        if (name.equals("currentNode"))
-        {
-            if (!(value instanceof org.mozilla.javascript.xml.XMLObject))
-            {
-                throw new RuntimeException("Expected type not found: org.mozilla.javascript.xml.XMLObject");
-            }
-            currentNode = (org.mozilla.javascript.xml.XMLObject) value;
-        }
+        put("currentNode", this, val);  
     }
-
-    public void put(int index, Scriptable start, Object value)
-    {
-    }
-
-    public void delete(String id)
-    {
-    }
-
-    public void delete(int index)
-    {
-    }
-
-    public Scriptable getPrototype()
-    {
-        return prototype;
-    }
-
-    public void setPrototype(Scriptable prototype)
-    {
-        this.prototype = prototype;
-    }
-
-    public Scriptable getParentScope()
-    {
-        return parent;
-    }
-
-    public void setParentScope(Scriptable parent)
-    {
-        this.parent = parent;
-    }
-
-    public Object[] getIds()
-    {
-        return new Object[0];
-    }
-
-    public Object getDefaultValue(Class typeHint)
-    {
-        return "[object Model]";
-    }
-
-    public boolean hasInstance(Scriptable value)
-    {
-        Scriptable proto = value.getPrototype();
-        while (proto != null)
-        {
-            if (proto.equals(this))
-            {
-                return true;
-            }
-            proto = proto.getPrototype();
-        }
-
-        return false;
-    }
-
-    private Scriptable prototype, parent;
 }

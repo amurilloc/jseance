@@ -33,108 +33,34 @@
 
 package com.CodeSeance.JSeance.CodeGenXML;
 
-import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 
-public class JSDefinitions implements Scriptable
+public class JSDefinitions extends ScriptableObject
 {
-    public void SetContextManager(ContextManager contextManager)
+    public JSDefinitions deepClone()
     {
-        this.contextManager = contextManager;
+        JSDefinitions result = new JSDefinitions();
+        for (Object property : getPropertyIds(this))
+        {
+            String name = (String)property;
+            Object val = get(name, this);
+            result.put(name, result, val);
+        }
+        return result;
     }
-
-    private ContextManager contextManager = null;
 
     public String getClassName()
     {
         return "DefinitionsClass";
     }
 
-    public boolean has(String name, Scriptable start)
+    public Object getDefinition(String name)
     {
-        return (contextManager.getCurrentContext().getDefinition(name) != null);
+        return has(name, this)? get(name, this) : null;
     }
 
-    public boolean has(int index, Scriptable start)
+    public void setDefinition(String name, Object val)
     {
-        return false;
+        put(name, this, val);
     }
-
-    public Object get(String name, Scriptable start)
-    {
-        return contextManager.getCurrentContext().getDefinition(name);
-    }
-
-    public Object get(int index, Scriptable start)
-    {
-        return null;
-    }
-
-    public void put(String name, Scriptable start, Object value)
-    {
-        // Need to verify if the context manager is initialized to avoid exception on org.mozilla.javascript.ScriptableObject.defineClass
-        // as it gives this method the constructor
-        if (!name.equals("constructor"))
-        {
-            contextManager.getCurrentContext().setDefinition(name, value.toString());
-        }
-    }
-
-    public void put(int index, Scriptable start, Object value)
-    {
-    }
-
-    public void delete(String id)
-    {
-    }
-
-    public void delete(int index)
-    {
-    }
-
-    public Scriptable getPrototype()
-    {
-        return prototype;
-    }
-
-    public void setPrototype(Scriptable prototype)
-    {
-        this.prototype = prototype;
-    }
-
-    public Scriptable getParentScope()
-    {
-        return parent;
-    }
-
-    public void setParentScope(Scriptable parent)
-    {
-        this.parent = parent;
-    }
-
-    public Object[] getIds()
-    {
-        return new Object[0];
-    }
-
-    public Object getDefaultValue(Class typeHint)
-    {
-        return "[object Definitions]";
-    }
-
-    public boolean hasInstance(Scriptable value)
-    {
-        Scriptable proto = value.getPrototype();
-        while (proto != null)
-        {
-            if (proto.equals(this))
-            {
-                return true;
-            }
-            proto = proto.getPrototype();
-        }
-
-        return false;
-    }
-
-    private Scriptable prototype, parent;
 }

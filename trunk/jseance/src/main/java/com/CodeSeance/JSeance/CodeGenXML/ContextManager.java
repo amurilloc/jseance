@@ -73,7 +73,7 @@ public class ContextManager
         this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
         this.templateDependencies = templateDependencies;
         initializeJavaScriptEngine();
-        contextStack.push(new Context(this));
+        contextStack.push(new Context(this, null));
     }
 
     // The working directories and runtime configuration
@@ -103,20 +103,10 @@ public class ContextManager
         {
             jsScope = jsContext.initStandardObjects();
 
-            // Create the instances for models and definitions
-            JSModels jsModels = new JSModels();
-            jsModels.SetContextManager(this);
-            JSDefinitions jsDefinitions = new JSDefinitions();
-            jsDefinitions.SetContextManager(this);
-
             // Declare the java classes that implement models and definitions in the js engine
-            org.mozilla.javascript.ScriptableObject.defineClass(jsScope, JSModels.class);
-            org.mozilla.javascript.ScriptableObject.defineClass(jsScope, JSModel.class);
-            org.mozilla.javascript.ScriptableObject.defineClass(jsScope, JSDefinitions.class);
-
-            // Declare the global instances available within the js scope
-            ScriptableObject.putProperty(jsScope, "Models", jsModels);
-            ScriptableObject.putProperty(jsScope, "Definitions", jsDefinitions);
+            ScriptableObject.defineClass(jsScope, JSModels.class);
+            ScriptableObject.defineClass(jsScope, JSModel.class);
+            ScriptableObject.defineClass(jsScope, JSDefinitions.class);
 
             evaluateJS("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 25);
             evaluateJS("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 26);
@@ -129,6 +119,16 @@ public class ContextManager
             // Wrap Exception with RuntimeException since caller won't be able to handle it
             throw new RuntimeException("Unexpected Internal Exception", ex);
         }
+    }
+
+    public void setCurrentDefinitions(JSDefinitions jsDefinitions)
+    {
+        ScriptableObject.putProperty(jsScope, "Definitions", jsDefinitions);
+    }
+
+    public void setCurrentModels(JSModels jsModels)
+    {
+        ScriptableObject.putProperty(jsScope, "Models", jsModels);
     }
 
     // Class logger
@@ -235,7 +235,8 @@ public class ContextManager
     // Pushes a new Context into the stack
     public void push()
     {
-        contextStack.push(new Context(this, contextStack.peek()));
+        Context newContext = new Context(this, contextStack.peek());
+        contextStack.push(newContext);
     }
 
     // Pops a context from the stack
