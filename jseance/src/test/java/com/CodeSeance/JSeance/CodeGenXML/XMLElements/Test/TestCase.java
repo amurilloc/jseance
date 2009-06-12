@@ -50,7 +50,7 @@ public class TestCase implements Logger
 
     private List<String> errors = new ArrayList<String>();
 
-    private final String errorLogFile =  "./target/jseance-errors.log";
+    private final String logFile =  "./target/jseance-test.log";
 
     public void reset()
     {
@@ -134,7 +134,7 @@ public class TestCase implements Logger
             File templateFile = persist();
 
             File parentPath = templateFile.getParentFile();
-            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile, null, null, parentPath, parentPath, parentPath, ignoreReadOnlyOuputFiles, false);
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(logFile, logFile, logFile, parentPath, parentPath, parentPath, ignoreReadOnlyOuputFiles, false);
             List<String> templateFileNames = new ArrayList<String>();
             templateFileNames.add(templateFile.getName());
             outcome = runtime.run(parentPath, templateFileNames, this);
@@ -171,7 +171,7 @@ public class TestCase implements Logger
             File parentPath = templateFile.getParentFile();
             File incorrectDir = new File("YYZ:\\incorrectDir\\//\\");
 
-            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile, null, null, validIncludesDir ? parentPath : incorrectDir, validModelsDir ? parentPath : incorrectDir, validTargetDir ? parentPath : incorrectDir, ignoreReadOnlyOuputFiles, false);
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(logFile, logFile, logFile, validIncludesDir ? parentPath : incorrectDir, validModelsDir ? parentPath : incorrectDir, validTargetDir ? parentPath : incorrectDir, ignoreReadOnlyOuputFiles, false);
 
             List<String> templateFileNames = new ArrayList<String>();
             templateFileNames.add(templateFile.getName());
