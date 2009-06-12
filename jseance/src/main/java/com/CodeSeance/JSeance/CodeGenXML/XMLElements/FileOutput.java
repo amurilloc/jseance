@@ -82,6 +82,11 @@ class FileOutput extends HierarchicalNode
         {
             context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to fileName:[%s]", fileName));
 
+            if (file.exists() && !file.canWrite())
+            {
+                throw new RuntimeException(ExecutionError.TARGET_FILE_READONLY.getMessage(file));
+            }
+
             // Change the sink of the current context
             context.setTextSink(buffer);
             ExecuteChildren(context);
@@ -98,6 +103,12 @@ class FileOutput extends HierarchicalNode
 
             try
             {
+                if (ExecutionError.simulate_CANNOT_WRITE_TARGET_FILE)
+                {
+                    ExecutionError.simulate_CANNOT_WRITE_TARGET_FILE = false;
+                    throw new IOException("Simulated exception for log testing");
+                }
+                
                 // Write the text to disk
                 FileWriter fileWriter = new FileWriter(file);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
