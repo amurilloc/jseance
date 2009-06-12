@@ -43,19 +43,6 @@ public class JSModel extends ScriptableObject
         return "ModelClass";
     }
 
-    public JSModel deepClone()
-    {
-        JSModel result = new JSModel();
-        result.put("rootNode", result, getRootNode());
-        result.put("currentNode", result, getCurrentNode());
-        return result;
-    }
-
-    public org.mozilla.javascript.xml.XMLObject getRootNode()
-    {
-        return (org.mozilla.javascript.xml.XMLObject) (has("rootNode", this)? get("rootNode", this) : null);
-    }
-
     public void setRootNode(org.mozilla.javascript.xml.XMLObject val)
     {
         put("rootNode", this, val);
