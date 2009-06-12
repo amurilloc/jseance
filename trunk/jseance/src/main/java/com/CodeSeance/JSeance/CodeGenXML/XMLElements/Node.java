@@ -65,7 +65,7 @@ abstract class Node
         // Create the logger for the concrete type
         log = com.CodeSeance.JSeance.CodeGenXML.Runtime.CreateLogger(this.getClass());
 
-        if (log.isTraceEnabled())
+        if (log.isDebugEnabled())
         {
             log.trace(String.format("Loading XMLElement:[%s]", element.getLocalName()));
         }
