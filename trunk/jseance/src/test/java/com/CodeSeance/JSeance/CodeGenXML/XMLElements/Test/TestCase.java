@@ -169,7 +169,7 @@ public class TestCase implements Logger
             }
 
             File parentPath = templateFile.getParentFile();
-            File incorrectDir = new File("\\//\\incorrectDir\\//\\");
+            File incorrectDir = new File("YYZ:\\incorrectDir\\//\\");
 
             com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile, null, null, validIncludesDir ? parentPath : incorrectDir, validModelsDir ? parentPath : incorrectDir, validTargetDir ? parentPath : incorrectDir, ignoreReadOnlyOuputFiles, false);
 

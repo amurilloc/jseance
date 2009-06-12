@@ -50,7 +50,7 @@ public class FileOutputTest extends TestCase
         template.append("  <Text>Test</Text>");
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
-        expectResult("");
+        expectResult("", false, false);
 
         expectFileOutput("FILE", "Test");
     }
@@ -68,7 +68,7 @@ public class FileOutputTest extends TestCase
         template.append("  <Text>B</Text>");
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
-        expectResult("");
+        expectResult("", false, false);
 
         expectFileOutput("FILE", "B");
     }
