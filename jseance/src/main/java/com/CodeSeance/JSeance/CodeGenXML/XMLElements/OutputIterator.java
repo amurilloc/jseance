@@ -72,7 +72,7 @@ class OutputIterator extends HierarchicalNode
         context.setTextSink(buffer);
 
         JSModel jsModel = context.getModel(modelName);
-        Object elementsObj = context.getManager().evaluateE4XPath(jsModel.GetCurrentNode(), e4XPath);
+        Object elementsObj = context.getManager().evaluateE4XPath(jsModel.getCurrentNode(), e4XPath);
         if (!(elementsObj instanceof XMLObject))
         {
             throw new RuntimeException(ExecutionError.INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION.getMessage(e4XPath, elementsObj.getClass()));
@@ -88,7 +88,7 @@ class OutputIterator extends HierarchicalNode
             XMLObject currentNode = context.getManager().getXMLItemAt(elements, i);
             context.LogInfoMessage(log, "OutputIterator", String.format("Processing children, step:[%s]/[%s], currentNode:[%s]", i+1, xmlCollectionSize, context.getManager().xmlNodeToString(currentNode)));
 
-            jsModel.SetCurrentNode(currentNode);
+            jsModel.setCurrentNode(currentNode);
             ExecuteChildren(context);
             if ((!"".equals(separator)) && i < (xmlCollectionSize - 1))
             {

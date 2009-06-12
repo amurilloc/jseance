@@ -35,8 +35,6 @@ package com.CodeSeance.JSeance.CodeGenXML;
 
 import org.apache.commons.logging.Log;
 
-import java.util.Hashtable;
-
 /**
  * In JSeance, each level of an XML template has a context which is inherited from its parent
  * This is used to keep track of local values as execution advances while maintaining isolation between sibling nodes
@@ -53,14 +51,6 @@ public class Context
 {
 
     /*
-    * Constructor for creating the root context manager
-    */
-    public Context(ContextManager manager)
-    {
-        this.manager = manager;
-    }
-
-    /*
     * Constructor for creating child context managers
     */
     public Context(ContextManager manager, Context parent)
@@ -68,14 +58,21 @@ public class Context
         this.manager = manager;
         this.parent = parent;
 
-        // Create a deep copy of the models
-        for (String key : parent.models.keySet())
+        if (parent != null)
         {
-            JSModel modelCopy = parent.models.get(key).DeepClone();
-            models.put(key, modelCopy);
+            jsDefinitions = parent.jsDefinitions.deepClone();
+            jsModels = parent.jsModels.deepClone();
+
+            logSpacing = parent.logSpacing + " ";
+        }
+        else
+        {
+            jsDefinitions = new JSDefinitions();
+            jsModels = new JSModels();
         }
 
-        logSpacing = parent.logSpacing + " ";
+        manager.setCurrentDefinitions(jsDefinitions);
+        manager.setCurrentModels(jsModels);
     }
 
     private ContextManager manager = null;
@@ -95,7 +92,7 @@ public class Context
     public void addModel(String name, JSModel model)
     {
         name = setDefaultModelNameIfEmpty(name);
-        models.put(name, model);
+        jsModels.setModel(name, model);
     }
 
     private final static String UNNAMED_MODEL_NAME = "default";
@@ -106,7 +103,8 @@ public class Context
         return ("".equals(name) || name == null) ? UNNAMED_MODEL_NAME : name;
     }
 
-    private final Hashtable<String, JSModel> models = new Hashtable<String, JSModel>();
+    //private final Hashtable<String, JSModel> models = new Hashtable<String, JSModel>();
+    JSModels jsModels = null;
 
     /*
     * Returns the specified JavaScript representation of a model
@@ -115,7 +113,7 @@ public class Context
     {
         name = setDefaultModelNameIfEmpty(name);
         // Obtain the model locally, a deep copy is performend on new context creation
-        return models.get(name);
+        return jsModels.getModel(name);
     }
 
     /*
@@ -157,9 +155,9 @@ public class Context
     * Sets a definition in the current context, note that definitions are inherited from parents but if changed only
     * affect the current context and its children
      */
-    public void setDefinition(String name, Object content)
+    public void setDefinition(String name, Object val)
     {
-        definitions.put(name, content);
+        jsDefinitions.setDefinition(name, val);
     }
 
     /*
@@ -167,18 +165,10 @@ public class Context
      */
     public Object getDefinition(String name)
     {
-        if (definitions.containsKey(name))
-        {
-            return definitions.get(name);
-        }
-        else if (parent != null)
-        {
-            return parent.getDefinition(name);
-        }
-        return null;
+        return jsDefinitions.getDefinition(name);
     }
 
-    private final Hashtable<String, Object>definitions = new Hashtable<String, Object>();
+    JSDefinitions jsDefinitions = null;
 
     /*
     * Returns the parent context if exisiting

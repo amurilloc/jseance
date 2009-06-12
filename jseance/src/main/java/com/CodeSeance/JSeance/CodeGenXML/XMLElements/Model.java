@@ -117,8 +117,8 @@ class Model extends Node
 
         // Create and add the new model
         JSModel model = new JSModel();
-        model.SetRootNode(jsXML);
-        model.SetCurrentNode(jsCurrentNode);
+        model.setRootNode(jsXML);
+        model.setCurrentNode(jsCurrentNode);
         context.getParent().addModel(name, model);
     }
 }
