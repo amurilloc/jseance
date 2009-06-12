@@ -34,6 +34,7 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
 import com.CodeSeance.JSeance.CodeGenXML.Context;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import com.CodeSeance.JSeance.CodeGenXML.JSModel;
 import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import org.mozilla.javascript.xml.XMLObject;
@@ -74,7 +75,7 @@ class OutputIterator extends HierarchicalNode
         Object elementsObj = context.getManager().evaluateE4XPath(jsModel.GetCurrentNode(), e4XPath);
         if (!(elementsObj instanceof XMLObject))
         {
-            throw new RuntimeException("Invalid e4XPath Expression:[" + e4XPath + "], was expecting XMLObject instance");
+            throw new RuntimeException(ExecutionError.INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION.getMessage(e4XPath, elementsObj.getClass()));
         }
         XMLObject elements = (XMLObject) elementsObj;
         int xmlCollectionSize = context.getManager().getXMLCollectionSize(elements);
