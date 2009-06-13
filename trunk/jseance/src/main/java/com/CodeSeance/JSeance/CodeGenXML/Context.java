@@ -36,13 +36,11 @@ package com.CodeSeance.JSeance.CodeGenXML;
 import org.apache.commons.logging.Log;
 
 /**
- * In JSeance, each level of an XML template has a context which is inherited from its parent
- * This is used to keep track of local values as execution advances while maintaining isolation between sibling nodes
- *
- * A context keeps track of:
- * - The current executing template parent path: To allow included templates to define resources by local reference
- * - The set of active models with the current nodes
- * - The current textSink: allows children to write text outputs that bubble up to the closest sink
+ * In JSeance, each level of an XML template has a context which is inherited from its parent This is used to keep track
+ * of local values as execution advances while maintaining isolation between sibling nodes A context keeps track of: -
+ * The current executing template parent path: To allow included templates to define resources by local reference - The
+ * set of active models with the current nodes - The current textSink: allows children to write text outputs that bubble
+ * up to the closest sink
  *
  * @author Andres Murillo
  * @version 1.0

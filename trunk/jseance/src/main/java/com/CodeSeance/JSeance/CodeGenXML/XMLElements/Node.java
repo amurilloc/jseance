@@ -33,10 +33,10 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
+import com.CodeSeance.JSeance.CodeGenXML.Context;
 import com.CodeSeance.JSeance.CodeGenXML.ContextManager;
 import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.XMLTextContent;
-import com.CodeSeance.JSeance.CodeGenXML.Context;
 import org.apache.commons.logging.Log;
 import org.w3c.dom.Element;
 
@@ -48,7 +48,7 @@ import java.lang.reflect.Field;
  * attributes or XML structure since that is the responsibility of the XSD validator used in XMLLoader
  *
  * @author Andres Murillo
-  * @version 1.0
+ * @version 1.0
  */
 abstract class Node
 {

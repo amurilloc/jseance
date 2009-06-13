@@ -86,7 +86,7 @@ class OutputIterator extends HierarchicalNode
         for (int i = 0; i < xmlCollectionSize; i++)
         {
             XMLObject currentNode = context.getManager().getXMLItemAt(elements, i);
-            context.LogInfoMessage(log, "OutputIterator", String.format("Processing children, step:[%s]/[%s], currentNode:[%s]", i+1, xmlCollectionSize, context.getManager().xmlNodeToString(currentNode)));
+            context.LogInfoMessage(log, "OutputIterator", String.format("Processing children, step:[%s]/[%s], currentNode:[%s]", i + 1, xmlCollectionSize, context.getManager().xmlNodeToString(currentNode)));
 
             jsModel.setCurrentNode(currentNode);
             ExecuteChildren(context);

@@ -42,7 +42,7 @@ public class JSModels extends ScriptableObject
         JSModels result = new JSModels();
         for (Object property : getPropertyIds(this))
         {
-            String name = (String)property;
+            String name = (String) property;
             Object val = get(name, this);
             result.put(name, result, val);
         }
@@ -56,7 +56,7 @@ public class JSModels extends ScriptableObject
 
     public JSModel getModel(String name)
     {
-        return (JSModel)(has(name, this)? get(name, this) : null);
+        return (JSModel) (has(name, this) ? get(name, this) : null);
     }
 
     public void setModel(String name, JSModel model)

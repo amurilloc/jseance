@@ -50,11 +50,11 @@ public class JSModel extends ScriptableObject
 
     public org.mozilla.javascript.xml.XMLObject getCurrentNode()
     {
-        return (org.mozilla.javascript.xml.XMLObject) (has("currentNode", this)? get("currentNode", this) : null);
+        return (org.mozilla.javascript.xml.XMLObject) (has("currentNode", this) ? get("currentNode", this) : null);
     }
 
     public void setCurrentNode(org.mozilla.javascript.xml.XMLObject val)
     {
-        put("currentNode", this, val);  
+        put("currentNode", this, val);
     }
 }

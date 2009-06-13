@@ -52,88 +52,89 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
 {
     public AntTask()
     {
-        setTaskName("JSeance.CodeGenXML");    
+        setTaskName("JSeance.CodeGenXML");
     }
 
     public void setErrorLogFile(File file)
     {
         errorLogFile = file;
     }
+
     private File errorLogFile;
 
     public void setInfoLogFile(File file)
     {
         infoLogFile = file;
     }
+
     private File infoLogFile;
 
     public void setDebugLogFile(File file)
     {
         debugLogFile = file;
     }
+
     private File debugLogFile;
 
     public void setIncludesDir(File file)
     {
         includesDir = file;
     }
+
     private File includesDir;
 
     public void setModelsDir(File file)
     {
         modelsDir = file;
     }
+
     private File modelsDir;
 
     public void setTargetDir(File file)
     {
         targetDir = file;
     }
+
     private File targetDir;
 
     public void setIgnoreReadOnlyOuputFiles(boolean val)
     {
         ignoreReadOnlyOuputFiles = val;
     }
+
     private boolean ignoreReadOnlyOuputFiles;
 
     public void setForceRebuild(boolean val)
     {
         forceRebuild = val;
     }
+
     private boolean forceRebuild;
 
     public void addFileset(FileSet fileset)
     {
         filesets.add(fileset);
     }
+
     private List<FileSet> filesets = new ArrayList<FileSet>();
 
     @Override
     public void execute() throws BuildException
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
-            errorLogFile.toString(),
-            infoLogFile.toString(),
-            debugLogFile.toString(),
-            includesDir,
-            modelsDir,
-            targetDir,
-            ignoreReadOnlyOuputFiles,
-            forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile.toString(), infoLogFile.toString(), debugLogFile.toString(), includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
 
-        for(FileSet fileSet : filesets)
+        for (FileSet fileSet : filesets)
         {
             DirectoryScanner dirScanner = fileSet.getDirectoryScanner(getProject());
-            File templatesDir =  dirScanner.getBasedir();
+            File templatesDir = dirScanner.getBasedir();
 
             String[] includedFiles = dirScanner.getIncludedFiles();
             ArrayList<String> templateFileNames = new ArrayList<String>();
 
             // Replace windows-only slashes with platform independant representation and populate the files
-            for(String fileName : includedFiles)
+            for (String fileName : includedFiles)
             {
-                templateFileNames.add(fileName.replace('\\','/'));
+                templateFileNames.add(fileName.replace('\\', '/'));
             }
 
             try
