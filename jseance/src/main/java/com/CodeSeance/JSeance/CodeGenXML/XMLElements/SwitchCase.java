@@ -33,8 +33,8 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
-import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
+import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import org.w3c.dom.Element;
 
 /**
@@ -67,7 +67,7 @@ class SwitchCase extends HierarchicalNode
             }
             else
             {
-                context.LogInfoMessage(log, "Case", String.format("No match:[%s]", value));   
+                context.LogInfoMessage(log, "Case", String.format("No match:[%s]", value));
             }
         }
     }

@@ -40,7 +40,10 @@ import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.xml.XMLObject;
 import org.w3c.dom.Document;
 
-import javax.xml.transform.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
@@ -63,8 +66,7 @@ public class ContextManager
     * dispose needs to be called when the ContextManager is no longer needed to release
     * resources
     */
-    public ContextManager(File templatesDir, File includesDir, File modelsDir, File targetDir,
-                          boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
+    public ContextManager(File templatesDir, File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
     {
         this.templatesDir = templatesDir;
         this.includesDir = includesDir;
@@ -101,24 +103,30 @@ public class ContextManager
         jsContext = factory.enterContext();
         try
         {
+            if (ExecutionError.simulate_CONTEXTMANAGER_INITIALIZE_ERROR)
+            {
+                ExecutionError.simulate_CONTEXTMANAGER_INITIALIZE_ERROR = false;
+                throw new Exception("Simulated exception for log testing");
+            }
+
             jsScope = jsContext.initStandardObjects();
 
             // Declare the java classes that implement models and definitions in the js engine
             ScriptableObject.defineClass(jsScope, JSModels.class);
             ScriptableObject.defineClass(jsScope, JSModel.class);
             ScriptableObject.defineClass(jsScope, JSDefinitions.class);
-
-            evaluateJS("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 25);
-            evaluateJS("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 26);
-            evaluateJS("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "Context.java", 26);
-            evaluateJS("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 26);
-            evaluateJS("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 26);
         }
         catch (Exception ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException("Unexpected Internal Exception", ex);
+            throw new RuntimeException(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR.getMessage(ex.getMessage()));
         }
+
+        evaluateJS("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 25);
+        evaluateJS("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 26);
+        evaluateJS("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "Context.java", 26);
+        evaluateJS("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 26);
+        evaluateJS("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 26);
     }
 
     public void setCurrentDefinitions(JSDefinitions jsDefinitions)
@@ -141,28 +149,20 @@ public class ContextManager
     {
         //Transform to String
         Transformer transformer;
+        StreamResult result;
         try
         {
             transformer = TransformerFactory.newInstance().newTransformer();
-        }
-        catch (TransformerConfigurationException ex)
-        {
-            // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException(String.format("Unexpected Exception:[%s], ExecutionError:[%s] ",  ex.getClass(), ex.getMessage()), ex);
-        }
-
-        // The next section is required in order for the JS engine to parse the XML
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        StreamResult result = new StreamResult(new StringWriter());
-        DOMSource source = new DOMSource(document);
-        try
-        {
+            // The next section is required in order for the JS engine to parse the XML
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            result = new StreamResult(new StringWriter());
+            DOMSource source = new DOMSource(document);
             transformer.transform(source, result);
         }
         catch (TransformerException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException(String.format("Unexpected Exception:[%s], ExecutionError:[%s] ",  ex.getClass(), ex.getMessage()), ex);
+            throw new RuntimeException(String.format("Unexpected Exception:[%s], ExecutionError:[%s] ", ex.getClass(), ex.getMessage()), ex);
         }
 
         String xmlString = result.getWriter().toString();
@@ -191,9 +191,9 @@ public class ContextManager
         return result;
     }
 
-   /*
-    * Evaluates the specified E4X Path on a JavaScript XML Node
-     */
+    /*
+   * Evaluates the specified E4X Path on a JavaScript XML Node
+    */
     public String xmlNodeToString(XMLObject xmlObj)
     {
         Object[] args = {xmlObj};

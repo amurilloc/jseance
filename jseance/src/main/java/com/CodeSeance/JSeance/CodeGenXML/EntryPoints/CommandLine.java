@@ -34,17 +34,16 @@
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints;
 
 import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is the args4j class to define command line options for the executable Jar
- * point for functional tests
+ * This is the args4j class to define command line options for the executable Jar point for functional tests
  *
  * @author Andres Murillo
  * @version 1.0
@@ -97,7 +96,7 @@ public class CommandLine implements Logger
             String result = commandLine.run(args);
             if (commandLine.consoleTemplateOut)
             {
-                System.out.println(result);         
+                System.out.println(result);
             }
         }
         catch (Exception ex)
@@ -110,15 +109,7 @@ public class CommandLine implements Logger
     // Parses the command line arguments and executes the specified templates
     public String run(String[] args)
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(
-            errorLogFileName,
-            infoLogFileName,
-            debugLogFileName,
-            includesDir,
-            modelsDir,
-            targetDir,
-            ignoreReadOnlyOuputFiles,
-            forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFileName, infoLogFileName, debugLogFileName, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
 
         CmdLineParser parser = new CmdLineParser(this);
 

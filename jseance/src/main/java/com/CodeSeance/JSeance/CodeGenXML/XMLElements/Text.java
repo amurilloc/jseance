@@ -33,8 +33,8 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
-import com.CodeSeance.JSeance.CodeGenXML.XMLTextContent;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
+import com.CodeSeance.JSeance.CodeGenXML.XMLTextContent;
 import org.w3c.dom.Element;
 
 /**

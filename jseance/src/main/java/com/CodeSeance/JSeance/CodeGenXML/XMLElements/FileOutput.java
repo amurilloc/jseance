@@ -34,8 +34,8 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
 import com.CodeSeance.JSeance.CodeGenXML.Context;
-import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
+import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import org.w3c.dom.Element;
 
 import java.io.BufferedWriter;
@@ -108,7 +108,7 @@ class FileOutput extends HierarchicalNode
                     ExecutionError.simulate_CANNOT_WRITE_TARGET_FILE = false;
                     throw new IOException("Simulated exception for log testing");
                 }
-                
+
                 // Write the text to disk
                 FileWriter fileWriter = new FileWriter(file);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

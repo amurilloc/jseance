@@ -81,4 +81,17 @@ public class TemplateTest extends TestCase
 
         expectError(ExecutionError.INVALID_TEMPLATE_FILE, true, true, true, true, false, null, true);
     }
+
+    @Test
+    public void templateTest_ContextManagerInitializeError()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Text>A.</Text>");
+        template.append(" <Text>B</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        ExecutionError.simulate_CONTEXTMANAGER_INITIALIZE_ERROR = true;
+
+        expectError(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR, true, true, true, true, false, null, false);
+    }
 }

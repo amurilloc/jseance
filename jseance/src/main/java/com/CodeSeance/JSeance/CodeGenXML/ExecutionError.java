@@ -41,24 +41,28 @@ package com.CodeSeance.JSeance.CodeGenXML;
  */
 public enum ExecutionError
 {
-   INVALID_TARGET_DIR(1, "Cannot read or create target directory:[%s]"),
-   CANNOT_WRITE_TARGET_FILE(2, "Cannot write to target file:[%s]"),
-   TARGET_FILE_READONLY(3, "Cannot write to target file:[%s] because of readonly flag, use the 'ignoreReadOnlyOuputFiles' option to ignore readonly target files"),
+    INVALID_TARGET_DIR(1, "Cannot read or create target directory:[%s]"),
+    CANNOT_WRITE_TARGET_FILE(2, "Cannot write to target file:[%s]"),
+    TARGET_FILE_READONLY(3, "Cannot write to target file:[%s] because of readonly flag, use the 'ignoreReadOnlyOuputFiles' option to ignore readonly target files"),
 
-   INVALID_TEMPLATE_FILE(4, "Cannot read template file:[%s]"),
-   INVALID_TEMPLATES_DIR(5, "Cannot read templates directory:[%s]"),
+    INVALID_TEMPLATE_FILE(4, "Cannot read template file:[%s]"),
+    INVALID_TEMPLATES_DIR(5, "Cannot read templates directory:[%s]"),
 
-   INVALID_INCLUDES_DIR(6, "Cannot read includes directory:[%s]"),
-   INVALID_INCLUDE_FILE(7, "Cannot read include file:[%s]"),
-   MISSING_INCLUDE_DEFINITION(8, "Missing include definition:[%s]"),
+    INVALID_INCLUDES_DIR(6, "Cannot read includes directory:[%s]"),
+    INVALID_INCLUDE_FILE(7, "Cannot read include file:[%s]"),
+    MISSING_INCLUDE_DEFINITION(8, "Missing include definition:[%s]"),
 
-   INVALID_MODELS_DIR(9, "Cannot read models directory:[%s]"),
-   INVALID_MODEL_FILE(10, "Cannot read model file:[%s]"),
-   INVALID_MODEL_E4X_EXPRESSION(11, "Invalid model e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
+    INVALID_MODELS_DIR(9, "Cannot read models directory:[%s]"),
+    INVALID_MODEL_FILE(10, "Cannot read model file:[%s]"),
+    INVALID_MODEL_E4X_EXPRESSION(11, "Invalid model e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
 
-   INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION(12, "Invalid output iterator e4XPath expression:[%s], expecting XMLObject type, found:[%s]");
+    INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION(12, "Invalid output iterator e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
+
+    CONTEXTMANAGER_INITIALIZE_ERROR(50, "Internal configuration error:[ContextManager.initializeJavaScriptEngine], please verify that the correct dependencies are included. Exception:[%s]");
 
     public static boolean simulate_CANNOT_WRITE_TARGET_FILE = false;
+
+    public static boolean simulate_CONTEXTMANAGER_INITIALIZE_ERROR = false;
 
     private int id;
     private String message;

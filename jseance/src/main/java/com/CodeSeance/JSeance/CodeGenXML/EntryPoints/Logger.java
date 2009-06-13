@@ -42,5 +42,6 @@ package com.CodeSeance.JSeance.CodeGenXML.EntryPoints;
 public interface Logger
 {
     void infoMessage(String message);
+
     void errorMessage(String message);
 }

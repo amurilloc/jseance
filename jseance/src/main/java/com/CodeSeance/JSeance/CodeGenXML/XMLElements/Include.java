@@ -64,7 +64,7 @@ class Include extends HierarchicalNode
         File includesDir = context.getManager().includesDir;
 
         File includeFile = new File(includesDir, fileName);
-        context.LogInfoMessage(log, "Include", String.format("Loading include fileName:[%s]",  fileName));
+        context.LogInfoMessage(log, "Include", String.format("Loading include fileName:[%s]", fileName));
 
         if (!includesDir.exists())
         {

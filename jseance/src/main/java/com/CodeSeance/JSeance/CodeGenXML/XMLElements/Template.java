@@ -85,8 +85,7 @@ public class Template extends HierarchicalNode
         }
     }
 
-    public static String run(File templatesDir, File includesDir, File modelsDir, File targetDir, String fileName,
-                             boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
+    public static String run(File templatesDir, File includesDir, File modelsDir, File targetDir, String fileName, boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
     {
         // Create a local logger for the static context
         Log log = com.CodeSeance.JSeance.CodeGenXML.Runtime.CreateLogger(Template.class);
@@ -111,8 +110,7 @@ public class Template extends HierarchicalNode
         }
 
         // Create a new ContextManager
-        ContextManager contextManager = new ContextManager(templatesDir, includesDir, modelsDir, targetDir,
-                                                           ignoreReadOnlyOuputFiles, templateDependencies);
+        ContextManager contextManager = new ContextManager(templatesDir, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, templateDependencies);
 
         try
         {

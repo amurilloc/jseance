@@ -42,7 +42,7 @@ public class JSDefinitions extends ScriptableObject
         JSDefinitions result = new JSDefinitions();
         for (Object property : getPropertyIds(this))
         {
-            String name = (String)property;
+            String name = (String) property;
             Object val = get(name, this);
             result.put(name, result, val);
         }
@@ -56,7 +56,7 @@ public class JSDefinitions extends ScriptableObject
 
     public Object getDefinition(String name)
     {
-        return has(name, this)? get(name, this) : null;
+        return has(name, this) ? get(name, this) : null;
     }
 
     public void setDefinition(String name, Object val)
