@@ -41,6 +41,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Class for including other script files at runtime
@@ -71,13 +72,16 @@ class Include extends HierarchicalNode
             throw new RuntimeException(ExecutionError.INVALID_INCLUDES_DIR.getMessage(includesDir));
         }
 
-        if (!includeFile.canRead())
-        {
-            throw new RuntimeException(String.format(ExecutionError.INVALID_INCLUDE_FILE.getMessage(includeFile)));
-        }
-
         XMLLoader xmlLoader = XMLLoader.buildFromCodeTemplateSchema();
-        Document document = xmlLoader.loadXML(includesDir, fileName);
+        Document document = null;
+        try
+        {
+            document = xmlLoader.loadXML(includesDir, fileName);
+        }
+        catch (FileNotFoundException ex)
+        {
+            throw new RuntimeException(ExecutionError.INVALID_INCLUDE_FILE.getMessage(includeFile), ex);
+        }
 
         // Add the dependency to the file
         context.getManager().templateDependencies.addInputFile(new File(context.getManager().includesDir, fileName));

@@ -122,11 +122,11 @@ public class ContextManager
             throw new RuntimeException(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR.getMessage(ex.getMessage()));
         }
 
-        evaluateJS("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 25);
-        evaluateJS("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 26);
-        evaluateJS("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "Context.java", 26);
-        evaluateJS("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 26);
-        evaluateJS("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 26);
+        evaluateJSPrivate("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 25);
+        evaluateJSPrivate("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 26);
+        evaluateJSPrivate("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "Context.java", 26);
+        evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 26);
+        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 26);
     }
 
     public void setCurrentDefinitions(JSDefinitions jsDefinitions)
@@ -152,6 +152,11 @@ public class ContextManager
         StreamResult result;
         try
         {
+            if (ExecutionError.simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR)
+            {
+                ExecutionError.simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR = false;
+                throw new TransformerException("Simulated exception for log testing");
+            }
             transformer = TransformerFactory.newInstance().newTransformer();
             // The next section is required in order for the JS engine to parse the XML
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
@@ -162,7 +167,7 @@ public class ContextManager
         catch (TransformerException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException(String.format("Unexpected Exception:[%s], ExecutionError:[%s] ", ex.getClass(), ex.getMessage()), ex);
+            throw new RuntimeException(ExecutionError.CONTEXTMANAGER_CREATEXMLOBJECT_ERROR.getMessage(ex.getMessage()));
         }
 
         String xmlString = result.getWriter().toString();
@@ -170,10 +175,7 @@ public class ContextManager
         // Create the JS Objects
         Object[] args = {xmlString};
         Object jsXMLObj = callJSFunction(XML_CREATE_FN, args);
-        if (!(jsXMLObj instanceof XMLObject))
-        {
-            throw new RuntimeException("Invalid XMLObject, was expecting XMLObject instance");
-        }
+        assert jsXMLObj instanceof XMLObject;
         return (XMLObject) jsXMLObj;
     }
 
@@ -207,10 +209,7 @@ public class ContextManager
     {
         Object[] args = {xmlObj};
         Object result = callJSFunction(XML_LENGTH_FN, args);
-        if (!(result instanceof Integer))
-        {
-            throw new RuntimeException("Invalid XMLObject, was expecting Integer result");
-        }
+        assert result instanceof Integer;
         return (Integer) result;
     }
 
@@ -221,10 +220,7 @@ public class ContextManager
     {
         Object[] args = {xmlObj, index};
         Object result = callJSFunction(XML_GET_NODE_AT_FN, args);
-        if (!(result instanceof XMLObject))
-        {
-            throw new RuntimeException("Invalid result, was expecting XMLObject result");
-        }
+        assert result instanceof XMLObject;
         return (XMLObject) result;
     }
 
@@ -257,20 +253,26 @@ public class ContextManager
         org.mozilla.javascript.Context.exit();
     }
 
-    // Evaluates the specified JavaScript text
+    // Evaluates the specified JavaScript text - Public version useful for logging & breakpoints
     public Object evaluateJS(String script, String sourceName, int lineNo)
     {
-        if (log.isTraceEnabled())
+        if (log.isDebugEnabled())
         {
-            log.trace(String.format("Evaluating JavaScript:[%s]", script));
+            log.debug(String.format("Evaluating JavaScript:[%s]", script));
         }
+        return evaluateJSPrivate(script, sourceName, lineNo);
+    }
+
+    // Evaluates the specified JavaScript text - Private version, not logged
+    private Object evaluateJSPrivate(String script, String sourceName, int lineNo)
+    {
         try
         {
             return jsContext.evaluateString(jsScope, script, sourceName, lineNo, null);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            throw new RuntimeException("Cannot Evaluate JavaScript:[" + script + "] " + sourceName + "Line: " + lineNo, e);
+            throw new RuntimeException(ExecutionError.JAVASCRIPT_EVAL_ERROR.getMessage(script, ex.getMessage()));
         }
     }
 
@@ -278,15 +280,9 @@ public class ContextManager
     public Object callJSFunction(String functionName, Object[] fxArgs)
     {
         Object fxObj = jsScope.get(functionName, jsScope);
-        if (!(fxObj instanceof org.mozilla.javascript.Function))
-        {
-            throw new RuntimeException(functionName + " is undefined or not a JavaScript function.");
-        }
-        else
-        {
-            org.mozilla.javascript.Function fx = (org.mozilla.javascript.Function) fxObj;
-            return fx.call(jsContext, jsScope, jsScope, fxArgs);
-        }
+        assert fxObj instanceof org.mozilla.javascript.Function;
+        org.mozilla.javascript.Function fx = (org.mozilla.javascript.Function) fxObj;
+        return fx.call(jsContext, jsScope, jsScope, fxArgs);
     }
 
     // Prefix to be used when embedding JavaScript code into text
@@ -304,7 +300,7 @@ public class ContextManager
             int locEnd = input.indexOf(CODE_SUFFIX, locStart);
             if (locEnd < 0)
             {
-                throw new RuntimeException("Unterminated " + CODE_PREFIX + " String Fragment:[" + input + "]");
+                throw new RuntimeException(ExecutionError.JAVASCRIPT_NOT_CLOSED.getMessage(input, CODE_SUFFIX));
             }
             String subExpression = input.substring(locStart + CODE_PREFIX.length(), locEnd);
             result.append(input.substring(0, locStart));

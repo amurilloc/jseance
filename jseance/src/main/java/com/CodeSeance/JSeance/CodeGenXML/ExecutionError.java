@@ -58,11 +58,16 @@ public enum ExecutionError
 
     INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION(12, "Invalid output iterator e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
 
-    CONTEXTMANAGER_INITIALIZE_ERROR(50, "Internal configuration error:[ContextManager.initializeJavaScriptEngine], please verify that the correct dependencies are included. Exception:[%s]");
+    JAVASCRIPT_EVAL_ERROR(13, "JavaScript evaluation error on expression:[%s], message:[%s]"),
+    JAVASCRIPT_NOT_CLOSED(14, "Embedded JavaScript code in text:[%s] missing termination marker:[%s]"),
+
+    CONTEXTMANAGER_INITIALIZE_ERROR(500, "Internal configuration error:[ContextManager.initializeJavaScriptEngine], please verify that the correct dependencies are included. Exception:[%s]"),
+    CONTEXTMANAGER_CREATEXMLOBJECT_ERROR(501, "Error converting XML to JavaScript Object:[ContextManager.createXMLObject]. Exception:[%s]");
 
     public static boolean simulate_CANNOT_WRITE_TARGET_FILE = false;
 
     public static boolean simulate_CONTEXTMANAGER_INITIALIZE_ERROR = false;
+    public static boolean simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR = false;
 
     private int id;
     private String message;
@@ -80,6 +85,6 @@ public enum ExecutionError
 
     public String getErrorCode()
     {
-        return String.format("ExecutionError[%05d]", id);
+        return String.format("Error[%05d]", id);
     }
 }

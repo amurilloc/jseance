@@ -1,225 +1,256 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Administrator (N/A) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:JSeance="http://www.codeseance.com/JSeance" targetNamespace="http://www.codeseance.com/JSeance" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" xml:lang="en-us">
-	<xs:annotation>
-		<xs:documentation xml:lang="en">JSeance Template definition for code generation based on XML models and transformations</xs:documentation>
-	</xs:annotation>
-	<xs:complexType name="Hierarchical">
-		<xs:annotation>
-			<xs:documentation>Hierarchical declaration to be inherited by other elements</xs:documentation>
-		</xs:annotation>
-		<xs:choice minOccurs="0" maxOccurs="unbounded">
-			<xs:element name="Model">
-				<xs:annotation>
-					<xs:documentation>JSeance:Model specifies an XML model to use as an input.
+<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Administrator (N/A) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:JSeance="http://www.codeseance.com/JSeance"
+           targetNamespace="http://www.codeseance.com/JSeance" elementFormDefault="qualified"
+           attributeFormDefault="unqualified" version="1.0" xml:lang="en-us">
+    <xs:annotation>
+        <xs:documentation xml:lang="en">JSeance Template definition for code generation based on XML models and
+            transformations
+        </xs:documentation>
+    </xs:annotation>
+    <xs:complexType name="Hierarchical">
+        <xs:annotation>
+            <xs:documentation>Hierarchical declaration to be inherited by other elements</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="Model">
+                <xs:annotation>
+                    <xs:documentation>JSeance:Model specifies an XML model to use as an input.
 
-Models have the following characteristics:
-- Lives in the context of its parent node and can be referenced by Models['name'] or Models['default'] for unnamed models.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:attribute name="fileName" type="xs:string" use="required">
-						<xs:annotation>
-							<xs:documentation>The filename of the model to load relative to the executing template file.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="name" type="xs:string" use="optional" default="default">
-						<xs:annotation>
-							<xs:documentation>Name of the model if specific model references are needed, the last declared model becomes the current model in the context, make sure to define a model names if you are using multiple input files.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="e4XPath" type="xs:string" use="optional">
-						<xs:annotation>
-							<xs:documentation>The E4X Path of the currentNode, otherwise rootNode is the currentNode.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="validate" type="xs:boolean">
-						<xs:annotation>
-							<xs:documentation>Indicates if the parser should validate the XML file against schema</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="xsdFileName">
-						<xs:annotation>
-							<xs:documentation>Indicates the name of the XSD file to use if validate is true</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="FileOutput">
-				<xs:annotation>
-					<xs:documentation>Specifies a file to use as output. All text outputs within children will be directed to the specified filename</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="JSeance:Hierarchical">
-							<xs:attribute name="fileName" use="required">
-								<xs:annotation>
-									<xs:documentation>The filename to open, relative to the current template</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
-					</xs:complexContent>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Text" type="xs:string">
-				<xs:annotation>
-					<xs:documentation>Simple text output to the default sink</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="Include">
-				<xs:annotation>
-					<xs:documentation>Includes another template file in the current template</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:attribute name="fileName" use="required"/>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="OutputIterator">
-				<xs:annotation>
-					<xs:documentation>A node iterator relative to the current context node, it allows iteration and text concatenation</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="JSeance:Hierarchical">
-							<xs:attribute name="e4XPath" use="required">
-								<xs:annotation>
-									<xs:documentation>The e4XPath from the current node to select a group of nodes to iterate from, e4XPath expression is expected to return a nodegroup</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-							<xs:attribute name="modelName" type="xs:string" default="default">
-								<xs:annotation>
-									<xs:documentation>The name of the model to use, it allows iteration over multiple model files as long as the model was declared in the current or parent context</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-							<xs:attribute name="separator" type="xs:string">
-								<xs:annotation>
-									<xs:documentation>A separator to use when concatenating data, useful for building text structures such as comma-separated lists</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
-					</xs:complexContent>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Switch">
-				<xs:annotation>
-					<xs:documentation>Allows different actions based on a string value</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="Case" maxOccurs="unbounded">
-							<xs:annotation>
-								<xs:documentation>Evaluation path for a string value</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:complexContent>
-									<xs:extension base="JSeance:Hierarchical">
-										<xs:attribute name="value" type="xs:string" use="required">
-											<xs:annotation>
-												<xs:documentation>The value required for this case section to execute</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-									</xs:extension>
-								</xs:complexContent>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="Default" type="JSeance:Hierarchical" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>The default expression to evaluate if no match is found</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:sequence>
-					<xs:attribute name="jsExpression" type="xs:string" use="required">
-						<xs:annotation>
-							<xs:documentation>The script to evaluate, a return type of string is expected </xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Conditional">
-				<xs:annotation>
-					<xs:documentation>The enclosing tag for an if-else clause group</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="If">
-							<xs:annotation>
-								<xs:documentation>If conditional</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:complexContent>
-									<xs:extension base="JSeance:Hierarchical">
-										<xs:attribute name="jsExpression" type="xs:string" use="required">
-											<xs:annotation>
-												<xs:documentation>The expression to evaluate</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-									</xs:extension>
-								</xs:complexContent>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="ElseIf" minOccurs="0" maxOccurs="unbounded">
-							<xs:annotation>
-								<xs:documentation>Else If conditional</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:complexContent>
-									<xs:extension base="JSeance:Hierarchical">
-										<xs:attribute name="jsExpression" type="xs:string" use="required">
-											<xs:annotation>
-												<xs:documentation>The expression to evaluate</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-									</xs:extension>
-								</xs:complexContent>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="Else" type="JSeance:Hierarchical" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Else conditional</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="JavaScript" type="xs:string">
-				<xs:annotation>
-					<xs:documentation>Allows custom JavaScript declarations to be embedded into the template</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="Definition">
-				<xs:annotation>
-					<xs:documentation>A definition is a named text output that can be placed inside TextOuput\Value elements or other text elements</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="JSeance:Hierarchical">
-							<xs:attribute name="name" use="required"/>
-						</xs:extension>
-					</xs:complexContent>
-				</xs:complexType>
-			</xs:element>
-		</xs:choice>
-	</xs:complexType>
-	<xs:element name="Template" type="JSeance:Hierarchical">
-		<xs:annotation>
-			<xs:documentation>Root element for a CodeTemplate xml file</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="Include">
-		<xs:annotation>
-			<xs:documentation>Root element for Included CodeTemplates</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="RequiredDefine" minOccurs="0" maxOccurs="unbounded">
-					<xs:annotation>
-						<xs:documentation>Declarations to be used in the included template, the runtime enforces these and allow users to quickly identify pre-requisite defines</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:attribute name="name" use="required"/>
-					</xs:complexType>
-				</xs:element>
-				<xs:element ref="JSeance:Template"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+                        Models have the following characteristics:
+                        - Lives in the context of its parent node and can be referenced by Models['name'] or
+                        Models['default'] for unnamed models.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="fileName" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The filename of the model to load relative to the executing template file.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="optional" default="default">
+                        <xs:annotation>
+                            <xs:documentation>Name of the model if specific model references are needed, the last
+                                declared model becomes the current model in the context, make sure to define a model
+                                names if you are using multiple input files.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="e4XPath" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>The E4X Path of the currentNode, otherwise rootNode is the currentNode.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="validate" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Indicates if the parser should validate the XML file against schema
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="xsdFileName">
+                        <xs:annotation>
+                            <xs:documentation>Indicates the name of the XSD file to use if validate is true
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="FileOutput">
+                <xs:annotation>
+                    <xs:documentation>Specifies a file to use as output. All text outputs within children will be
+                        directed to the specified filename
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="JSeance:Hierarchical">
+                            <xs:attribute name="fileName" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>The filename to open, relative to the current template
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Text" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Simple text output to the default sink</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Include">
+                <xs:annotation>
+                    <xs:documentation>Includes another template file in the current template</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="fileName" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OutputIterator">
+                <xs:annotation>
+                    <xs:documentation>A node iterator relative to the current context node, it allows iteration and text
+                        concatenation
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="JSeance:Hierarchical">
+                            <xs:attribute name="e4XPath" use="required">
+                                <xs:annotation>
+                                    <xs:documentation>The e4XPath from the current node to select a group of nodes to
+                                        iterate from, e4XPath expression is expected to return a nodegroup
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="modelName" type="xs:string" default="default">
+                                <xs:annotation>
+                                    <xs:documentation>The name of the model to use, it allows iteration over multiple
+                                        model files as long as the model was declared in the current or parent context
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="separator" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>A separator to use when concatenating data, useful for building
+                                        text structures such as comma-separated lists
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Switch">
+                <xs:annotation>
+                    <xs:documentation>Allows different actions based on a string value</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Case" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Evaluation path for a string value</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="JSeance:Hierarchical">
+                                        <xs:attribute name="value" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>The value required for this case section to execute
+                                                </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Default" type="JSeance:Hierarchical" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>The default expression to evaluate if no match is found
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="jsExpression" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The script to evaluate, a return type of string is expected
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Conditional">
+                <xs:annotation>
+                    <xs:documentation>The enclosing tag for an if-else clause group</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="If">
+                            <xs:annotation>
+                                <xs:documentation>If conditional</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="JSeance:Hierarchical">
+                                        <xs:attribute name="jsExpression" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>The expression to evaluate</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="ElseIf" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Else If conditional</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="JSeance:Hierarchical">
+                                        <xs:attribute name="jsExpression" type="xs:string" use="required">
+                                            <xs:annotation>
+                                                <xs:documentation>The expression to evaluate</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Else" type="JSeance:Hierarchical" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Else conditional</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="JavaScript" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Allows custom JavaScript declarations to be embedded into the template
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Definition">
+                <xs:annotation>
+                    <xs:documentation>A definition is a named text output that can be placed inside TextOuput\Value
+                        elements or other text elements
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="JSeance:Hierarchical">
+                            <xs:attribute name="name" use="required"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:element name="Template" type="JSeance:Hierarchical">
+        <xs:annotation>
+            <xs:documentation>Root element for a CodeTemplate xml file</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="Include">
+        <xs:annotation>
+            <xs:documentation>Root element for Included CodeTemplates</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="RequiredDefine" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Declarations to be used in the included template, the runtime enforces these
+                            and allow users to quickly identify pre-requisite defines
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:attribute name="name" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="JSeance:Template"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

@@ -36,12 +36,14 @@ package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 import com.CodeSeance.JSeance.CodeGenXML.Context;
 import com.CodeSeance.JSeance.CodeGenXML.ContextManager;
 import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.TemplateDependencies;
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
 import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Top element of a CodeSeance Template, provides a loader to parse and execute a template
@@ -99,7 +101,15 @@ public class Template extends HierarchicalNode
         XMLLoader xmlLoader = XMLLoader.buildFromCodeTemplateSchema();
 
         // Loads the XML document
-        Document document = xmlLoader.loadXML(templatesDir, fileName);
+        Document document = null;
+        try
+        {
+            document = xmlLoader.loadXML(templatesDir, fileName);
+        }
+        catch (FileNotFoundException ex)
+        {
+            throw new RuntimeException(ExecutionError.INVALID_TEMPLATE_FILE.getMessage(fileName), ex);
+        }
 
         // Load the object hierarchy from the XMLDocument
         Template template = new Template(document.getDocumentElement());

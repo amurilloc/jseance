@@ -33,8 +33,8 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
-import org.testng.annotations.Test;
 import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
+import org.testng.annotations.Test;
 
 public class OutputIteratorTest extends TestCase
 {

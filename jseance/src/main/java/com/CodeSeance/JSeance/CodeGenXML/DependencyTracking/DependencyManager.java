@@ -62,6 +62,9 @@ public class DependencyManager
 
     public DependencyManager(File targetDir)
     {
+        // Output directory must exist already
+        assert targetDir.exists();
+
         this.outputDirectory = targetDir;
 
         // Load the dependencies from disk
@@ -143,6 +146,12 @@ public class DependencyManager
     }
 
     Hashtable<String, TemplateDependencies> templateDependencies = new Hashtable<String, TemplateDependencies>();
+
+    public static void cleanup(File targetDir)
+    {
+        DependencyManager dependencyManager = new DependencyManager(targetDir);
+        dependencyManager.cleanup();
+    }
 
     public void cleanup()
     {

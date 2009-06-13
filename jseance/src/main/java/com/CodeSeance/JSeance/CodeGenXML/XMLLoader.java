@@ -59,23 +59,23 @@ import java.io.*;
  */
 public class XMLLoader
 {
+    // TODO: No validation or errors for xsd files
+    // TODO: No base paths for xsd files, need to check if relative works ok
+    // TODO: Wrap rest of exceptions
+    // TODO: Edit global XSD comments
+    // TODO: Edit JavaScript
+    // TODO: Create task list for manual
+    // TODO: TestCase for DependencyManager
+    // TODO: TestCase for all EntryPoints
+
     /*
     * Builds an XML Builder loading the XSD embedded into the project
      */
     public static XMLLoader buildFromCodeTemplateSchema()
     {
         InputStream xsdFile = XMLLoader.class.getClassLoader().getResourceAsStream(SCHEMA_FILE);
-        try
-        {
-            return new XMLLoader(xsdFile);
-        }
-        catch (ParserConfigurationException ex)
-        {
-            // Wrap Exception with RuntimeException since caller won't be able to handle it
-            Log log = LogFactory.getLog(XMLLoader.class.getName().replace("com.CodeSeance.JSeance.", ""));
-            log.fatal("Cannot create XMLLoader instance for parsing a Template XML file");
-            throw new RuntimeException(String.format("ParserConfigurationException:[%s]", ex.getMessage()), ex);
-        }
+        return new XMLLoader(xsdFile);
+
     }
 
     /*
@@ -84,17 +84,7 @@ public class XMLLoader
     */
     public static XMLLoader build(boolean validate)
     {
-        try
-        {
-            return new XMLLoader(validate);
-        }
-        catch (ParserConfigurationException ex)
-        {
-            // Wrap Exception with RuntimeException since caller won't be able to handle it
-            Log log = LogFactory.getLog(XMLLoader.class.getName().replace("com.CodeSeance.JSeance.", ""));
-            log.fatal("Cannot create XMLLoader instance from XMLLoader build(boolean validate)");
-            throw new RuntimeException(String.format("ParserConfigurationException:[%s]", ex.getMessage()), ex);
-        }
+        return new XMLLoader(validate);
     }
 
     /*
@@ -102,18 +92,7 @@ public class XMLLoader
     */
     public static XMLLoader buildFromXSDFileName(File parentPath, String xsdFileName)
     {
-        try
-        {
-            return new XMLLoader(parentPath, xsdFileName);
-        }
-        catch (ParserConfigurationException ex)
-        {
-            // Wrap Exception with RuntimeException since caller won't be able to handle it
-            Log log = LogFactory.getLog(XMLLoader.class.getName().replace("com.CodeSeance.JSeance.", ""));
-            log.fatal("Cannot create XMLLoader instance from XMLLoader buildFromXSDFileName(File parentPath, String xsdFileName)");
-            throw new RuntimeException(String.format("ParserConfigurationException:[%s]", ex.getMessage()), ex);
-        }
-
+        return new XMLLoader(parentPath, xsdFileName);
     }
 
     // The name of the embedded xsd for COdeTemplate
@@ -125,7 +104,7 @@ public class XMLLoader
     /*
    * Provate constructor with no specific schema file and validation option
     */
-    private XMLLoader(boolean validate) throws ParserConfigurationException
+    private XMLLoader(boolean validate)
     {
         createDocumentBuilder(validate, null);
     }
@@ -133,7 +112,7 @@ public class XMLLoader
     /*
     * Private constructor with optional validation and InputStream xsdFile
     */
-    private XMLLoader(InputStream xsdFile) throws ParserConfigurationException
+    private XMLLoader(InputStream xsdFile)
     {
         createDocumentBuilder(true, xsdFile);
     }
@@ -141,7 +120,7 @@ public class XMLLoader
     /*
     * Private constructor with optional validation and xsd File
     */
-    private XMLLoader(File parentPath, String xsdFileName) throws ParserConfigurationException
+    private XMLLoader(File parentPath, String xsdFileName)
     {
         File xsdFile = new File(parentPath, xsdFileName);
         createDocumentBuilder(true, xsdFile);
@@ -150,7 +129,7 @@ public class XMLLoader
     /*
     * Wrapper for JAXP API DocumentBuilder creation, initializes required members
     */
-    private void createDocumentBuilder(boolean validate, Object xsdFile) throws ParserConfigurationException
+    private void createDocumentBuilder(boolean validate, Object xsdFile)
     {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         docFactory.setIgnoringComments(true);
@@ -165,7 +144,15 @@ public class XMLLoader
             }
         }
 
-        documentBuilder = docFactory.newDocumentBuilder();
+        try
+        {
+            documentBuilder = docFactory.newDocumentBuilder();
+        }
+        catch (ParserConfigurationException ex)
+        {
+            // This should never occur
+            assert false : ex;
+        }
 
         ErrorHandler errorHandler = new ErrorHandler();
         documentBuilder.setErrorHandler(errorHandler);
@@ -174,19 +161,11 @@ public class XMLLoader
     /*
      * Loads the specified XML stream and returns the document object
      */
-    public Document loadXML(File parentPath, String fileName)
+    public Document loadXML(File parentPath, String fileName) throws FileNotFoundException
     {
-        try
-        {
-            File file = new File(parentPath, fileName);
-            InputStream inputStream = new FileInputStream(file);
-            return loadXML(inputStream);
-        }
-        catch (FileNotFoundException ex)
-        {
-            // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException("Unexpected Exception: " + ex.getClass(), ex);
-        }
+        File file = new File(parentPath, fileName);
+        InputStream inputStream = new FileInputStream(file);
+        return loadXML(inputStream);
     }
 
     /*
