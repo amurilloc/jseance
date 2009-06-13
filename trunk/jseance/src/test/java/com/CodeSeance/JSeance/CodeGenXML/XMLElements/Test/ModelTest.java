@@ -33,8 +33,8 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
-import org.testng.annotations.Test;
 import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
+import org.testng.annotations.Test;
 
 public class ModelTest extends TestCase
 {
@@ -308,5 +308,23 @@ public class ModelTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
 
         expectError(ExecutionError.INVALID_MODEL_E4X_EXPRESSION, true, true, true, true, false, e4XPath, false);
+    }
+
+    @Test
+    public void modelTest_ContextManagerCreateXMLObject_Error()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A val=\"A\"/>");
+        model.append("</Model>");
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Model fileName=\"{MODEL}\"/>");
+        template.append(" <Text>@JavaScript{Models['default'].currentNode.A.@val;}@</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        ExecutionError.simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR = true;
+
+        expectError(ExecutionError.CONTEXTMANAGER_CREATEXMLOBJECT_ERROR, true, true, true, true, false, null, false);
     }
 }

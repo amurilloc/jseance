@@ -67,7 +67,7 @@ abstract class Node
 
         if (log.isDebugEnabled())
         {
-            log.trace(String.format("Loading XMLElement:[%s]", element.getLocalName()));
+            log.debug(String.format("Loading XMLElement:[%s]", element.getLocalName()));
         }
 
         this.element = element;

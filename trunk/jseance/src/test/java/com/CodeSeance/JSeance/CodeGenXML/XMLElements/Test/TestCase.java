@@ -33,6 +33,7 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
+import com.CodeSeance.JSeance.CodeGenXML.DependencyTracking.DependencyManager;
 import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Logger;
 import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 
@@ -50,7 +51,7 @@ public class TestCase implements Logger
 
     private List<String> errors = new ArrayList<String>();
 
-    private final String logFile =  "./target/jseance-test.log";
+    private final String logFile = "./target/jseance-test.log";
 
     public void reset()
     {
@@ -140,7 +141,7 @@ public class TestCase implements Logger
             outcome = runtime.run(parentPath, templateFileNames, this);
 
             // Cleanup the dependencies file
-            runtime.dependencyManager.cleanup();
+            DependencyManager.cleanup(parentPath);
 
             if (!result.equals(outcome))
             {
@@ -178,7 +179,7 @@ public class TestCase implements Logger
             runtime.run(validTemplatesDir ? parentPath : incorrectDir, templateFileNames, this);
 
             // Cleanup the dependencies file
-            runtime.dependencyManager.cleanup();
+            DependencyManager.cleanup(parentPath);
 
             if (errors.size() == 0)
             {

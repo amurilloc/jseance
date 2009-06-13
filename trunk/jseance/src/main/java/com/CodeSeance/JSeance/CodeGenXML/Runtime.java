@@ -66,8 +66,6 @@ public class Runtime
         this.forceRebuild = forceRebuild;
 
         ConfigureLogger();
-
-        dependencyManager = new DependencyManager(targetDir);
     }
 
     //Uses the specified filename for error logging
@@ -95,7 +93,7 @@ public class Runtime
     private final boolean forceRebuild;
 
     // The dependency manager used to avoid unnecessary builds
-    public final DependencyManager dependencyManager;
+    //private final DependencyManager dependencyManager;
 
     private void ConfigureLogger(Properties properties, String logName, String threshold, String fileName)
     {
@@ -162,41 +160,35 @@ public class Runtime
             return null;
         }
 
+        DependencyManager dependencyManager = new DependencyManager(targetDir);
+
         // access non-option arguments and generate the templates
         for (String fileName : templateFileNames)
         {
             File file = new File(templatesDir, fileName);
-            if (file.canRead())
-            {
-                TemplateDependencies templateDependencies = dependencyManager.getTemplateDependencies(file);
 
-                if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
+            TemplateDependencies templateDependencies = dependencyManager.getTemplateDependencies(file);
+
+            if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
+            {
+                externalLog.infoMessage(String.format("Processing template file:[%s]", fileName));
+                try
                 {
-                    externalLog.infoMessage(String.format("Processing template file:[%s]", fileName));
-                    try
-                    {
-                        String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
-                        buffer.append(result);
-                        dependencyManager.commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        externalLog.errorMessage(ex.getMessage());
-                        log.error(ex.getMessage());
-                    }
+                    String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
+                    buffer.append(result);
+                    dependencyManager.commit();
                 }
-                else
+                catch (Exception ex)
                 {
-                    String message = String.format("File dependencies are up to date, skipping template generation:[%s]", file);
-                    externalLog.infoMessage(message);
-                    log.info(message);
+                    externalLog.errorMessage(ex.getMessage());
+                    log.error(ex.getMessage());
                 }
             }
             else
             {
-                String message = ExecutionError.INVALID_TEMPLATE_FILE.getMessage(file);
-                externalLog.errorMessage(message);
-                log.error(message);
+                String message = String.format("File dependencies are up to date, skipping template generation:[%s]", file);
+                externalLog.infoMessage(message);
+                log.info(message);
             }
         }
         return buffer.toString();

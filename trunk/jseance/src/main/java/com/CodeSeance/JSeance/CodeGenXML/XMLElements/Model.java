@@ -39,6 +39,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Class for loading an XML model into the parent context
@@ -84,11 +85,6 @@ class Model extends Node
             throw new RuntimeException(ExecutionError.INVALID_MODELS_DIR.getMessage(modelsDir));
         }
 
-        if (!modelFile.canRead())
-        {
-            throw new RuntimeException(String.format(ExecutionError.INVALID_MODEL_FILE.getMessage(modelFile)));
-        }
-
         // Load the XML File
         XMLLoader xmlLoader;
 
@@ -100,7 +96,15 @@ class Model extends Node
         {
             xmlLoader = XMLLoader.buildFromXSDFileName(context.getManager().modelsDir, xsdFileName);
         }
-        Document xmlDoc = xmlLoader.loadXML(context.getManager().modelsDir, fileName);
+        Document xmlDoc = null;
+        try
+        {
+            xmlDoc = xmlLoader.loadXML(context.getManager().modelsDir, fileName);
+        }
+        catch (FileNotFoundException ex)
+        {
+            throw new RuntimeException(ExecutionError.INVALID_MODEL_FILE.getMessage(modelFile), ex);
+        }
 
         // Add the dependency to the file
         context.getManager().templateDependencies.addInputFile(new File(context.getManager().modelsDir, fileName));

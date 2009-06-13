@@ -93,7 +93,7 @@ public class TemplateDependencies
             }
         }
 
-        long inputLastModifiedDate = templateFile.lastModified();
+        long inputLastModifiedDate = templateFile.exists() ? templateFile.lastModified() : Long.MAX_VALUE;
 
         // Optimization: Check if the template file is newer than the newest output file
         if (inputLastModifiedDate > outputEarliestModificationDate)

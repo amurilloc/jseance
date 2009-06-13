@@ -1,7 +1,8 @@
-<Include xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
-	<Template>
-		<Text>Sample Header Text
- 
- </Text>
-	</Template>
+<Include xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.codeseance.com/JSeance">
+    <Template>
+        <Text>Sample Header Text
+
+        </Text>
+    </Template>
 </Include>

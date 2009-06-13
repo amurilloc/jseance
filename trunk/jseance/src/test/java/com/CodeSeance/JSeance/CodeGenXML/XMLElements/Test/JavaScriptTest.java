@@ -33,6 +33,7 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test;
 
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import org.testng.annotations.Test;
 
 public class JavaScriptTest extends TestCase
@@ -46,5 +47,29 @@ public class JavaScriptTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
 
         expectResult("A");
+    }
+
+    @Test
+    public void javaScriptEvalErrorTest()
+    {
+        String jsError = "for x y z is false";
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Text>@JavaScript{");
+        template.append(jsError);
+        template.append("}@</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.JAVASCRIPT_EVAL_ERROR, true, true, true, true, false, jsError, false);
+    }
+
+    @Test
+    public void javaScriptNotClosedTest()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <JavaScript>var testVar = 'A';</JavaScript>");
+        template.append(" <Text>@JavaScript{testVar</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.JAVASCRIPT_NOT_CLOSED, true, true, true, true, false, null, false);
     }
 }
