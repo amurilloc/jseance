@@ -94,4 +94,28 @@ public class TemplateTest extends TestCase
 
         expectError(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR, true, true, true, true, false, null, false);
     }
+
+    @Test
+    public void templateTest_XMLParserConfigError()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Text>A.</Text>");
+        template.append(" <Text>B</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        ExecutionError.simulate_XML_PARSER_CONFIG_ERROR = true;
+
+        expectError(ExecutionError.XML_PARSER_CONFIG_ERROR, true, true, true, true, false, null, false);
+    }
+
+    @Test
+    public void templateTest_InvalidXML()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <TextA.</Text>"); // Missing >
+        template.append(" <Text>B</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_TEMPLATE_XML, true, true, true, true, false, null, false);
+    }
 }

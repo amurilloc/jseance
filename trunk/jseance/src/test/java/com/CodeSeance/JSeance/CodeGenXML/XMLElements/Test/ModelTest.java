@@ -327,4 +327,20 @@ public class ModelTest extends TestCase
 
         expectError(ExecutionError.CONTEXTMANAGER_CREATEXMLOBJECT_ERROR, true, true, true, true, false, null, false);
     }
+
+    @Test
+    public void modelTest_InvalidModelXML()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model");  // Missing closing brace
+        model.append(" <A val=\"A\"/>");
+        model.append("</Model>");
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Model fileName=\"{MODEL}\"/>");
+        template.append(" <Text>@JavaScript{Models['default'].currentNode.A.@val;}@</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_MODEL_XML, true, true, true, true, false, null, false);
+    }
 }

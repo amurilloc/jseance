@@ -37,6 +37,7 @@ import com.CodeSeance.JSeance.CodeGenXML.*;
 import org.mozilla.javascript.xml.XMLObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -104,6 +105,10 @@ class Model extends Node
         catch (FileNotFoundException ex)
         {
             throw new RuntimeException(ExecutionError.INVALID_MODEL_FILE.getMessage(modelFile), ex);
+        }
+        catch (SAXException ex)
+        {
+            throw new RuntimeException(ExecutionError.INVALID_MODEL_XML.getMessage(modelFile, ex.getMessage()), ex);
         }
 
         // Add the dependency to the file

@@ -41,6 +41,7 @@ import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
 import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -109,6 +110,10 @@ public class Template extends HierarchicalNode
         catch (FileNotFoundException ex)
         {
             throw new RuntimeException(ExecutionError.INVALID_TEMPLATE_FILE.getMessage(fileName), ex);
+        }
+        catch (SAXException ex)
+        {
+            throw new RuntimeException(ExecutionError.INVALID_TEMPLATE_XML.getMessage(fileName, ex.getMessage()), ex);
         }
 
         // Load the object hierarchy from the XMLDocument
