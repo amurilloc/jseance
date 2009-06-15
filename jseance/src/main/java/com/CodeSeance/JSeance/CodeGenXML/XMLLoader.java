@@ -179,12 +179,17 @@ public class XMLLoader
     {
         try
         {
+            if (ExecutionError.simulate_XML_PARSER_IO_ERROR)
+            {
+                ExecutionError.simulate_XML_PARSER_IO_ERROR = false;
+                throw new IOException("Simulated exception for log testing");
+            }
             return documentBuilder.parse(inputStream);
         }
         catch (IOException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException("Unexpected Exception: " + ex.getClass(), ex);
+            throw new RuntimeException(ExecutionError.XML_PARSER_IO_ERROR.getMessage(ex.getMessage()));
         }
     }
 

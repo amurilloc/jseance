@@ -64,17 +64,19 @@ public enum ExecutionError
     INVALID_INCLUDES_DIR(400, "Cannot read includes directory:[%s]"),
     INVALID_INCLUDE_FILE(401, "Cannot read include file:[%s]"),
     MISSING_INCLUDE_DEFINITION(402, "Missing include definition:[%s]"),
-    INVALID_INCLUDE_XML(302, "Error parsing include XML file:[%s] - Message:[%s]"),
+    INVALID_INCLUDE_XML(403, "Error parsing include XML file:[%s] - Message:[%s]"),
 
     // 900 - Internal errorrs
     CONTEXTMANAGER_INITIALIZE_ERROR(900, "Internal configuration error:[ContextManager.initializeJavaScriptEngine], please verify that the correct dependencies are included. Exception:[%s]"),
     CONTEXTMANAGER_CREATEXMLOBJECT_ERROR(901, "Error converting XML to JavaScript Object:[ContextManager.createXMLObject]. Exception:[%s]"),
-    XML_PARSER_CONFIG_ERROR(902, "Error configuring XML Parser:[%s]");
+    XML_PARSER_CONFIG_ERROR(902, "Error configuring XML Parser:[%s]"),
+    XML_PARSER_IO_ERROR(903, "IO Error while parsing XML:[%s]");
 
     // Exception simulation, for cases where throwing is too complex
     public static boolean simulate_CANNOT_WRITE_TARGET_FILE = false;
     public static boolean simulate_CONTEXTMANAGER_INITIALIZE_ERROR = false;
     public static boolean simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR = false;
+    public static boolean simulate_XML_PARSER_IO_ERROR = false;
     public static boolean simulate_XML_PARSER_CONFIG_ERROR = false;
 
     private int id;

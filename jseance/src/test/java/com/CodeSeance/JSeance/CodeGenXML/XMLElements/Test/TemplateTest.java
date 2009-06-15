@@ -109,6 +109,19 @@ public class TemplateTest extends TestCase
     }
 
     @Test
+    public void templateTest_XMLIOError()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Text>A.</Text>");
+        template.append(" <Text>B</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        ExecutionError.simulate_XML_PARSER_IO_ERROR = true;
+
+        expectError(ExecutionError.XML_PARSER_IO_ERROR, true, true, true, true, false, null, false);
+    }
+
+    @Test
     public void templateTest_InvalidXML()
     {
         template.append(TEMPLATE_HEADER_OPEN);
