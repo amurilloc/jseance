@@ -98,9 +98,10 @@ abstract class Node
                 {
                     field.set(this, replaceJSAndConvert(contextManager, stringValue, type));
                 }
-                catch (IllegalAccessException e)
+                catch (IllegalAccessException ex)
                 {
-                    throw new RuntimeException("Programming ExecutionError: IllegalAccessException during Node attribute construction:");
+                    // This is due to a programming error, member field should be public
+                    assert false : ex;
                 }
             }
             else if (field.isAnnotationPresent(XMLTextContent.class))
@@ -110,9 +111,10 @@ abstract class Node
                 {
                     field.set(this, replaceJSAndConvert(contextManager, element.getTextContent(), type));
                 }
-                catch (IllegalAccessException e)
+                catch (IllegalAccessException ex)
                 {
-                    throw new RuntimeException("Programming ExecutionError: IllegalAccessException during Node attribute construction:");
+                    // This is due to a programming error, member field should be public
+                    assert false : ex;
                 }
             }
         }
@@ -135,7 +137,9 @@ abstract class Node
         }
         else
         {
-            throw new RuntimeException("Programming ExecutionError: Unsupported class attribute type during Node construction:" + type.toString());
+            // Unsupported class attribute type during Node construction
+            assert false : type;
+            return null;
         }
     }
 
