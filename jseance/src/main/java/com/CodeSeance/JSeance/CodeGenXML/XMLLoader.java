@@ -33,12 +33,8 @@
 
 package com.CodeSeance.JSeance.CodeGenXML;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -98,8 +94,8 @@ public class XMLLoader
     // The name of the embedded xsd for COdeTemplate
     public static final String SCHEMA_FILE = "JSeance1.0.xsd";
 
-    // The instance logger
-    private final Log log = LogFactory.getLog(XMLLoader.class.getName().replace("com.CodeSeance.JSeance.", ""));
+    // The instance logger - Not used
+    //private final Log log = LogFactory.getLog(XMLLoader.class.getName().replace("com.CodeSeance.JSeance.", ""));
 
     /*
    * Provate constructor with no specific schema file and validation option
@@ -157,9 +153,6 @@ public class XMLLoader
         {
             throw new RuntimeException(ExecutionError.XML_PARSER_CONFIG_ERROR.getMessage(ex.getMessage()));
         }
-
-        ErrorHandler errorHandler = new ErrorHandler();
-        documentBuilder.setErrorHandler(errorHandler);
     }
 
     /*
@@ -202,28 +195,4 @@ public class XMLLoader
 
     // the name and path of the XSD schema for XML Validation
     static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
-
-    // Internal class for error handling
-    private class ErrorHandler extends DefaultHandler
-    {
-        private String FormatMessage(SAXParseException ex)
-        {
-            return String.format("XML Parsing ExecutionError - LineNumber:%d, ColumnNumber:%d, Message:%s", ex.getLineNumber(), ex.getColumnNumber(), ex.getMessage());
-        }
-
-        public void warning(SAXParseException ex)
-        {
-            log.warn(FormatMessage(ex));
-        }
-
-        public void error(SAXParseException ex)
-        {
-            log.error(FormatMessage(ex));
-        }
-
-        public void fatalError(SAXParseException ex)
-        {
-            log.fatal(FormatMessage(ex));
-        }
-    }
 }
