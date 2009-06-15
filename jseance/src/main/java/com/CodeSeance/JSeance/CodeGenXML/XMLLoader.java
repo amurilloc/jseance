@@ -147,11 +147,15 @@ public class XMLLoader
         try
         {
             documentBuilder = docFactory.newDocumentBuilder();
+            if (ExecutionError.simulate_XML_PARSER_CONFIG_ERROR)
+            {
+                ExecutionError.simulate_XML_PARSER_CONFIG_ERROR = false;
+                throw new ParserConfigurationException("Simulated exception for log testing");
+            }
         }
         catch (ParserConfigurationException ex)
         {
-            // This should never occur
-            assert false : ex;
+            throw new RuntimeException(ExecutionError.XML_PARSER_CONFIG_ERROR.getMessage(ex.getMessage()));
         }
 
         ErrorHandler errorHandler = new ErrorHandler();
@@ -161,7 +165,7 @@ public class XMLLoader
     /*
      * Loads the specified XML stream and returns the document object
      */
-    public Document loadXML(File parentPath, String fileName) throws FileNotFoundException
+    public Document loadXML(File parentPath, String fileName) throws FileNotFoundException, SAXException
     {
         File file = new File(parentPath, fileName);
         InputStream inputStream = new FileInputStream(file);
@@ -171,18 +175,13 @@ public class XMLLoader
     /*
     * Loads the specified XML file and returns the document object
     */
-    public Document loadXML(InputStream inputStream)
+    public Document loadXML(InputStream inputStream) throws SAXException
     {
         try
         {
             return documentBuilder.parse(inputStream);
         }
         catch (IOException ex)
-        {
-            // Wrap Exception with RuntimeException since caller won't be able to handle it
-            throw new RuntimeException("Unexpected Exception: " + ex.getClass(), ex);
-        }
-        catch (SAXException ex)
         {
             // Wrap Exception with RuntimeException since caller won't be able to handle it
             throw new RuntimeException("Unexpected Exception: " + ex.getClass(), ex);
@@ -204,7 +203,7 @@ public class XMLLoader
     {
         private String FormatMessage(SAXParseException ex)
         {
-            return String.format("XML Parsing ExecutionError - LineNumber:[%d], ColumnNumber:[%d], Message:[%s]", ex.getLineNumber(), ex.getColumnNumber(), ex.getMessage());
+            return String.format("XML Parsing ExecutionError - LineNumber:%d, ColumnNumber:%d, Message:%s", ex.getLineNumber(), ex.getColumnNumber(), ex.getMessage());
         }
 
         public void warning(SAXParseException ex)
@@ -212,16 +211,14 @@ public class XMLLoader
             log.warn(FormatMessage(ex));
         }
 
-        public void error(SAXParseException ex) throws SAXParseException
+        public void error(SAXParseException ex)
         {
             log.error(FormatMessage(ex));
-            throw ex;
         }
 
-        public void fatalError(SAXParseException ex) throws SAXParseException
+        public void fatalError(SAXParseException ex)
         {
             log.fatal(FormatMessage(ex));
-            throw ex;
         }
     }
 }

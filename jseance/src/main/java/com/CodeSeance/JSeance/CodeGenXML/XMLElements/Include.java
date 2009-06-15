@@ -39,6 +39,7 @@ import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import com.CodeSeance.JSeance.CodeGenXML.XMLLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,6 +82,10 @@ class Include extends HierarchicalNode
         catch (FileNotFoundException ex)
         {
             throw new RuntimeException(ExecutionError.INVALID_INCLUDE_FILE.getMessage(includeFile), ex);
+        }
+        catch (SAXException ex)
+        {
+            throw new RuntimeException(ExecutionError.INVALID_INCLUDE_XML.getMessage(includeFile, ex.getMessage()), ex);
         }
 
         // Add the dependency to the file

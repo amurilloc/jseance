@@ -123,4 +123,21 @@ public class IncludeTest extends TestCase
 
         expectError(ExecutionError.INVALID_INCLUDE_FILE, true, true, true, true, false, invalidIncludeFile, false);
     }
+
+    @Test
+    public void includeTest_InvalidXML()
+    {
+        StringBuilder include = createXMLFile("INCLUDE");
+        include.append(INCLUDE_HEADER_OPEN);
+        include.append(" <Template");   // Missing >
+        include.append("  <Text>Ok</Text>");
+        include.append(" </Template>");
+        include.append(INCLUDE_HEADER_CLOSE);
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Include fileName=\"{INCLUDE}\"/>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectError(ExecutionError.INVALID_INCLUDE_XML, true, true, true, true, false, null, false);
+    }
 }

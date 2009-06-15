@@ -41,33 +41,41 @@ package com.CodeSeance.JSeance.CodeGenXML;
  */
 public enum ExecutionError
 {
-    INVALID_TARGET_DIR(1, "Cannot read or create target directory:[%s]"),
-    CANNOT_WRITE_TARGET_FILE(2, "Cannot write to target file:[%s]"),
-    TARGET_FILE_READONLY(3, "Cannot write to target file:[%s] because of readonly flag, use the 'ignoreReadOnlyOuputFiles' option to ignore readonly target files"),
+    // 100 - General Errors
+    INVALID_TARGET_DIR(100, "Cannot read or create target directory:[%s]"),
+    CANNOT_WRITE_TARGET_FILE(101, "Cannot write to target file:[%s]"),
+    TARGET_FILE_READONLY(102, "Cannot write to target file:[%s] because of readonly flag, use the 'ignoreReadOnlyOuputFiles' option to ignore readonly target files"),
 
-    INVALID_TEMPLATE_FILE(4, "Cannot read template file:[%s]"),
-    INVALID_TEMPLATES_DIR(5, "Cannot read templates directory:[%s]"),
+    // 200 - Template Errors
+    INVALID_TEMPLATE_FILE(200, "Cannot read template file:[%s]"),
+    INVALID_TEMPLATES_DIR(201, "Cannot read templates directory:[%s]"),
+    INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION(202, "Invalid output iterator e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
+    JAVASCRIPT_EVAL_ERROR(203, "JavaScript evaluation error on expression:[%s], message:[%s]"),
+    JAVASCRIPT_NOT_CLOSED(204, "Embedded JavaScript code in text:[%s] missing termination marker:[%s]"),
+    INVALID_TEMPLATE_XML(205, "Error parsing template XML file:[%s] - Message:[%s]"),
 
-    INVALID_INCLUDES_DIR(6, "Cannot read includes directory:[%s]"),
-    INVALID_INCLUDE_FILE(7, "Cannot read include file:[%s]"),
-    MISSING_INCLUDE_DEFINITION(8, "Missing include definition:[%s]"),
+    // 300 Model Errors
+    INVALID_MODELS_DIR(300, "Cannot read models directory:[%s]"),
+    INVALID_MODEL_FILE(301, "Cannot read model file:[%s]"),
+    INVALID_MODEL_XML(302, "Error parsing model XML file:[%s] - Message:[%s]"),
+    INVALID_MODEL_E4X_EXPRESSION(303, "Invalid model e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
 
-    INVALID_MODELS_DIR(9, "Cannot read models directory:[%s]"),
-    INVALID_MODEL_FILE(10, "Cannot read model file:[%s]"),
-    INVALID_MODEL_E4X_EXPRESSION(11, "Invalid model e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
+    // 400 Include Errors
+    INVALID_INCLUDES_DIR(400, "Cannot read includes directory:[%s]"),
+    INVALID_INCLUDE_FILE(401, "Cannot read include file:[%s]"),
+    MISSING_INCLUDE_DEFINITION(402, "Missing include definition:[%s]"),
+    INVALID_INCLUDE_XML(302, "Error parsing include XML file:[%s] - Message:[%s]"),
 
-    INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION(12, "Invalid output iterator e4XPath expression:[%s], expecting XMLObject type, found:[%s]"),
+    // 900 - Internal errorrs
+    CONTEXTMANAGER_INITIALIZE_ERROR(900, "Internal configuration error:[ContextManager.initializeJavaScriptEngine], please verify that the correct dependencies are included. Exception:[%s]"),
+    CONTEXTMANAGER_CREATEXMLOBJECT_ERROR(901, "Error converting XML to JavaScript Object:[ContextManager.createXMLObject]. Exception:[%s]"),
+    XML_PARSER_CONFIG_ERROR(902, "Error configuring XML Parser:[%s]");
 
-    JAVASCRIPT_EVAL_ERROR(13, "JavaScript evaluation error on expression:[%s], message:[%s]"),
-    JAVASCRIPT_NOT_CLOSED(14, "Embedded JavaScript code in text:[%s] missing termination marker:[%s]"),
-
-    CONTEXTMANAGER_INITIALIZE_ERROR(500, "Internal configuration error:[ContextManager.initializeJavaScriptEngine], please verify that the correct dependencies are included. Exception:[%s]"),
-    CONTEXTMANAGER_CREATEXMLOBJECT_ERROR(501, "Error converting XML to JavaScript Object:[ContextManager.createXMLObject]. Exception:[%s]");
-
+    // Exception simulation, for cases where throwing is too complex
     public static boolean simulate_CANNOT_WRITE_TARGET_FILE = false;
-
     public static boolean simulate_CONTEXTMANAGER_INITIALIZE_ERROR = false;
     public static boolean simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR = false;
+    public static boolean simulate_XML_PARSER_CONFIG_ERROR = false;
 
     private int id;
     private String message;
