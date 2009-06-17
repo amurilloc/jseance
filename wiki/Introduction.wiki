@@ -50,6 +50,8 @@ http://jseance.googlecode.com/svn/wiki/images/features.jpg
 
 = Integration Options =
 jSeance can be integrated into your project in three ways:
- * Using the Command Line ([Annex#Command_Line_Arguments guide])
- * As an [http://ant.apache.org/ Apache Ant] task ([Annex#Using_Apache_Ant guide])
- * As a [http://maven.apache.org/ Apache Maven] Mojo ([Annex#Using_Apache_Maven guide])
+ * Using the Command Line ([Annex#Command_Line_Arguments link])
+ * As an [http://ant.apache.org/ Apache Ant] task ([Annex#Using_Apache_Ant link])
+ * As a [http://maven.apache.org/ Apache Maven] Mojo ([Annex#Using_Apache_Maven link])
+
+[GeneralConcepts Next: General Concepts]
