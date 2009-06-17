@@ -3,13 +3,53 @@
 
 = Introduction =
 
-Add your content here.
+jSeance is an structured code generator, it takes a template XML file (jSeance schema) and one or more XML model files (any schema) and produces text output in the form of classes, resources, HTML files, etc.
 
+It supports !JavaScript code embedded in templates for flexibility and extensibility. jSeance aims to provide an easy to understand yet feature complete framework to build complex APIs and content from user defined XML files.
+
+http://jseance.googlecode.com/svn/wiki/images/process.jpg
 
 = Code Generation Basics =
 
-Content
+Code Generation (or code genesis) is the process of generating code artifacts from templates and data files, it enables decoupling of domain-specific information from implementation details.
 
-= Features =
+== Example ==
+The typical process for building a transactional web application goes as following (shortened for simplicity):
+ * Identify business roles, entities and process work flows
+ * Create database schemas
+ * Create data access & security APIs
+ * Create web pages
+ * Create tests
 
-Content
+<TODO:Insert sample architecture diagram>
+
+What is wrong with this?
+ # A large portion of the code in this example follows a fairly common pattern and is subject to automatic generation.
+ # Changes to roles, entities and processes require manual re-work on all layers. For instance, adding an attribute to an object requires changes in many files for the new file to become visible to the end-user.
+
+= jSeance Features =
+
+http://jseance.googlecode.com/svn/wiki/images/features.jpg
+
+ * *Context Sensitive State Management*: Allows state and content isolation between areas of a code template, reducing the overall complexity and unintended side effects. This is critical for large and complex templates, it guarantees that changes in a template section won't have negative side-effects on another non-related section. Context-independent values are also supported through a shared !JavaScript executing context.
+
+ * *Embedded !JavaScript^TM^ Engine* ([http://www.mozilla.org/rhino/ Rhino]): While the general features of the engine support most common cases, there will be situations where specialized code is required. The embedded full-featured !JavaScript Engine allows developers and template designers to achieve specialized code generation behaviors and transformations without requiring external code files. 
+
+
+ * *ECMAScript for XML ([http://en.wikipedia.org/wiki/ECMAScript_for_XML E4X]) Support and Iterators*: Built-in iterators with E4X expressions allow for easy navigation between input model nodes, making cross-model queries possible. E4X provides a simple and expressive syntax for selecting, filtering and locating relevant node information.
+
+ * *Multiple XML Input Models*: Allows the template designer to load several XML files, query and cross-reference each separately. This makes it possible to split domain model aspects into separate files, increasing maintainability and readability. For example, you could separate business object information into a Relations.xml and Attributes.xml XML files, each referring to the same entities but expressing different aspects. A template could access both XML files to generate a database schema or [https://www.hibernate.org/ Hibernate] back end.
+
+ * *Conditional Expressions*: Part of the template XML schema includes If /!ElseIf/Else and Switch/Case functionality with rich !JavaScript expression syntax. This provides a standard mechanism for expressing choices and conditional clauses within the same template structure, which improves maintainability and readability.
+
+ * *External Includes with dependency validation*: This allows template designers to split large template files into smaller, semi-independent sections which can later be re-used by other parent templates while explicitly declaring the required prerequisites to be fulfilled for the include to work correctly.
+
+ * *Multiple Output Files*: A template can generate multiple files; the name, location and contents can be customized at runtime based on model data, context information or embedded !JavaScript. This allows simultaneous generation of files related to a feature or functionality from a single template.
+
+ * *Runtime Template Parametrization*: Every attribute and text content of a JSeance template element can be embedded with !JavaScript to be evaluated at runtime. Input and output file names can be decided based on context and input data. This complements the structured XML template approach with added flexibility for cases where the concrete inputs, outputs and actions need to be discovered at runtime.
+
+= Integration Options =
+jSeance can be integrated into your project in three ways:
+ * Using the Command Line
+ * As an [http://ant.apache.org/ Apache Ant] task
+ * As a [http://maven.apache.org/ Maven] Mojo
