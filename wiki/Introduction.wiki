@@ -1,7 +1,7 @@
 #summary Introduction
 #sidebar TableOfContents
 
-= Introduction =
+= What is jSeance? =
 
 jSeance is an structured code generator, it takes a template XML file (jSeance schema) and one or more XML model files (any schema) and produces text output in the form of classes, resources, HTML files, etc.
 
