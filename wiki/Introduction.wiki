@@ -1,3 +1,4 @@
+#summary jSeance high-level overview
 #sidebar TableOfContents
 
 = What is jSeance? =
