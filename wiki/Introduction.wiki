@@ -20,7 +20,7 @@ The typical process for building a transactional web application goes as followi
  * Create data access, security APIs, unit tests, etc.
  * Create web pages
 
-http://jseance.googlecode.com/svn/wiki/images/AutoFeasibilty.png
+http://jseance.googlecode.com/svn/wiki/images/AutoFeasibilty.jpg
 
 What is wrong with this?
  # A large portion of the code in this example follows a fairly common pattern and is subject to automatic generation.
