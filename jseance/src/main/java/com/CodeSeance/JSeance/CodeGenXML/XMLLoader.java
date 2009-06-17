@@ -55,8 +55,6 @@ import java.io.*;
  */
 public class XMLLoader
 {
-    // TODO: No validation or errors for xsd files
-    // TODO: No base paths for xsd files, need to check if relative works ok
     // TODO: Wrap rest of exceptions
     // TODO: Edit global XSD comments
     // TODO: Edit JavaScript
