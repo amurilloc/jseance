@@ -28,7 +28,7 @@ What is wrong with this?
 
 = jSeance Features =
 
-http://jseance.googlecode.com/svn/wiki/images/features.jpg
+http://jseance.googlecode.com/svn/wiki/images/features-small.jpg
 
  * *Context Sensitive State Management*: Allows state and content isolation between areas of a code template, reducing the overall complexity and unintended side effects. This is critical for large and complex templates, it guarantees that changes in a template section won't have negative side-effects on another non-related section. Context-independent values are also supported through a shared !JavaScript executing context.
 
