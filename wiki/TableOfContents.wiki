@@ -1,7 +1,7 @@
 #summary Table of Contents (Sidebar)
   * [Introduction Introduction]
     * [Introduction#Code_Generation_Basics Code Generation Basics]
-    * [Introduction#Features Features]
+    * [Introduction#jSeance_Features jSeance Features]
     * [Introduction#Integration_Options Integration Options]
   * [GeneralConcepts General Concepts]
     * [GeneralConcepts#Template_Execution_Model Template Execution Model]
