@@ -17,11 +17,10 @@ Code Generation (or code genesis) is the process of generating code artifacts fr
 The typical process for building a transactional web application goes as following (shortened for simplicity):
  * Identify business roles, entities and process work flows
  * Create database schemas
- * Create data access & security APIs
+ * Create data access, security APIs, unit tests, etc.
  * Create web pages
- * Create tests
 
-<TODO:Insert sample architecture diagram>
+http://jseance.googlecode.com/svn/wiki/images/AutoFeasibilty.png
 
 What is wrong with this?
  # A large portion of the code in this example follows a fairly common pattern and is subject to automatic generation.
