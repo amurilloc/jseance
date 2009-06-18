@@ -11,7 +11,7 @@
     * [NodeTypes#Model Model]
     * [NodeTypes#Text Text]
     * [NodeTypes#FileOutput FileOutput]
-    * [NodeTypes#Conditional conditional]
+    * [NodeTypes#Conditional Conditional]
     * [NodeTypes#Switch Switch]
     * [NodeTypes#Definition Definition]
     * [NodeTypes#Include Include]
