@@ -5,7 +5,7 @@
 
 *Description:* Root element for a JSeance  XML Template.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
  = Model =
 
@@ -26,7 +26,7 @@
 
 *Description:* Specifies a file to use as output. All text outputs within children will be written  to the specified file.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || fileName || The filename to open, relative to the Target runtime directory || Yes ||
@@ -35,31 +35,56 @@
 
 *Description:* Parent node for if--elseif-else functionality.
 
-*Child Elements:* If, ElseIf, Else
+*Child Elements:* If, !ElseIf, Else.
 
  == If ==
-*Description:* Fist child element of the Conditional node, represents the first comparison statement
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+*Description:* Fist child element of the Conditional node, represents the first comparison statement.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || jsExpression || The !JavaScript expression to evaluate || Yes ||
 
  == !ElseIf ==
-*Description:* Second or greater child element of the Conditional node, represents an else-if expression
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+*Description:* Second or greater child element of the Conditional node, represents an else-if expression.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || jsExpression || The !JavaScript expression to evaluate || Yes ||
 
 
  == Else ==
-*Description:* Last child element of the Conditional node, represents an else expression if no previous If or !ElseIf statement was executed
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+*Description:* Parent node for  switch-case functionality.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
  = Switch =
+
+*Description:* Parent node for  switch-case functionality.
+
+*Child Elements:* Case, Default.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| jsExpression || The !JavaScript expression to evaluate || Yes ||
+
+ == Case ==
+
+*Description:* Evaluation option for a Switch parent node.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| value || The value to compare the parent node jsExpression result || Yes ||
+
+ == Default ==
+
+*Description:* The default expression to evaluate if no match is found.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
  = Definition =
 
