@@ -1,21 +1,21 @@
 #summary jSeance Node Types
 #sidebar TableOfContents
 
- = !Template =
+ = Template =
 
- = !Model =
+ = Model =
 
- = !Text =
+ = Text =
 
  = !FileOutput =
 
- = !Conditional =
+ = Conditional =
 
- = !Switch =
+ = Switch =
 
- = !Definition =
+ = Definition =
 
- = !Include =
+ = Include =
 
  = !JavaScript =
 
