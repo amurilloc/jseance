@@ -5,6 +5,8 @@
 
  = Template Execution Model =
 
+The engine reads and executes a jSeance template node by node. Each node represents an action on the current context such as loading an XML model, writing a text file, iterate trough a node list, etc.
+
 http://jseance.googlecode.com/svn/wiki/images/execution-model.jpg
 
  = Context Elements =
