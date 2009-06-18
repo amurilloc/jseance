@@ -88,7 +88,7 @@
 
  = Definition =
 
-*Description:* Named variable used to send parameters to included templates of for oten-used values. Can be referenced from JavaScript by Definitions`['name'`].
+*Description:* Named variable used to send parameters to included templates of for oten-used values. Can be referenced from !JavaScript by Definitions`['name'`].
 
 *Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
@@ -96,6 +96,22 @@
 || name || Name of the Definition || Yes ||
 
  = Include =
+
+*Description:* Includes another template file in the current template.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| fileName|| File name relative to the Templates runtime directory || Yes ||
+
+ = OutputIterator =
+
+*Description:* An XML node iterator relative to the current model node, it text production while iterating over an XML node list.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| e4XPath || The e4XPath from the current node to select a group of nodes to iterate from, e4XPath expression is expected to return a nodegroup || Yes ||
+|| _modelName_ || The name of the model to use || No ||
+|| _separator_ || A separator to use when concatenating data, useful for building text structures such as comma-separated lists || No ||
 
  = !JavaScript =
 
