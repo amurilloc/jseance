@@ -37,30 +37,30 @@
 
 *Child Elements:* If, !ElseIf, Else.
 
- == If ==
+  == If ==
 
-*Description:* Fist child element of the Conditional node, represents the first comparison statement.
+  *Description:* Fist child element of the Conditional node, represents the first comparison statement.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+  *Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
-|| *Attribute Name* || *Description* || *Required* ||
-|| jsExpression || The !JavaScript expression to evaluate || Yes ||
+  || *Attribute Name* || *Description* || *Required* ||
+  || jsExpression || The !JavaScript expression to evaluate || Yes ||
 
- == !ElseIf ==
+  == !ElseIf ==
 
-*Description:* Second or greater child element of the Conditional node, represents an else-if expression.
+  *Description:* Second or greater child element of the Conditional node, represents an else-if expression.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+  *Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
-|| *Attribute Name* || *Description* || *Required* ||
-|| jsExpression || The !JavaScript expression to evaluate || Yes ||
+  || *Attribute Name* || *Description* || *Required* ||
+  || jsExpression || The !JavaScript expression to evaluate || Yes ||
 
 
- == Else ==
+  == Else ==
 
-*Description:* Parent node for  switch-case functionality.
+  *Description:* Parent node for  switch-case functionality.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+  *Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
  = Switch =
 
@@ -71,20 +71,20 @@
 || *Attribute Name* || *Description* || *Required* ||
 || jsExpression || The !JavaScript expression to evaluate || Yes ||
 
- == Case ==
+  == Case ==
 
-*Description:* Evaluation option for a Switch parent node.
+  *Description:* Evaluation option for a Switch parent node.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+  *Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
-|| *Attribute Name* || *Description* || *Required* ||
-|| value || The value to compare the parent node jsExpression result || Yes ||
+  || *Attribute Name* || *Description* || *Required* ||
+  || value || The value to compare the parent node jsExpression result || Yes ||
 
- == Default ==
+  == Default ==
 
-*Description:* The default expression to evaluate if no match is found.
+  *Description:* The default expression to evaluate if no match is found.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+  *Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
 
  = Definition =
 
