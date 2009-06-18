@@ -1,0 +1,10 @@
+#summary JSeance Embedded JavaScript Support
+#sidebar TableOfContents
+
+ = JSeance Object Model =
+
+ = Embedding code in templates =
+
+ = E4X Reference =
+
+[NodeTypes Prev: Node Types] [PuttingItAllTogether Next: Putting it all together: Example]
