@@ -4,6 +4,8 @@
  = Template Execution Model =
 Content
 
+http://jseance.googlecode.com/svn/wiki/images/execution-model.jpg
+
  = Context Elements =
 Content
 
