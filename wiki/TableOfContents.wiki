@@ -1,7 +1,7 @@
 #summary Table of Contents (Sidebar)
   * [Introduction Introduction]
     * [Introduction#Code_Generation_Basics Code Generation Basics]
-    * [Introduction#jSeance_Features jSeance Features]
+    * [Introduction#JSeance_Features JSeance Features]
     * [Introduction#Integration_Options Integration Options]
   * [GeneralConcepts General Concepts]
     * [GeneralConcepts#Template_Execution_Model Template Execution Model]
@@ -19,7 +19,7 @@
     * [NodeTypes#JavaScript JavaScript]
   * [JavaScriptSupport JavaScript Support]
     * [JavaScriptSupport#Embedding_code_in_templates Embedding code in templates]
-    * [JavaScriptSupport#jSeance_Object_Model jSeance Object Model]
+    * [JavaScriptSupport#JSeance_Object_Model JSeance Object Model]
     * [JavaScriptSupport#E4X_Reference E4X Reference]
   * [PuttingItAllTogether Putting it all together: Example]
   * [Annex Annex]

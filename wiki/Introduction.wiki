@@ -1,13 +1,13 @@
-#summary jSeance high-level overview
+#summary JSeance high-level overview
 #sidebar TableOfContents
 
-= What is jSeance? =
+= What is JSeance? =
 
-jSeance is an structured code generator, it takes a template XML file (jSeance schema) and one or more XML model files (any schema) and produces text output in the form of classes, resources, HTML files, etc.
+JSeance is an structured code generator, it takes a template XML file (JSeance schema) and one or more XML model files (any schema) and produces text output in the form of classes, resources, HTML files, etc.
 
-It supports !JavaScript code embedded in templates for flexibility and extensibility. jSeance aims to provide an easy to understand yet feature complete framework to build complex APIs and content from user defined XML files.
+It supports !JavaScript code embedded in templates for flexibility and extensibility. JSeance aims to provide an easy to understand yet feature complete framework to build complex APIs and content from user defined XML files.
 
-http://jseance.googlecode.com/svn/wiki/images/process.jpg
+http://JSeance.googlecode.com/svn/wiki/images/process.jpg
 
 = Code Generation Basics =
 
@@ -20,15 +20,15 @@ The typical process for building a transactional web application goes as followi
  * Create data access, security APIs, unit tests, etc.
  * Create web pages
 
-http://jseance.googlecode.com/svn/wiki/images/AutoFeasibilty.jpg
+http://JSeance.googlecode.com/svn/wiki/images/AutoFeasibilty.jpg
 
 What is wrong with this?
  # A large portion of the code in this example follows a fairly common pattern and is subject to automatic generation.
  # Changes to roles, entities and processes require manual re-work on all layers. For instance, adding an attribute to an object requires changes in many files for the new file to become visible to the end-user.
 
-= jSeance Features =
+= JSeance Features =
 
-http://jseance.googlecode.com/svn/wiki/images/features-small.jpg
+http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg
 
  * *Context Sensitive State Management*: Allows state and content isolation between areas of a code template, reducing the overall complexity and unintended side effects. This is critical for large and complex templates, it guarantees that changes in a template section won't have negative side-effects on another non-related section. Context-independent values are also supported through a shared !JavaScript executing context.
 
@@ -48,7 +48,7 @@ http://jseance.googlecode.com/svn/wiki/images/features-small.jpg
  * *Runtime Template Parametrization*: Every attribute and text content of a JSeance template element can be embedded with !JavaScript to be evaluated at runtime. Input and output file names can be decided based on context and input data. This complements the structured XML template approach with added flexibility for cases where the concrete inputs, outputs and actions need to be discovered at runtime.
 
 = Integration Options =
-jSeance can be integrated into your project in three ways:
+JSeance can be integrated into your project in three ways:
  * Using the Command Line ([Annex#Command_Line_Arguments link])
  * As an [http://ant.apache.org/ Apache Ant] task ([Annex#Using_Apache_Ant link])
  * As a [http://maven.apache.org/ Apache Maven] Mojo ([Annex#Using_Apache_Maven link])

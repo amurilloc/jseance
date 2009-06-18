@@ -1,4 +1,4 @@
-#summary jSeance General Concepts
+#summary JSeance General Concepts
 #sidebar TableOfContents
 
  = Template Execution Model =
