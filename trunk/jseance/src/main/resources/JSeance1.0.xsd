@@ -183,7 +183,7 @@ Models can be referenced in JavaScript as Models['name'] or Models['default'] fo
 				<xs:complexType>
 					<xs:attribute name="fileName" use="required">
 						<xs:annotation>
-							<xs:documentation>File name relative to the Templates runtime directory.</xs:documentation>
+							<xs:documentation>File name relative to the Includes runtime directory.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
