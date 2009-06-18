@@ -115,4 +115,6 @@
 
  = !JavaScript =
 
+*Description:* Allows custom !JavaScript declarations to be embedded into the template.
+
 [GeneralConcepts Prev: General Concepts] [JavaScriptSupport Next: JavaScript Support]
