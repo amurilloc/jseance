@@ -102,7 +102,7 @@ The complete XML Schema can be found here: [http://jseance.googlecode.com/svn/tr
 *Description:* Includes another template file in the current template.
 
 || *Attribute Name* || *Description* || *Required* ||
-|| fileName|| File name relative to the Templates runtime directory || Yes ||
+|| fileName|| File name relative to the Includes runtime directory || Yes ||
 
  = !OutputIterator =
 
