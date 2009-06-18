@@ -1,6 +1,8 @@
 #summary jSeance Node Types
 #sidebar TableOfContents
 
+The complete XML Schema can be found [http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd here (JSeance1.0.xsd)]
+
  = Template =
 
 *Description:* Root element for a JSeance  XML Template.
