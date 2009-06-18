@@ -5,7 +5,7 @@
 
 *Description:* Root element for a JSeance  XML Template.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
  = Model =
 
@@ -26,7 +26,7 @@
 
 *Description:* Specifies a file to use as output. All text outputs within children will be written  to the specified file.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || fileName || The filename to open, relative to the Target runtime directory || Yes ||
@@ -41,7 +41,7 @@
 
 *Description:* Fist child element of the Conditional node, represents the first comparison statement.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || jsExpression || The !JavaScript expression to evaluate || Yes ||
@@ -50,7 +50,7 @@
 
 *Description:* Second or greater child element of the Conditional node, represents an else-if expression.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || jsExpression || The !JavaScript expression to evaluate || Yes ||
@@ -60,7 +60,7 @@
 
 *Description:* Parent node for  switch-case functionality.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
  = Switch =
 
@@ -75,7 +75,7 @@
 
 *Description:* Evaluation option for a Switch parent node.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || value || The value to compare the parent node jsExpression result || Yes ||
@@ -84,7 +84,7 @@
 
 *Description:* The default expression to evaluate if no match is found.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
  = Definition =
 
@@ -102,11 +102,11 @@
 || *Attribute Name* || *Description* || *Required* ||
 || fileName|| File name relative to the Templates runtime directory || Yes ||
 
- = OutputIterator =
+ = !OutputIterator =
 
 *Description:* An XML node iterator relative to the current model node, it text production while iterating over an XML node list.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
 
 || *Attribute Name* || *Description* || *Required* ||
 || e4XPath || The e4XPath from the current node to select a group of nodes to iterate from, e4XPath expression is expected to return a nodegroup || Yes ||
