@@ -3,7 +3,20 @@
 
  = Template =
 
+*Description:* Root element for a JSeance  XML Template.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+
  = Model =
+
+*Description:* Loads an XML model into the parent context. Models can be referenced in !JavaScript as Models`['name'`] or Models`['default'`] for unnamed models.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| fileName || The filename of the model relative to the Models runtime directory || Yes ||
+|| _name_|| Name of the model if specific model references are needed, the last declared model becomes the current model in the context, make sure to define a model names if you are using multiple input models || No ||
+|| _e4XPath_ || The E4X Path of the currentNode, otherwise rootNode becomes the currentNode || No ||
+|| _validate_ || Indicates if the parser should validate the XML file against an XSD schema, either included in the XML file or specified in the xsdFileName parameter || No ||
+|| _xsdFileName_ || Indicates the name of the XSD file to use if validate is true, relative to the Models runtime directory || No ||
 
  = Text =
 
