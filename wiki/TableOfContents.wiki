@@ -6,7 +6,6 @@
   * [GeneralConcepts General Concepts]
     * [GeneralConcepts#Template_Execution_Model Template Execution Model]
     * [GeneralConcepts#Context_Elements Context Elements]
-    * [GeneralConcepts#Execution_Options Execution Options]
   * [NodeTypes Node Types]
     * [NodeTypes#Template Template]
     * [NodeTypes#Model Model]
