@@ -9,7 +9,14 @@ The engine reads and executes a jSeance template node by node. Each node represe
 
 http://jseance.googlecode.com/svn/wiki/images/execution-model.jpg
 
+The context stores information relevant to the current node and behaves like a stack, every time a new XML node begins execution, a context is created. This context is a copy of the parent context and changes to it can be inherited by child XML nodes when their own context is created.
+
  = Context Elements =
+
+A context is composed of:
+ * A set of named models, each model has a root node and a current node
+ * A set of definitions, which are named variables that can be used to pass information to included templates or to explicitly name common-used values
+ * A text sink, which is the destination of the text produced. This could be a text file or if not specified, the console (for command line execution).
 
 http://jseance.googlecode.com/svn/wiki/images/context-elements.jpg
 
