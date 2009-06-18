@@ -6,7 +6,7 @@
   * [GeneralConcepts General Concepts]
     * [GeneralConcepts#Template_Execution_Model Template Execution Model]
     * [GeneralConcepts#Context_Elements Context Elements]
-  * [NodeTypes Node Types]
+  * [NodeTypes XML Node Types]
     * [NodeTypes#Template Template]
     * [NodeTypes#Model Model]
     * [NodeTypes#Text Text]
