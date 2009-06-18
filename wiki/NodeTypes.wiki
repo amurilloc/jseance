@@ -1,7 +1,10 @@
 #summary jSeance Node Types
 #sidebar TableOfContents
 
-The complete XML Schema can be found here: [http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd JSeance1.0.xsd]
+The complete XML Schema can be found here: [http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd JSeance1.0.xsd]. Summary diagram:
+
+
+http://JSeance.googlecode.com/svn/wiki/images/node-types.png
 
  = Template =
 
