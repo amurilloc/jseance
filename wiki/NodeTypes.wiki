@@ -20,7 +20,16 @@
 
  = Text =
 
+*Description:* Simple text output to the default text sink.
+
  = !FileOutput =
+
+*Description:* Specifies a file to use as output. All text outputs within children will be written  to the specified file.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| fileName || The filename to open, relative to the Target runtime directory || Yes ||
 
  = Conditional =
 
