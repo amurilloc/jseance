@@ -15,6 +15,7 @@
     * [NodeTypes#Switch Switch]
     * [NodeTypes#Definition Definition]
     * [NodeTypes#Include Include]
+    * [NodeTypes#OutputIterator OutputIterator]
     * [NodeTypes#JavaScript JavaScript]
   * [JavaScriptSupport JavaScript Support]
     * [JavaScriptSupport#Embedding_code_in_templates Embedding code in templates]
