@@ -33,6 +33,32 @@
 
  = Conditional =
 
+*Description:* Parent node for if--elseif-else functionality.
+
+*Child Elements:* If, ElseIf, Else
+
+ == If ==
+*Description:* Fist child element of the Conditional node, represents the first comparison statement
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| jsExpression || The !JavaScript expression to evaluate || Yes ||
+
+ == !ElseIf ==
+*Description:* Second or greater child element of the Conditional node, represents an else-if expression
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| jsExpression || The !JavaScript expression to evaluate || Yes ||
+
+
+ == Else ==
+*Description:* Last child element of the Conditional node, represents an else expression if no previous If or !ElseIf statement was executed
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript
+
  = Switch =
 
  = Definition =
