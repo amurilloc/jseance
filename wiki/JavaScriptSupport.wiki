@@ -14,7 +14,7 @@ It's possible to embed !JavaScript code in any attribute or text node of a JSean
 </Template>
 }}}
 
-Attributes can also include JavaScript code, for example:
+Template attributes can also include !JavaScript code, for example:
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
