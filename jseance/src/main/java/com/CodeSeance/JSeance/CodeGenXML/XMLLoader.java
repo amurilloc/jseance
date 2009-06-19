@@ -57,7 +57,7 @@ public class XMLLoader
 {
     // TODO: Wrap rest of exceptions
     // TODO: Update manual from schema
-    // TODO: Edit JavaScript
+    // TODO: Edit JavaDoc tags
     // TODO: Complete manual pages
     // TODO: TestCase for DependencyManager
     // TODO: TestCase for all EntryPoints
