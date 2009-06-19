@@ -39,6 +39,8 @@ http://JSeance.googlecode.com/svn/wiki/images/node-types.png
 
 || *Attribute Name* || *Description* || *Required* ||
 || fileName || The filename to open, relative to the Target runtime directory || Yes ||
+|| encoding || File eoncoding to use, valid options are: ISO-8859-1, ISO-8859-2, ISO-8859-3, ISO-8859-4, ISO-8859-5, ISO-8859-6, ISO-8859-7, ISO-8859-8, ISO-8859-9, ISO-8859-13, ISO-8859-15, UTF-8, UTF-16, ISO-2022-JP, Shift_JIS, EUC-JP, US-ASCII, GBK, Big5, ISO-2022-CN, ISO-2022-KR, ISO-8859-15, ISO-8859-15 || No ||
+|| writeXMLHeader || Specifies if an XML header needs to be created for the file || No ||
 
  == Conditional ==
 
