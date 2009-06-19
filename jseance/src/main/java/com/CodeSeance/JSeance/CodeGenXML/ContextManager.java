@@ -96,6 +96,7 @@ public class ContextManager
     private final static String XML_LENGTH_FN = "JSeance_XMLLength";
     private final static String XML_GET_NODE_AT_FN = "JSeance_XMLGetNodeAt";
     private final static String XML_NODE_TO_STRING = "JSeance_XMLNodeToString";
+    private final static String XML_ENCODE = "XMLEncode";
 
     //Initializes the JavaScript engine (Rhino) with the required context objects and instances
     private void initializeJavaScriptEngine()
@@ -122,11 +123,13 @@ public class ContextManager
             throw new RuntimeException(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR.getMessage(ex.getMessage()));
         }
 
-        evaluateJSPrivate("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 25);
-        evaluateJSPrivate("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 26);
-        evaluateJSPrivate("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "Context.java", 26);
-        evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 26);
-        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 26);
+        evaluateJSPrivate("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 126);
+        evaluateJSPrivate("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 127);
+        evaluateJSPrivate("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "Context.java", 128);
+        evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 129);
+        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 130);
+        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 131);
+        evaluateJSPrivate("function " + XML_ENCODE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[\"]/g, '&quot;').replace(/[']/g, '&apos;').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;');};", "Context.java", 131);
     }
 
     public void setCurrentDefinitions(JSDefinitions jsDefinitions)

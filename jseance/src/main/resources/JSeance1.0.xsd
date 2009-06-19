@@ -71,6 +71,16 @@ Models can be referenced in JavaScript as Models['name'] or Models['default'] fo
                                     </xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
+							<xs:attribute name="encoding" type="JSeance:FileEncoding" default="UTF-8">
+								<xs:annotation>
+									<xs:documentation>File eoncoding to use, valid options are: ISO-8859-1, ISO-8859-2, ISO-8859-3, ISO-8859-4, ISO-8859-5, ISO-8859-6, ISO-8859-7, ISO-8859-8, ISO-8859-9, ISO-8859-13, ISO-8859-15, UTF-8, UTF-16, ISO-2022-JP, Shift_JIS, EUC-JP, US-ASCII, GBK, Big5, ISO-2022-CN, ISO-2022-KR, ISO-8859-15, ISO-8859-15</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="writeXMLHeader" type="xs:boolean" default="false">
+								<xs:annotation>
+									<xs:documentation>Specifies if an XML header needs to be created for the file</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
 						</xs:extension>
 					</xs:complexContent>
 				</xs:complexType>
@@ -248,4 +258,34 @@ Models can be referenced in JavaScript as Models['name'] or Models['default'] fo
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:simpleType name="FileEncoding">
+		<xs:annotation>
+			<xs:documentation>Enumeration of valid file encodings</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ISO-8859-1"/>
+			<xs:enumeration value="ISO-8859-2"/>
+			<xs:enumeration value="ISO-8859-3"/>
+			<xs:enumeration value="ISO-8859-4"/>
+			<xs:enumeration value="ISO-8859-5"/>
+			<xs:enumeration value="ISO-8859-6"/>
+			<xs:enumeration value="ISO-8859-7"/>
+			<xs:enumeration value="ISO-8859-8"/>
+			<xs:enumeration value="ISO-8859-9"/>
+			<xs:enumeration value="ISO-8859-13"/>
+			<xs:enumeration value="ISO-8859-15"/>
+			<xs:enumeration value="UTF-8"/>
+			<xs:enumeration value="UTF-16"/>
+			<xs:enumeration value="ISO-2022-JP"/>
+			<xs:enumeration value="Shift_JIS"/>
+			<xs:enumeration value="EUC-JP"/>
+			<xs:enumeration value="US-ASCII"/>
+			<xs:enumeration value="GBK"/>
+			<xs:enumeration value="Big5"/>
+			<xs:enumeration value="ISO-2022-CN"/>
+			<xs:enumeration value="ISO-2022-KR"/>
+			<xs:enumeration value="ISO-8859-15"/>
+			<xs:enumeration value="ISO-8859-15"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>
