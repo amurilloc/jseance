@@ -116,4 +116,6 @@ var myXML = <RootNode>
 
 Full specification: [http://www.ecma-international.org/publications/standards/Ecma-357.htm ECMA-357]
 
+A great guide can be found [http://wso2.org/project/mashup/1.5.2/docs/e4xquickstart.html here].
+
 [NodeTypes Prev: Node Types] [PuttingItAllTogether Next: Putting it all together: Example]
