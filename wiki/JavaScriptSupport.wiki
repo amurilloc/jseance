@@ -29,6 +29,39 @@ Template attributes can also include !JavaScript code, the following example dec
 !JavaScript code fragments are evaluated immediately before the node begins execution, this allows customization and parametrization of all template elements based on the global !JavaScript context, which is unique maintains its state during the execution lifetime of the template.
 
  = JSeance Object Model =
+ 
+During a template execution, the JSeance engine defines arbitrary !JavaScript objects to make certain context information available to scripting.
+
+ == XML Models ==
+
+The following example illustrates the use of the 'Models' !JavaScript Object:
+
+XML Model file (model.xml):
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<RootNode>
+ <A attribute1="first ">
+  <B attribute2="second" />
+ </A>
+</RootNode>
+}}}
+
+The JSeance  template:
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+ <Model fileName="model.xml" e4XPath="A.B"/>
+ <FileOutput fileName="test.txt">
+  <Text>@JavaScript{Models['default'].rootNode.A.@attribute1}@</Text>
+  <Text>@JavaScript{Models['default'].currentNode.@attribute2}@</Text>
+ </FileOutput>
+</Template>
+}}}
+
+Output file contents (test.txt):
+{{{
+first second
+}}}
 
  = E4X Reference =
 
