@@ -93,18 +93,22 @@ Example XML:
 {{{
 var myXML = <RootNode>
  <Child attribute="child attribute">
-  <A attribute1="first">Text Value</A>
-  <B attribute2="second" />
-  <C attribute3="third" />
+  <A attribute="first">Text Value</A>
+  <B attribute="second" />
+  <C attribute="third" />
  </Child>
 </RootNode>;
 }}}
 
 || Expression || Value || Description ||
-|| {{{myXML.Child[0].@attribute1}}} || {{{first}}} || Child nodes can be referenced by index ||
-|| {{{myXML.Child.B.@attribute2}}} || {{{second}}} || Child nodes can be referenced by tagName||
-|| {{{myXML['Child']['B'].attribute['attribute2']}}} || {{{second}}} || Explicit navigation||
+|| {{{myXML.Child[0].@attribute}}} || {{{first}}} || Child nodes can be referenced by index ||
+|| {{{myXML.Child.B.@attribute}}} || {{{second}}} || Child nodes can be referenced by tagName||
+|| {{{myXML['Child']['B'].attribute['attribute']}}} || {{{second}}} || Explicit navigation||
 || {{{myXML.Child[0].toString()}}} || {{{Text Value}}} || Node to string conversion ||
-|| {{{myXML.Child[0].toXMLString()}}} || {{{<A attribute1="first">Text Value</A>}}} || Node to XML string conversion ||
+|| {{{myXML.Child[0].toXMLString()}}} || {{{<A attribute="first">Text Value</A>}}} || Node to XML string conversion ||
+|| {{{myXML.Child.*.(@attribute == "third").toXMLString()}}} || {{{<C attribute="third" />}}} || filter by attribute value ||
+
+[http://www.ecma-international.org/publications/standards/Ecma-357.htm Full reference (ECMAScript for XML (E4X) Specification
+)]
 
 [NodeTypes Prev: Node Types] [PuttingItAllTogether Next: Putting it all together: Example]
