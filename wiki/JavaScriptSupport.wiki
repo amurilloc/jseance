@@ -100,7 +100,7 @@ var myXML = <RootNode>
 </RootNode>;
 }}}
 
-|| Expression || Value || Description ||
+|| *Expression* || *Value* || *Description* ||
 || {{{myXML.Child[0].@attribute}}} || {{{first}}} || Child nodes can be referenced by index ||
 || {{{myXML.Child.B.@attribute}}} || {{{second}}} || Child nodes can be referenced by tagName||
 || {{{myXML['Child']['B'].attribute['attribute']}}} || {{{second}}} || Explicit navigation||
