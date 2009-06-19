@@ -123,11 +123,11 @@ public class FileOutputTest extends TestCase
 
         template.append(TEMPLATE_HEADER_OPEN);
         template.append(" <FileOutput fileName=\"{FILE}\" writeXMLHeader=\"true\">");
-        template.append("  <Text><![CDATA[[<Root><Node apos=\"@JavaScript{XMLEncode(\"'\")}@\" attribute=\"@JavaScript{XMLEncode('<<data>>\"&<>')}@\"/></Root>]]></Text>");
+        template.append("  <Text><![CDATA[<Root><Node attribute=\"@JavaScript{EscapeAttributeValue('\"<&\\u000A\\u000D\\u0009')}@\">@JavaScript{ EscapeElementValue('<>&')}@</Node></Root>]]></Text>");
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
         expectResult("", false, false);
 
-        expectFileOutput("FILE", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "[<Root><Node apos=\"&apos;\" attribute=\"&lt;&lt;data&gt;&gt;&quot;&amp;&lt;&gt;\"/></Root>");
+        expectFileOutput("FILE", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<Root><Node attribute=\"&quot;&lt;&amp;&#xA;&#xD;&#x9;\">&lt;&gt;&amp;</Node></Root>");
     }
 }

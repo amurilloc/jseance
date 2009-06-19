@@ -50,6 +50,22 @@ public class JavaScriptTest extends TestCase
     }
 
     @Test
+    public void javaScriptTestAttribute()
+    {
+        createOutputFile("FILE");
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <JavaScript>var fileNameVar = '{FILE}';</JavaScript>");
+        template.append(" <FileOutput fileName=\"@JavaScript{fileNameVar}@\">");
+        template.append("  <Text>TestOutput</Text>");
+        template.append(" </FileOutput>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+        expectResult("", false, false);
+
+        expectFileOutput("FILE", "TestOutput");
+    }
+
+    @Test
     public void javaScriptEvalErrorTest()
     {
         String jsError = "for x y z is false";
