@@ -93,7 +93,7 @@ Example XML:
 {{{
 var myXML = <RootNode>
  <Child attribute="child attribute">
-  <A attribute1="first" />
+  <A attribute1="first">Text Value</A>
   <B attribute2="second" />
   <C attribute3="third" />
  </Child>
@@ -101,7 +101,10 @@ var myXML = <RootNode>
 }}}
 
 || Expression || Value || Description ||
-|| myXML.Child[0].@attribute1 || first || Child nodes can be referenced by index ||
-|| myXML.Child.B.@attribute2 || second || Child nodes can be referenced by tagName||
+|| {{{myXML.Child[0].@attribute1}}} || {{{first}}} || Child nodes can be referenced by index ||
+|| {{{myXML.Child.B.@attribute2}}} || {{{second}}} || Child nodes can be referenced by tagName||
+|| {{{myXML['Child']['B'].attribute['attribute2']}}} || {{{second}}} || Explicit navigation||
+|| {{{myXML.Child[0].toString()}}} || {{{Text Value}}} || Node to string conversion ||
+|| {{{myXML.Child[0].toXMLString()}}} || {{{<A attribute1="first">Text Value</A>}}} || Node to XML string conversion ||
 
 [NodeTypes Prev: Node Types] [PuttingItAllTogether Next: Putting it all together: Example]
