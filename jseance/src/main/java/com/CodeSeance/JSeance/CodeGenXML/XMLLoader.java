@@ -65,11 +65,11 @@ public class XMLLoader
     /*
     * Builds an XML Builder loading the XSD embedded into the project
      */
+
     public static XMLLoader buildFromCodeTemplateSchema()
     {
         InputStream xsdFile = XMLLoader.class.getClassLoader().getResourceAsStream(SCHEMA_FILE);
         return new XMLLoader(xsdFile);
-
     }
 
     /*
@@ -98,6 +98,7 @@ public class XMLLoader
     /*
    * Provate constructor with no specific schema file and validation option
     */
+
     private XMLLoader(boolean validate)
     {
         createDocumentBuilder(validate, null);

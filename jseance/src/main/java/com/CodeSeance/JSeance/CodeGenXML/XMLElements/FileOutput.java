@@ -120,9 +120,9 @@ class FileOutput extends HierarchicalNode
                 OutputStream fileOutputStream = new FileOutputStream(file);
                 OutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
 
-                assert(encoding != null && !"".equals(encoding));
+                assert (encoding != null && !"".equals(encoding));
                 String javaEncoding = fileEncoding.getJavaEncoding(encoding);
-                assert(javaEncoding != null && !"".equals(javaEncoding));
+                assert (javaEncoding != null && !"".equals(javaEncoding));
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(bufferedOutputStream, javaEncoding);
 
                 if (writeXMLHeader)
@@ -130,7 +130,7 @@ class FileOutput extends HierarchicalNode
                     String header = String.format("<?xml version=\"1.0\" encoding=\"%s\"?>\r\n", encoding);
                     outputStreamWriter.write(header);
                 }
-                
+
                 outputStreamWriter.write(text);
 
                 outputStreamWriter.flush();
