@@ -63,7 +63,7 @@ Output file contents (test.txt):
 first second
 }}}
 
-The 'Models' object contains all the models available in the context. Each model has 'currentNode' and 'rootNode' attributes. The 'currentNode' attribute can change depending on the model e4XPath attribute or when an OutputIterator node is being used.
+The 'Models' object contains all the models available in the context. Each model has 'currentNode' and 'rootNode' attributes. The 'currentNode' attribute can change depending on the model e4XPath attribute or when an [NodeTypes#OutputIterator OutputIterator] node is being used.
 
  = E4X Reference =
 
