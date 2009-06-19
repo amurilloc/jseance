@@ -1,6 +1,33 @@
 #summary JSeance Embedded JavaScript Support
 #sidebar TableOfContents
 
+ = Embedding !JavaScript in Templates =
+
+It's possible to embed !JavaScript code in any attribute or text node of a JSeance template. For example, the following template will write the current date to a file:
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+ <FileOutput fileName="test.txt">
+  <Text>@JavaScript{Date()}@</Text>
+ </FileOutput>
+</Template>
+}}}
+
+Attributes can also include JavaScript code, for example:
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+ <JavaScript>var fileNameVar = 'file.txt';</JavaScript>
+ <FileOutput fileName="@JavaScript{fileNameVar}@">
+  <Text>TestOutput</Text>
+ </FileOutput>
+</Template>
+}}}
+
+!JavaScript code fragments are evaluated immediately before the node begins execution, this allows customization and parametrization of all template elements based on the global !JavaScript context, which is unique maintains its state during the execution lifetime of the template.
+
  = JSeance Object Model =
 
  = Embedding code in templates =
