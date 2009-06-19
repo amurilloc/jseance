@@ -95,7 +95,7 @@ var myXML = <RootNode>
  <Child attribute="child attribute">
   <A attribute="first">Text Value</A>
   <B attribute="second" />
-  <C attribute="third" />
+  <C attribute="third"> Concatenated</C>
  </Child>
 </RootNode>;
 }}}
@@ -107,6 +107,12 @@ var myXML = <RootNode>
 || {{{myXML.Child[0].toString()}}} || {{{Text Value}}} || Node to string conversion ||
 || {{{myXML.Child[0].toXMLString()}}} || {{{<A attribute="first">Text Value</A>}}} || Node to XML string conversion ||
 || {{{myXML.Child.*.(@attribute == "third").toXMLString()}}} || {{{<C attribute="third" />}}} || filter by attribute value ||
+|| {{{myXML.Child.B.localName()}}} || {{{B}}} || Node local node name ||
+|| {{{myXML.Child.B.name()}}} || {{{B}}} || Node full name||
+|| {{{myXML.Child.*.length()}}} || {{{3}}} || Node size ||
+|| {{{myXML.Child.B.parent().name()}}} || {{{Child}}} || Accessing node parents ||
+|| {{{myXML.Child.text()}}} || {{{Text Value Concatenated}}} || Concatenate child text values||
+|| {{{var text; for each(var child in myXML.Child.chindren()){text += child.@attribute;} return text }}} || {{{firstsecondthird}}} || Iteration through child nodes ||
 
 Full specification: [http://www.ecma-international.org/publications/standards/Ecma-357.htm ECMA-357]
 
