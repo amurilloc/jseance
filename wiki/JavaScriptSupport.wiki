@@ -14,7 +14,7 @@ It's possible to embed !JavaScript code in any attribute or text node of a JSean
 </Template>
 }}}
 
-Template attributes can also include !JavaScript code, for example:
+Template attributes can also include !JavaScript code, the following example declares a var in !JavaScript and then uses it in the fileName attribute to specify the file to write. This can be extended to generate fileNames based on XML model data and to generate a variable number of files from a single template.
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
