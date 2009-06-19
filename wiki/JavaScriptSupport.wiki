@@ -65,6 +65,22 @@ first second
 
 The 'Models' object contains all the models available in the context. Each model has 'currentNode' and 'rootNode' attributes. The 'currentNode' attribute can change depending on the model e4XPath attribute or when an [NodeTypes#OutputIterator OutputIterator] node is being used.
 
+ == Definitions ==
+
+The following example shows how to access Definitions from script:
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+ <Definition name="MyDefinition">
+  <Text>Definition Value</Text>
+ </Definition>
+ <FileOutput fileName="test.txt">
+  <Text>@JavaScript{Definitions['MyDefinition']}@</Text>
+ </FileOutput>
+</Template>
+}}}
+
  = E4X Reference =
 
 [NodeTypes Prev: Node Types] [PuttingItAllTogether Next: Putting it all together: Example]
