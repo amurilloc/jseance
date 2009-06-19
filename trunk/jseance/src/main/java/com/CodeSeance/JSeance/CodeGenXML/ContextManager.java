@@ -96,7 +96,8 @@ public class ContextManager
     private final static String XML_LENGTH_FN = "JSeance_XMLLength";
     private final static String XML_GET_NODE_AT_FN = "JSeance_XMLGetNodeAt";
     private final static String XML_NODE_TO_STRING = "JSeance_XMLNodeToString";
-    private final static String XML_ENCODE = "XMLEncode";
+    private final static String XML_ESCAPE_ELEMENT_VALUE = " EscapeElementValue";
+    private final static String XML_ESCAPE_ATTRIBUTE_VALUE = " EscapeAttributeValue";
 
     //Initializes the JavaScript engine (Rhino) with the required context objects and instances
     private void initializeJavaScriptEngine()
@@ -129,7 +130,8 @@ public class ContextManager
         evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 129);
         evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 130);
         evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 131);
-        evaluateJSPrivate("function " + XML_ENCODE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[\"]/g, '&quot;').replace(/[']/g, '&apos;').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;');};", "Context.java", 131);
+        evaluateJSPrivate("function " + XML_ESCAPE_ELEMENT_VALUE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;');};", "Context.java", 131);
+        evaluateJSPrivate("function " + XML_ESCAPE_ATTRIBUTE_VALUE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[\"]/g, '&quot;').replace(/[<]/g, '&lt;').replace(/\\u000A/g, '&#xA;').replace(/\\u000D/g, '&#xD;').replace(/\\u0009/g, '&#x9;');};", "Context.java", 131);
     }
 
     public void setCurrentDefinitions(JSDefinitions jsDefinitions)
