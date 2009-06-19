@@ -81,6 +81,12 @@ The following example shows how to access Definitions from script:
 </Template>
 }}}
 
+
+Output file contents (test.txt):
+{{{
+Definition Value
+}}}
+
  = E4X Reference =
 
 [NodeTypes Prev: Node Types] [PuttingItAllTogether Next: Putting it all together: Example]
