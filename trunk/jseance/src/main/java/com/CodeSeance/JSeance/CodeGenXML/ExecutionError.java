@@ -43,7 +43,7 @@ public enum ExecutionError
 {
     // 100 - General Errors
     INVALID_TARGET_DIR(100, "Cannot read or create target directory:[%s]"),
-    CANNOT_WRITE_TARGET_FILE(101, "Cannot write to target file:[%s]"),
+    CANNOT_WRITE_TARGET_FILE(101, "Cannot write to target file:[%s], Error:[%s]"),
     TARGET_FILE_READONLY(102, "Cannot write to target file:[%s] because of readonly flag, use the 'ignoreReadOnlyOuputFiles' option to ignore readonly target files"),
 
     // 200 - Template Errors
@@ -79,8 +79,8 @@ public enum ExecutionError
     public static boolean simulate_XML_PARSER_IO_ERROR = false;
     public static boolean simulate_XML_PARSER_CONFIG_ERROR = false;
 
-    private int id;
-    private String message;
+    private final int id;
+    private final String message;
 
     ExecutionError(int id, String message)
     {

@@ -56,9 +56,9 @@ import java.io.*;
 public class XMLLoader
 {
     // TODO: Wrap rest of exceptions
-    // TODO: Edit global XSD comments
+    // TODO: Update manual from schema
     // TODO: Edit JavaScript
-    // TODO: Create task list for manual
+    // TODO: Complete manual pages
     // TODO: TestCase for DependencyManager
     // TODO: TestCase for all EntryPoints
 

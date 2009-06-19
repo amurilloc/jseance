@@ -56,21 +56,18 @@ public class FileOutputTest extends TestCase
     }
 
     @Test
-    public void fileOutputTest_NoAppend()
+    public void fileOutputTest_UTF16()
     {
         createOutputFile("FILE");
 
         template.append(TEMPLATE_HEADER_OPEN);
-        template.append(" <FileOutput fileName=\"{FILE}\">");
-        template.append("  <Text>A.</Text>");
-        template.append(" </FileOutput>");
-        template.append(" <FileOutput fileName=\"{FILE}\">");
-        template.append("  <Text>B</Text>");
+        template.append(" <FileOutput fileName=\"{FILE}\" encoding=\"UTF-16\">");
+        template.append("  <Text>Test</Text>");
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
         expectResult("", false, false);
 
-        expectFileOutput("FILE", "B");
+        expectFileOutput("FILE", "þÿ\u0000T\u0000e\u0000s\u0000t");
     }
 
     @Test
@@ -117,6 +114,20 @@ public class FileOutputTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
 
         expectError(ExecutionError.TARGET_FILE_READONLY, true, true, true, true, false, outputFile.getName(), false);
+    }
 
+    @Test
+    public void fileOutputTest_XML()
+    {
+        createOutputFile("FILE");
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <FileOutput fileName=\"{FILE}\" writeXMLHeader=\"true\">");
+        template.append("  <Text><![CDATA[[<Root><Node apos=\"@JavaScript{XMLEncode(\"'\")}@\" attribute=\"@JavaScript{XMLEncode('<<data>>\"&<>')}@\"/></Root>]]></Text>");
+        template.append(" </FileOutput>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+        expectResult("", false, false);
+
+        expectFileOutput("FILE", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "[<Root><Node apos=\"&apos;\" attribute=\"&lt;&lt;data&gt;&gt;&quot;&amp;&lt;&gt;\"/></Root>");
     }
 }

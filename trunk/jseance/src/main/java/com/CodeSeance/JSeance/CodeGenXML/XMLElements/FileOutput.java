@@ -38,10 +38,8 @@ import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import org.w3c.dom.Element;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Hashtable;
 
 /**
  * Class for creating a TextSink with file destination
@@ -55,6 +53,10 @@ class FileOutput extends HierarchicalNode
     public FileOutput(Element element)
     {
         super(element);
+        if (fileEncoding == null)
+        {
+            fileEncoding = new FileEncoding();
+        }
     }
 
     // Text sink to use in current context
@@ -62,6 +64,12 @@ class FileOutput extends HierarchicalNode
 
     @XMLAttribute
     String fileName;
+
+    @XMLAttribute
+    String encoding;
+
+    @XMLAttribute
+    boolean writeXMLHeader;
 
     // The file to write to
     private File file = null;
@@ -109,22 +117,72 @@ class FileOutput extends HierarchicalNode
                     throw new IOException("Simulated exception for log testing");
                 }
 
-                // Write the text to disk
-                FileWriter fileWriter = new FileWriter(file);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                OutputStream fileOutputStream = new FileOutputStream(file);
+                OutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
 
-                bufferedWriter.write(text);
-                bufferedWriter.close();
+                assert(encoding != null && !"".equals(encoding));
+                String javaEncoding = fileEncoding.getJavaEncoding(encoding);
+                assert(javaEncoding != null && !"".equals(javaEncoding));
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(bufferedOutputStream, javaEncoding);
+
+                if (writeXMLHeader)
+                {
+                    String header = String.format("<?xml version=\"1.0\" encoding=\"%s\"?>\r\n", encoding);
+                    outputStreamWriter.write(header);
+                }
+                
+                outputStreamWriter.write(text);
+
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
 
                 // Add the dependency to the file
                 context.getManager().templateDependencies.addOutputFile(file);
 
             }
-            catch (IOException exception)
+            catch (IOException ex)
             {
-                throw new RuntimeException(ExecutionError.CANNOT_WRITE_TARGET_FILE.getMessage(file));
+                throw new RuntimeException(ExecutionError.CANNOT_WRITE_TARGET_FILE.getMessage(file, ex.getMessage()));
             }
+
         }
     }
 
+    private class FileEncoding
+    {
+        private Hashtable<String, String> encodings = new Hashtable<String, String>();
+
+        public String getJavaEncoding(String xmlEncoding)
+        {
+            return encodings.get(xmlEncoding);
+        }
+
+        public FileEncoding()
+        {
+            encodings.put("ISO-8859-1", "8859_1");
+            encodings.put("ISO-8859-2", "8859_2");
+            encodings.put("ISO-8859-3", "8859_3");
+            encodings.put("ISO-8859-4", "8859_4");
+            encodings.put("ISO-8859-5", "8859_5");
+            encodings.put("ISO-8859-6", "8859_6");
+            encodings.put("ISO-8859-7", "8859_7");
+            encodings.put("ISO-8859-8", "8859_8");
+            encodings.put("ISO-8859-9", "8859_9");
+
+            encodings.put("ISO-8859-13", "ISO8859_13");
+            encodings.put("ISO-8859-15", "ISO8859_15_FDIS");
+            encodings.put("UTF-8", "UTF8");
+            encodings.put("UTF-16", "UnicodeBig");
+            encodings.put("ISO-2022-JP", "JIS");
+            encodings.put("Shift_JIS", "SJIS");
+            encodings.put("EUC-JP", "EUCJIS");
+            encodings.put("US-ASCII", "ASCII");
+            encodings.put("GBK", "GBK");
+            encodings.put("Big5", "Big5");
+            encodings.put("ISO-2022-CN", "ISO2022CN");
+            encodings.put("ISO-2022-KR", "ISO2022KR");
+        }
+    }
+
+    private static FileEncoding fileEncoding = null;
 }
