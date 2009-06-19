@@ -89,4 +89,19 @@ Definition Value
 
  = E4X Reference =
 
+Example XML:
+{{{
+var myXML = <RootNode>
+ <Child attribute="child attribute">
+  <A attribute1="first" />
+  <B attribute2="second" />
+  <C attribute3="third" />
+ </Child>
+</RootNode>;
+}}}
+
+|| Expression || Value || Description ||
+|| myXML.Child[0].@attribute1 || first || Child nodes can be referenced by index ||
+|| myXML.Child.B.@attribute2 || second || Child nodes can be referenced by tagName||
+
 [NodeTypes Prev: Node Types] [PuttingItAllTogether Next: Putting it all together: Example]
