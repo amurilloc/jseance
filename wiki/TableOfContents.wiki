@@ -18,7 +18,7 @@
     * [NodeTypes#OutputIterator OutputIterator]
     * [NodeTypes#JavaScript JavaScript]
   * [JavaScriptSupport JavaScript Support]
-    * [JavaScriptSupport#Embedding_JavaScript_Code_in_Templates Embedding !JavaScript Code in Templates]
+    * [JavaScriptSupport#Embedding_JavaScript_Code_in_Templates Embedding JavaScript Code in Templates]
     * [JavaScriptSupport#JSeance_Object_Model JSeance Object Model]
     * [JavaScriptSupport#E4X_Reference E4X Reference]
   * [PuttingItAllTogether Putting it all together: Example]
