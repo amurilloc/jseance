@@ -96,8 +96,8 @@ public class ContextManager
     private final static String XML_LENGTH_FN = "JSeance_XMLLength";
     private final static String XML_GET_NODE_AT_FN = "JSeance_XMLGetNodeAt";
     private final static String XML_NODE_TO_STRING = "JSeance_XMLNodeToString";
-    private final static String XML_ESCAPE_ELEMENT_VALUE = " EscapeElementValue";
-    private final static String XML_ESCAPE_ATTRIBUTE_VALUE = " EscapeAttributeValue";
+    private final static String ESCAPE_XML_VALUE = " EscapeXMLValue";
+    private final static String ESCAPE_XML_ATTRIBUTE = " EscapeXMLAttribute";
 
     //Initializes the JavaScript engine (Rhino) with the required context objects and instances
     private void initializeJavaScriptEngine()
@@ -124,14 +124,25 @@ public class ContextManager
             throw new RuntimeException(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR.getMessage(ex.getMessage()));
         }
 
-        evaluateJSPrivate("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "Context.java", 126);
-        evaluateJSPrivate("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "Context.java", 127);
-        evaluateJSPrivate("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "Context.java", 128);
-        evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "Context.java", 129);
-        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 130);
-        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "Context.java", 131);
-        evaluateJSPrivate("function " + XML_ESCAPE_ELEMENT_VALUE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;');};", "Context.java", 131);
-        evaluateJSPrivate("function " + XML_ESCAPE_ATTRIBUTE_VALUE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[\"]/g, '&quot;').replace(/[<]/g, '&lt;').replace(/\\u000A/g, '&#xA;').replace(/\\u000D/g, '&#xD;').replace(/\\u0009/g, '&#x9;');};", "Context.java", 131);
+        evaluateJSPrivate("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "ContextManager.java", 127);
+        evaluateJSPrivate("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "ContextManager.java", 128);
+        evaluateJSPrivate("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "ContextManager.java", 129);
+        evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "ContextManager.java", 130);
+        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "ContextManager.java", 131);
+        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "ContextManager.java", 132);
+        evaluateJSPrivate("function " + ESCAPE_XML_VALUE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;');};", "ContextManager.java", 133);
+        evaluateJSPrivate("function " + ESCAPE_XML_ATTRIBUTE + "(val){return val.replace(/[&]/g, '&amp;').replace(/[\"]/g, '&quot;').replace(/[<]/g, '&lt;').replace(/\\u000A/g, '&#xA;').replace(/\\u000D/g, '&#xD;').replace(/\\u0009/g, '&#x9;');};", "ContextManager.java", 134);
+
+        declareStringConversionFunction("EscapeHTML", "org.apache.commons.lang.StringEscapeUtils.escapeHtml");
+        declareStringConversionFunction("EscapeJava", "org.apache.commons.lang.StringEscapeUtils.escapeJava");
+        declareStringConversionFunction("EscapeJavaScript", "org.apache.commons.lang.StringEscapeUtils.escapeJavaScript");
+        declareStringConversionFunction("EscapeSQL", "org.apache.commons.lang.StringEscapeUtils.escapeSQL");
+        declareStringConversionFunction("EscapeXML", "org.apache.commons.lang.StringEscapeUtils.escapeXml");
+    }
+
+    private void declareStringConversionFunction(String name, String method)
+    {
+        evaluateJSPrivate(String.format("function %s (val){return String(%s(val));};", name, method), "ContextManager.java", 145);
     }
 
     public void setCurrentDefinitions(JSDefinitions jsDefinitions)
