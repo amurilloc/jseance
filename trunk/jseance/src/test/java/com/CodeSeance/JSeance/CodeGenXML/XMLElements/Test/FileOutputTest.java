@@ -123,11 +123,26 @@ public class FileOutputTest extends TestCase
 
         template.append(TEMPLATE_HEADER_OPEN);
         template.append(" <FileOutput fileName=\"{FILE}\" writeXMLHeader=\"true\">");
-        template.append("  <Text><![CDATA[<Root><Node attribute=\"@JavaScript{EscapeAttributeValue('\"<&\\u000A\\u000D\\u0009')}@\">@JavaScript{ EscapeElementValue('<>&')}@</Node></Root>]]></Text>");
+        template.append("  <Text><![CDATA[<Root><Node attribute=\"@JavaScript{EscapeXMLAttribute('\"<&\\u000A\\u000D\\u0009')}@\">@JavaScript{EscapeXMLValue('<>&')}@</Node></Root>]]></Text>");
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
         expectResult("", false, false);
 
         expectFileOutput("FILE", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<Root><Node attribute=\"&quot;&lt;&amp;&#xA;&#xD;&#x9;\">&lt;&gt;&amp;</Node></Root>");
+    }
+
+    @Test
+    public void fileOutputTest_HTML()
+    {
+        createOutputFile("FILE");
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <FileOutput fileName=\"{FILE}\" writeXMLHeader=\"true\">");
+        template.append("  <Text><![CDATA[<Root><Node attribute=\"@JavaScript{EscapeHTML('<conversion>')}@\"></Node></Root>]]></Text>");
+        template.append(" </FileOutput>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+        expectResult("", false, false);
+
+        expectFileOutput("FILE", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<Root><Node attribute=\"&lt;conversion&gt;\"></Node></Root>");
     }
 }
