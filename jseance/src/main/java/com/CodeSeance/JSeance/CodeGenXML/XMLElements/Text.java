@@ -35,6 +35,7 @@ package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
 import com.CodeSeance.JSeance.CodeGenXML.Context;
 import com.CodeSeance.JSeance.CodeGenXML.XMLTextContent;
+import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
 import org.w3c.dom.Element;
 
 /**
@@ -43,13 +44,16 @@ import org.w3c.dom.Element;
  * @author Andres Murillo
  * @version 1.0
  */
-class Text extends Node
+public class Text extends Node
 {
 
     public Text(Element element)
     {
         super(element);
     }
+
+    @XMLAttribute
+    String escaping;
 
     @XMLTextContent
     String text;
@@ -58,6 +62,50 @@ class Text extends Node
     public void onContextEnter(Context context)
     {
         context.LogInfoMessage(log, "Text", String.format("Output:[%s]", text));
+        if (escaping!= null && !"".equals(escaping))
+        {
+            if (escaping.equals("xml-attribute"))
+            {
+                text = escapeXMLAttribute(text);
+            }
+            else if (escaping.equals("xml-value"))
+            {
+                text = escapeXMLValue(text);
+            }
+            else if (escaping.equals("html"))
+            {
+                text = org.apache.commons.lang.StringEscapeUtils.escapeHtml(text);
+            }
+            else if (escaping.equals("java"))
+            {
+                text = org.apache.commons.lang.StringEscapeUtils.escapeJava(text);
+            }
+            else if (escaping.equals("javascript"))
+            {
+                text = org.apache.commons.lang.StringEscapeUtils.escapeJavaScript(text);
+            }
+            else if (escaping.equals("sql"))
+            {
+                text = org.apache.commons.lang.StringEscapeUtils.escapeSql(text);
+            }
+        }
         context.writeText(text);
+    }
+
+    public static String escapeXMLValue(String text)
+    {
+        return text.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
+    }
+    
+    public static String escapeXMLAttribute(String text)
+    {
+        return text.replaceAll("&", "&amp;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("<", "&lt;")
+                .replaceAll("\n", "&#xA;")
+                .replaceAll("\r", "&#xD;")
+                .replaceAll("\u0009", "&#x9;");
     }
 }

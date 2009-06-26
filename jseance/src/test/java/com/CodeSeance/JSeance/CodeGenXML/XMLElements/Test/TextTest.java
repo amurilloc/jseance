@@ -49,4 +49,32 @@ public class TextTest extends TestCase
         template.append(TEMPLATE_HEADER_CLOSE);
         expectResult("A.B");
     }
+
+    @Test
+    public void textTest_EscapingAttributeCoverage()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Text escaping=\"xml-attribute\">A.</Text>");
+        template.append(" <Text escaping=\"xml-value\">B.</Text>");
+        template.append(" <Text escaping=\"html\">C.</Text>");
+        template.append(" <Text escaping=\"java\">D.</Text>");
+        template.append(" <Text escaping=\"javascript\">E.</Text>");
+        template.append(" <Text escaping=\"sql\">F</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+        expectResult("A.B.C.D.E.F");
+    }
+
+    @Test
+    public void textTest_EscapingJavaScriptCoverage()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Text>@JavaScript{EscapeXMLAttribute('A.')}@</Text>");
+        template.append(" <Text>@JavaScript{EscapeXMLValue('B.')}@</Text>");
+        template.append(" <Text>@JavaScript{EscapeHTML('C.')}@</Text>");
+        template.append(" <Text>@JavaScript{EscapeJava('D.')}@</Text>");
+        template.append(" <Text>@JavaScript{EscapeJavaScript('E.')}@</Text>");
+        template.append(" <Text>@JavaScript{EscapeSQL('F')}@</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+        expectResult("A.B.C.D.E.F");
+    }
 }
