@@ -52,10 +52,21 @@ Models can be referenced in JavaScript as Models['name'] or Models['default'] fo
 					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="Text" type="xs:string">
+			<xs:element name="Text">
 				<xs:annotation>
 					<xs:documentation>Simple text output to the default text sink.</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="escaping" type="JSeance:StringEscaping">
+								<xs:annotation>
+									<xs:documentation>Allows text to be escaped for xml, html, sql, etc. See the StringEscaping definition for valid options.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="FileOutput">
 				<xs:annotation>
@@ -286,6 +297,19 @@ Models can be referenced in JavaScript as Models['name'] or Models['default'] fo
 			<xs:enumeration value="ISO-2022-KR"/>
 			<xs:enumeration value="ISO-8859-15"/>
 			<xs:enumeration value="ISO-8859-15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StringEscaping">
+		<xs:annotation>
+			<xs:documentation>Enumeration of valid string escape opions</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="xml-attribute"/>
+			<xs:enumeration value="xml-value"/>
+			<xs:enumeration value="html"/>
+			<xs:enumeration value="java"/>
+			<xs:enumeration value="javascript"/>
+			<xs:enumeration value="sql"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
