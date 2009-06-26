@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance" xsi:schemaLocation="http://www.codeseance.com/JSeance http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
+	<Model fileName="WebPage.xml"/>
+	<FileOutput fileName="@JavaScript{Models['default'].@fileName}@">
+			<Include fileName="Header.xml"/>
+	</FileOutput>
+</Template>
