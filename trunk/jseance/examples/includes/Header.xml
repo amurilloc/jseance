@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance" xsi:schemaLocation="http://www.codeseance.com/JSeance http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
+	<Template>
+		<Definition name="menubar">
+			<OutputIterator e4XPath="Header.Menu.Item" >
+				<Text><![CDATA[<li><a href="@JavaScript{Models['default'].currentNode.@href}@">@JavaScript{EscapeHTML(Models['default'].currentNode.@name)}@</a></li>
+]]></Text>
+			</OutputIterator>
+		</Definition>
+		<Text><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Metamorphosis Design Free Css Templates</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="main"><!-- start header -->
+<div id="header">
+ <div id="logo">
+	<h1>@JavaScript{Models['default'].Header.Name.toString()}@</h1>
+	<h2>@JavaScript{Models['default'].Header.SubName.toString()}@</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			@JavaScript{Definitions['menubar']}@
+		</ul>
+	</div>	
+<!-- end header -->
+</div>
+<hr />
+]]></Text>
+	</Template>
+</Include>

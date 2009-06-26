@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebPage fileName="home.html">
+	<Header>
+		<Name>My Website Name</Name>
+		<SubName>Website sub-name</SubName>
+		<Menu>
+			<Item name="Home" href="#" />
+			<Item name="Blogs" href="#" />
+			<Item name="Photos" href="#" />
+			<Item name="About" href="#" />
+			<Item name="Contact" href="#" />
+		</Menu>
+	</Header>
+	<Sidebar>
+		<Section name="Categories">
+			<Category name="Category A" href="#" />
+			<Category name="Category B" href="#" />
+			<Category name="Category C" href="#" />
+			<Category name="Category D" href="#" />
+		</Section>
+		<Section name="Archives">
+			<Category name="September" href="#" />
+			<Category name="August" href="#" />
+			<Category name="July" href="#" />
+			<Category name="June" href="#" />
+			<Category name="May" href="#" />
+		</Section>
+	</Sidebar>
+</WebPage>
