@@ -3,48 +3,42 @@
 	<Model fileName="WebPage.xml"/>
 	<FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
 			<Include fileName="Header.xml"/>
-			
-			<Text><![CDATA[<!-- start page -->
-<div id="page">
-	<!-- start content -->
-	<div id="content">
-]]></Text>
-			<OutputIterator e4XPath="Posts.Post">
-				<Text><![CDATA[		<div class="post">
-			<h1 class="title">]]></Text>
-				<Text escaping="html">@JavaScript{Models['default'].currentNode.@title}@</Text>
-				<Text><![CDATA[</h1>
-]]></Text>
-				<Text><![CDATA[			<p class="meta"><small>]]></Text>
-				<Text escaping="html">@JavaScript{Models['default'].currentNode.@date}@</Text>
-				<Text><![CDATA[</small></p>
-]]></Text>
-				<Text><![CDATA[		  <div class="entry">]]></Text>
-				<Text>@JavaScript{Models['default'].currentNode.toString()}@</Text>
-				<Text><![CDATA[		  </div>
-]]></Text>
-			</OutputIterator>
-			
-			<Text><![CDATA[	</div>
-</div>
-	<!-- end content -->
-]]></Text>
+			<Include fileName="Content.xml"/>
 			
 			<Text><![CDATA[	<!-- start sidebar two -->
 	<div id="sidebar2" class="sidebar">
 		<ul>
 ]]></Text>
 			<OutputIterator e4XPath="Sidebar.Section">
-				<Text><![CDATA[]]></Text>
+				<Text><![CDATA[			<li>
+				<h2>]]></Text>
+				<Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
+				<Text><![CDATA[</h2>
+				<ul class="back_title">
+]]></Text>
+				<JavaScript>var first = true;</JavaScript>
 				<OutputIterator e4XPath="Category">
-					<Text><![CDATA[]]></Text>
+					<Conditional>
+						<If jsExpression="first">
+							<JavaScript>first = false;</JavaScript>
+							<Text><![CDATA[					<li class="top">]]></Text>
+						</If>
+						<Else>
+							<Text><![CDATA[					<li>]]></Text>
+						</Else>
+					</Conditional>
+					<Text><![CDATA[<a href="@JavaScript{Models['default'].currentNode.@href}@">]]></Text>
+					<Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
+					<Text><![CDATA[</a></li>
+]]></Text>
 				</OutputIterator>
-				<Text><![CDATA[]]></Text>
+				<Text><![CDATA[				</ul>
+			</li>
+]]></Text>
 			</OutputIterator>
 			<Text><![CDATA[		</ul>
 	</div>
-	<!-- end sidebar two -->
-]]></Text>
+	<!-- end sidebar two -->]]></Text>
 			
 			<Include fileName="Footer.xml"/>
 	</FileOutput>

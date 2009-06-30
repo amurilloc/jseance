@@ -172,11 +172,14 @@ public class Runtime
             if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
             {
                 externalLog.infoMessage(String.format("Processing template file:[%s]", fileName));
+                long startMillis = System.currentTimeMillis();
                 try
                 {
                     String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
                     buffer.append(result);
                     dependencyManager.commit();
+                    long elapsedMillis = System.currentTimeMillis() - startMillis;
+                    externalLog.infoMessage(String.format("Completed in :[%s] ms", elapsedMillis));
                 }
                 catch (Exception ex)
                 {

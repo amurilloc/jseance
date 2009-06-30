@@ -60,7 +60,7 @@ public class Template extends HierarchicalNode
     }
 
     // Default buffer for text accumulation
-    private StringBuffer buffer = new StringBuffer();
+    private StringBuffer buffer = null;
 
 
     @Override
@@ -69,6 +69,7 @@ public class Template extends HierarchicalNode
         context.LogInfoMessage(log, "Template", "Processing children");
 
         // Sets the top text sink
+        buffer = new StringBuffer();
         context.setTextSink(buffer);
 
         // Execute child nodes
@@ -102,7 +103,7 @@ public class Template extends HierarchicalNode
         XMLLoader xmlLoader = XMLLoader.buildFromCodeTemplateSchema();
 
         // Loads the XML document
-        Document document = null;
+        Document document;
         try
         {
             document = xmlLoader.loadXML(templatesDir, fileName);
