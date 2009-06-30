@@ -169,17 +169,18 @@ public class Runtime
 
             TemplateDependencies templateDependencies = dependencyManager.getTemplateDependencies(file);
 
+            // Track the processing time
+            externalLog.infoMessage(String.format("Processing template file:[%s]", fileName));
+            long startMillis = System.currentTimeMillis();
+
             if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
             {
-                externalLog.infoMessage(String.format("Processing template file:[%s]", fileName));
-                long startMillis = System.currentTimeMillis();
+                dependencyManager.clearTemplateDependencies(file);
                 try
                 {
                     String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
                     buffer.append(result);
                     dependencyManager.commit();
-                    long elapsedMillis = System.currentTimeMillis() - startMillis;
-                    externalLog.infoMessage(String.format("Completed in :[%s] ms", elapsedMillis));
                 }
                 catch (Exception ex)
                 {
@@ -193,6 +194,9 @@ public class Runtime
                 externalLog.infoMessage(message);
                 log.info(message);
             }
+
+            long elapsedMillis = System.currentTimeMillis() - startMillis;
+            externalLog.infoMessage(String.format("Completed in :[%s] ms", elapsedMillis));
         }
         return buffer.toString();
     }

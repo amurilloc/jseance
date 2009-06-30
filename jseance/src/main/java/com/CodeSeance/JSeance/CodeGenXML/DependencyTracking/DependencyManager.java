@@ -62,10 +62,10 @@ public class DependencyManager
 
     public DependencyManager(File targetDir)
     {
+        final String DEPENDENCY_FILENAME = ".jseance-dependencies.xml";
+
         // Output directory must exist already
         assert targetDir.exists();
-
-        this.outputDirectory = targetDir;
 
         // Load the dependencies from disk
         dependencyFile = new File(targetDir, DEPENDENCY_FILENAME);
@@ -74,20 +74,27 @@ public class DependencyManager
             boolean deleteFile = false;
             try
             {
+                // Load the dependencies file
                 XMLLoader xmLoader = XMLLoader.build(false);
                 Document document = xmLoader.loadXML(targetDir, DEPENDENCY_FILENAME);
+
+                // Get the root node
                 Element rootNode = document.getDocumentElement();
                 NodeList templateChildren = rootNode.getChildNodes();
+
+                // Iterate through the "Template" children
                 for (int i = 0; i < templateChildren.getLength(); i++)
                 {
                     if (templateChildren.item(i) instanceof Element)
                     {
                         Element templateChild = (Element) templateChildren.item(i);
 
+                        // Load the template file entry and store it in this class hashtable
                         File templateFile = new File(templateChild.getAttribute("fileName"));
                         TemplateDependencies templateDependency = new TemplateDependencies(templateFile);
-                        templateDependencies.put(dependencyFile.toString(), templateDependency);
+                        templateDependencies.put(templateFile.toString(), templateDependency);
 
+                        // Iterate through the child nodes
                         NodeList dependencyNodes = templateChild.getChildNodes();
                         for (int j = 0; j < dependencyNodes.getLength(); j++)
                         {
@@ -132,9 +139,6 @@ public class DependencyManager
 
     private final File dependencyFile;
 
-    private final String DEPENDENCY_FILENAME = ".jseance-dependencies.xml";
-    private final File outputDirectory;
-
     public TemplateDependencies getTemplateDependencies(File templateFile)
     {
         String key = templateFile.toString();
@@ -143,6 +147,15 @@ public class DependencyManager
             templateDependencies.put(key, new TemplateDependencies(templateFile));
         }
         return templateDependencies.get(key);
+    }
+
+    public void clearTemplateDependencies(File templateFile)
+    {
+        String key = templateFile.toString();
+        if (!templateDependencies.containsKey(key))
+        {
+            templateDependencies.remove(key);
+        }
     }
 
     Hashtable<String, TemplateDependencies> templateDependencies = new Hashtable<String, TemplateDependencies>();
@@ -167,8 +180,7 @@ public class DependencyManager
         {
             // Build the XML representation
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = null;
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             DOMImplementation domImplementation = documentBuilder.getDOMImplementation();
             Document document = domImplementation.createDocument(null, "JSeanceDependencies", null);
             Element rootNode = document.getDocumentElement();
