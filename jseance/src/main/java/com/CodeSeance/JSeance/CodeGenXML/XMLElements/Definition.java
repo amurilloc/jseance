@@ -54,13 +54,14 @@ class Definition extends HierarchicalNode
     @XMLAttribute
     String name;
 
-    private StringBuffer buffer = new StringBuffer();
+    private StringBuffer buffer = null;
 
     @Override
     public void onContextEnter(Context context)
     {
         context.LogInfoMessage(log, "Definition", "Processing children");
 
+        buffer = new StringBuffer();
         context.setTextSink(buffer);
         ExecuteChildren(context);
     }

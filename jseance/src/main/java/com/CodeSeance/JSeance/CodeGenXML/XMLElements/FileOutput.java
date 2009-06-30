@@ -60,7 +60,7 @@ class FileOutput extends HierarchicalNode
     }
 
     // Text sink to use in current context
-    private final StringBuffer buffer = new StringBuffer();
+    private StringBuffer buffer = null;
 
     @XMLAttribute
     String fileName;
@@ -96,6 +96,7 @@ class FileOutput extends HierarchicalNode
             }
 
             // Change the sink of the current context
+            buffer = new StringBuffer();
             context.setTextSink(buffer);
             ExecuteChildren(context);
         }

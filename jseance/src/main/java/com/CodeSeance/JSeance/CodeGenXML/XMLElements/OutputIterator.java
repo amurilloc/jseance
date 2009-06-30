@@ -54,7 +54,7 @@ class OutputIterator extends HierarchicalNode
         super(element);
     }
 
-    private final StringBuffer buffer = new StringBuffer();
+    private StringBuffer buffer = null;
 
     @XMLAttribute
     String e4XPath;
@@ -69,6 +69,7 @@ class OutputIterator extends HierarchicalNode
     public void onContextEnter(Context context)
     {
         context.LogInfoMessage(log, "OutputIterator", String.format("Evaluating e4XPath:[%s] on model:[%s]", e4XPath, modelName));
+        buffer = new StringBuffer();
         context.setTextSink(buffer);
 
         JSModel jsModel = context.getModel(modelName);
