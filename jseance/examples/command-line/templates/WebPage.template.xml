@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance" xsi:schemaLocation="http://www.codeseance.com/JSeance http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
+	<Model fileName="WebPage.xml"/>
+	<FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
+			<Include fileName="Header.xml"/>
+			
+			<Text><![CDATA[<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="content">
+]]></Text>
+			<OutputIterator e4XPath="Posts.Post">
+				<Text><![CDATA[		<div class="post">
+			<h1 class="title">]]></Text>
+				<Text escaping="html">@JavaScript{Models['default'].currentNode.@title}@</Text>
+				<Text><![CDATA[</h1>
+]]></Text>
+				<Text><![CDATA[			<p class="meta"><small>]]></Text>
+				<Text escaping="html">@JavaScript{Models['default'].currentNode.@date}@</Text>
+				<Text><![CDATA[</small></p>
+]]></Text>
+				<Text><![CDATA[		  <div class="entry">]]></Text>
+				<Text>@JavaScript{Models['default'].currentNode.toString()}@</Text>
+				<Text><![CDATA[		  </div>
+]]></Text>
+			</OutputIterator>
+			
+			<Text><![CDATA[	</div>
+</div>
+	<!-- end content -->
+]]></Text>
+			
+			<Text><![CDATA[	<!-- start sidebar two -->
+	<div id="sidebar2" class="sidebar">
+		<ul>
+]]></Text>
+			<OutputIterator e4XPath="Sidebar.Section">
+				<Text><![CDATA[]]></Text>
+				<OutputIterator e4XPath="Category">
+					<Text><![CDATA[]]></Text>
+				</OutputIterator>
+				<Text><![CDATA[]]></Text>
+			</OutputIterator>
+			<Text><![CDATA[		</ul>
+	</div>
+	<!-- end sidebar two -->
+]]></Text>
+			
+			<Include fileName="Footer.xml"/>
+	</FileOutput>
+</Template>

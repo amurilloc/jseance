@@ -59,8 +59,8 @@ public class CommandLine implements Logger
     @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is off")
     String debugLogFileName = null;
 
-    @Option(name = "-consoleInfoLog", usage = "outputs status info to the console")
-    boolean consoleInfoLog = false;
+    @Option(name = "-supressConnsoleInfo", usage = "DIsable info message logging to the console (only errors will be reported)")
+    boolean supressConnsoleInfo = false;
 
     @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
     boolean consoleTemplateOut = false;
@@ -135,7 +135,7 @@ public class CommandLine implements Logger
 
     public void infoMessage(String message)
     {
-        if (consoleInfoLog)
+        if (!supressConnsoleInfo)
         {
             System.out.println(message);
         }
@@ -143,9 +143,6 @@ public class CommandLine implements Logger
 
     public void errorMessage(String message)
     {
-        if (consoleInfoLog)
-        {
-            System.out.println(message);
-        }
+        System.out.println(message);
     }
 }

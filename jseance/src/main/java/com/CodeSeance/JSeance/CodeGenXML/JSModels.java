@@ -44,6 +44,11 @@ public class JSModels extends ScriptableObject
         {
             String name = (String) property;
             Object val = get(name, this);
+            if (val instanceof JSModel)
+            {
+                JSModel jsModel = (JSModel)val;
+                val = jsModel.deepClone();
+            }
             result.put(name, result, val);
         }
         return result;
