@@ -1,2 +1,2 @@
-java -jar ../../target/jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar WebPage.template.xml -errorLogFileName="../common/jseance-errors.log" -infoLogFileName="../common/jseance-info.log" -templatesDir="../common/templates" -includesDir="../common/includes" -modelsDir="../common/models" -targetDir="../common/target"
+java -jar ../../target/jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar -errorLogFileName "../common/jseance-errors.log" -infoLogFileName "../common/jseance-info.log" -templatesDir "../common/templates" -includesDir "../common/includes" -modelsDir "../common/models" -targetDir "../common/target" WebPage.template.xml
  pause
