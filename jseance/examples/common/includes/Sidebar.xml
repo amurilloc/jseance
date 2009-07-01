@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance" xsi:schemaLocation="http://www.codeseance.com/JSeance http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
+	<Template>
+		<Text><![CDATA[	<!-- start sidebar two -->
+	<div id="sidebar2" class="sidebar">
+		<ul>
+]]></Text>
+		<OutputIterator e4XPath="Sidebar.Section">
+			<Text><![CDATA[			<li>
+				<h2>]]></Text>
+			<Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
+			<Text><![CDATA[</h2>
+				<ul class="back_title">
+]]></Text>
+			<JavaScript>var first = true;</JavaScript>
+			<OutputIterator e4XPath="Category">
+				<Conditional>
+					<If jsExpression="first">
+						<JavaScript>first = false;</JavaScript>
+						<Text><![CDATA[					<li class="top">]]></Text>
+					</If>
+					<Else>
+						<Text><![CDATA[					<li>]]></Text>
+					</Else>
+				</Conditional>
+				<Text><![CDATA[<a href="@JavaScript{Models['default'].currentNode.@href}@">]]></Text>
+				<Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
+				<Text><![CDATA[</a></li>
+]]></Text>
+			</OutputIterator>
+			<Text><![CDATA[				</ul>
+			</li>
+]]></Text>
+		</OutputIterator>
+		<Text><![CDATA[		</ul>
+	</div>
+	<!-- end sidebar two -->]]></Text>
+	</Template>
+</Include>
