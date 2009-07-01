@@ -60,56 +60,56 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
         errorLogFile = file;
     }
 
-    private File errorLogFile;
+    private File errorLogFile = new File("./jseance-errors.log");
 
     public void setInfoLogFile(File file)
     {
         infoLogFile = file;
     }
 
-    private File infoLogFile;
+    private File infoLogFile =  new File("./jseance-info.log");
 
     public void setDebugLogFile(File file)
     {
         debugLogFile = file;
     }
 
-    private File debugLogFile;
+    private File debugLogFile = null;
 
     public void setIncludesDir(File file)
     {
         includesDir = file;
     }
 
-    private File includesDir;
+    private File includesDir = new File("./includes");
 
     public void setModelsDir(File file)
     {
         modelsDir = file;
     }
 
-    private File modelsDir;
+    private File modelsDir = new File("./models");
 
     public void setTargetDir(File file)
     {
         targetDir = file;
     }
 
-    private File targetDir;
+    private File targetDir = new File("./target");
 
     public void setIgnoreReadOnlyOuputFiles(boolean val)
     {
         ignoreReadOnlyOuputFiles = val;
     }
 
-    private boolean ignoreReadOnlyOuputFiles;
+    private boolean ignoreReadOnlyOuputFiles = false;
 
     public void setForceRebuild(boolean val)
     {
         forceRebuild = val;
     }
 
-    private boolean forceRebuild;
+    private boolean forceRebuild = false;
 
     public void addFileset(FileSet fileset)
     {
@@ -121,7 +121,7 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
     @Override
     public void execute() throws BuildException
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile.toString(), infoLogFile.toString(), debugLogFile.toString(), includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile != null? errorLogFile.toString() : null, infoLogFile != null ? infoLogFile.toString() : null, debugLogFile!= null? debugLogFile.toString() : null, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
 
         for (FileSet fileSet : filesets)
         {

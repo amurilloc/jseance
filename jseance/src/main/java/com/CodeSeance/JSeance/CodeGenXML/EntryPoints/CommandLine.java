@@ -59,7 +59,7 @@ public class CommandLine implements Logger
     @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is off")
     String debugLogFileName = null;
 
-    @Option(name = "-supressConnsoleInfo", usage = "DIsable info message logging to the console (only errors will be reported)")
+    @Option(name = "-supressConnsoleInfo", usage = "Disable info message logging to the console (only errors will be reported)")
     boolean supressConnsoleInfo = false;
 
     @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
@@ -109,8 +109,6 @@ public class CommandLine implements Logger
     // Parses the command line arguments and executes the specified templates
     public String run(String[] args)
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFileName, infoLogFileName, debugLogFileName, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
-
         CmdLineParser parser = new CmdLineParser(this);
 
         // if you have a wider console, you could increase the value;
@@ -130,6 +128,7 @@ public class CommandLine implements Logger
             System.exit(1);
         }
 
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFileName, infoLogFileName, debugLogFileName, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
         return runtime.run(templatesDir, arguments, this);
     }
 
