@@ -4,42 +4,7 @@
 	<FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
 			<Include fileName="Header.xml"/>
 			<Include fileName="Content.xml"/>
-			
-			<Text><![CDATA[	<!-- start sidebar two -->
-	<div id="sidebar2" class="sidebar">
-		<ul>
-]]></Text>
-			<OutputIterator e4XPath="Sidebar.Section">
-				<Text><![CDATA[			<li>
-				<h2>]]></Text>
-				<Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
-				<Text><![CDATA[</h2>
-				<ul class="back_title">
-]]></Text>
-				<JavaScript>var first = true;</JavaScript>
-				<OutputIterator e4XPath="Category">
-					<Conditional>
-						<If jsExpression="first">
-							<JavaScript>first = false;</JavaScript>
-							<Text><![CDATA[					<li class="top">]]></Text>
-						</If>
-						<Else>
-							<Text><![CDATA[					<li>]]></Text>
-						</Else>
-					</Conditional>
-					<Text><![CDATA[<a href="@JavaScript{Models['default'].currentNode.@href}@">]]></Text>
-					<Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
-					<Text><![CDATA[</a></li>
-]]></Text>
-				</OutputIterator>
-				<Text><![CDATA[				</ul>
-			</li>
-]]></Text>
-			</OutputIterator>
-			<Text><![CDATA[		</ul>
-	</div>
-	<!-- end sidebar two -->]]></Text>
-			
+			<Include fileName="Sidebar.xml"/>			
 			<Include fileName="Footer.xml"/>
 	</FileOutput>
 </Template>
