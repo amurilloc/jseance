@@ -76,19 +76,12 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
 
     private File debugLogFile = null;
 
-    public void setIncludesDir(File file)
+    public void setSourcesDir(File file)
     {
-        includesDir = file;
+        sourcesDir = file;
     }
 
-    private File includesDir = new File("./includes");
-
-    public void setModelsDir(File file)
-    {
-        modelsDir = file;
-    }
-
-    private File modelsDir = new File("./models");
+    private File sourcesDir = new File("./jseance");
 
     public void setTargetDir(File file)
     {
@@ -121,7 +114,7 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
     @Override
     public void execute() throws BuildException
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile != null? errorLogFile.toString() : null, infoLogFile != null ? infoLogFile.toString() : null, debugLogFile!= null? debugLogFile.toString() : null, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile != null? errorLogFile.toString() : null, infoLogFile != null ? infoLogFile.toString() : null, debugLogFile!= null? debugLogFile.toString() : null, ignoreReadOnlyOuputFiles, forceRebuild);
 
         for (FileSet fileSet : filesets)
         {
@@ -129,17 +122,18 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
             File templatesDir = dirScanner.getBasedir();
 
             String[] includedFiles = dirScanner.getIncludedFiles();
-            ArrayList<String> templateFileNames = new ArrayList<String>();
+            List<File> templateFiles = new ArrayList<File>();
 
             // Replace windows-only slashes with platform independant representation and populate the files
             for (String fileName : includedFiles)
             {
-                templateFileNames.add(fileName.replace('\\', '/'));
+                File file = new File(templatesDir, fileName);
+                templateFiles.add(file);
             }
 
             try
             {
-                runtime.run(templatesDir, templateFileNames, this);
+                runtime.run(sourcesDir, targetDir, templateFiles, this);
             }
             catch (Exception ex)
             {

@@ -54,14 +54,11 @@ import java.util.Properties;
  */
 public class Runtime
 {
-    public Runtime(String errorLogFileName, String infoLogFileName, String debugLogFileName, File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, boolean forceRebuild)
+    public Runtime(String errorLogFileName, String infoLogFileName, String debugLogFileName, boolean ignoreReadOnlyOuputFiles, boolean forceRebuild)
     {
         this.errorLogFileName = errorLogFileName;
         this.infoLogFileName = infoLogFileName;
         this.debugLogFileName = debugLogFileName;
-        this.includesDir = includesDir;
-        this.modelsDir = modelsDir;
-        this.targetDir = targetDir;
         this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
         this.forceRebuild = forceRebuild;
 
@@ -76,15 +73,6 @@ public class Runtime
 
     //Uses the specified filename for debugging
     private final String debugLogFileName;
-
-    // Directory from where to load include files (relative to)
-    private final File includesDir;
-
-    //Directory from where to load model(xml) files (relative to)
-    private final File modelsDir;
-
-    //Directory from where to load model(xml) files (relative to)
-    private final File targetDir;
 
     //Skips production of ouput files with readonly flag
     private final boolean ignoreReadOnlyOuputFiles;
@@ -138,19 +126,21 @@ public class Runtime
 
     private static boolean logConfigured = false;
 
-    public String run(File templatesDir, List<String> templateFileNames, Logger externalLog)
+    public String run(File sourcesDir, File targetDir, List<File> templateFiles, Logger externalLog)
+    {
+         // Directory from where to load include files (relative to)
+        File includesDir = new File(sourcesDir, "/includes");
+
+        //Directory from where to load model(xml) files (relative to)
+        File modelsDir = new File(sourcesDir, "/models");
+        return run(includesDir, modelsDir, targetDir, templateFiles, externalLog);
+    }
+
+    public String run(File includesDir, File modelsDir, File targetDir, List<File> templateFiles, Logger externalLog)
     {
         Log log = LogFactory.getLog("Runtime");
 
         StringBuffer buffer = new StringBuffer();
-
-        if (!templatesDir.exists())
-        {
-            String message = ExecutionError.INVALID_TEMPLATES_DIR.getMessage(templatesDir);
-            externalLog.errorMessage(message);
-            log.error(message);
-            return null;
-        }
 
         if (!(targetDir.exists() || targetDir.mkdirs()))
         {
@@ -163,22 +153,20 @@ public class Runtime
         DependencyManager dependencyManager = new DependencyManager(targetDir);
 
         // access non-option arguments and generate the templates
-        for (String fileName : templateFileNames)
+        for (File templateFile : templateFiles)
         {
-            File file = new File(templatesDir, fileName);
-
-            TemplateDependencies templateDependencies = dependencyManager.getTemplateDependencies(file);
+            TemplateDependencies templateDependencies = dependencyManager.getTemplateDependencies(templateFile);
 
             // Track the processing time
-            externalLog.infoMessage(String.format("Processing template file:[%s]", fileName));
+            externalLog.infoMessage(String.format("Processing template file:[%s]", templateFile.toString()));
             long startMillis = System.currentTimeMillis();
 
-            if (!dependencyManager.getTemplateDependencies(file).isUpToDate() || forceRebuild)
+            if (!dependencyManager.getTemplateDependencies(templateFile).isUpToDate() || forceRebuild)
             {
-                dependencyManager.clearTemplateDependencies(file);
+                dependencyManager.clearTemplateDependencies(templateFile);
                 try
                 {
-                    String result = Template.run(templatesDir, includesDir, modelsDir, targetDir, fileName, ignoreReadOnlyOuputFiles, templateDependencies);
+                    String result = Template.run(templateFile, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, templateDependencies);
                     buffer.append(result);
                     dependencyManager.commit();
                 }
@@ -190,7 +178,7 @@ public class Runtime
             }
             else
             {
-                String message = String.format("File dependencies are up to date, skipping template generation:[%s]", file);
+                String message = String.format("File dependencies are up to date, skipping template generation:[%s]", templateFile);
                 externalLog.infoMessage(message);
                 log.info(message);
             }

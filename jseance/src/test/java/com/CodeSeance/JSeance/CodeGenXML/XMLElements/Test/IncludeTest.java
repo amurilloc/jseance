@@ -91,7 +91,7 @@ public class IncludeTest extends TestCase
         template.append(" <Include fileName=\"{INCLUDE}\"/>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.MISSING_INCLUDE_DEFINITION, true, true, true, true, false, "TestDefinition", false);
+        expectError(ExecutionError.MISSING_INCLUDE_DEFINITION, true, true, true, false, "TestDefinition", false);
     }
 
     @Test
@@ -108,7 +108,7 @@ public class IncludeTest extends TestCase
         template.append(" <Include fileName=\"{INCLUDE}\"/>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_INCLUDES_DIR, false, true, true, true, false, null, false);
+        expectError(ExecutionError.INVALID_INCLUDES_DIR, false, true, true, false, null, false);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class IncludeTest extends TestCase
         template.append("\"/>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_INCLUDE_FILE, true, true, true, true, false, invalidIncludeFile, false);
+        expectError(ExecutionError.INVALID_INCLUDE_FILE, true, true, true, false, invalidIncludeFile, false);
     }
 
     @Test
@@ -138,6 +138,6 @@ public class IncludeTest extends TestCase
         template.append(" <Include fileName=\"{INCLUDE}\"/>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_INCLUDE_XML, true, true, true, true, false, null, false);
+        expectError(ExecutionError.INVALID_INCLUDE_XML, true, true, true, false, null, false);
     }
 }

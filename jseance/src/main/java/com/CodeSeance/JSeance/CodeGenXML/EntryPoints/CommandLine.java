@@ -33,6 +33,7 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints;
 
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -59,20 +60,14 @@ public class CommandLine implements Logger
     @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is off")
     String debugLogFileName = null;
 
-    @Option(name = "-supressConnsoleInfo", usage = "Disable info message logging to the console (only errors will be reported)")
-    boolean supressConnsoleInfo = false;
+    @Option(name = "-supressConsoleInfo", usage = "Disable info message logging to the console (only errors will be reported)")
+    boolean supressConsoleInfo = false;
 
     @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
     boolean consoleTemplateOut = false;
 
-    @Option(name = "-templatesDir", usage = "Directory from where to load template files (relative to), default is './templates'")
-    File templatesDir = new File("./templates");
-
-    @Option(name = "-includesDir", usage = "Directory from where to load include files (relative to), default is './includes'")
-    File includesDir = new File("./includes");
-
-    @Option(name = "-modelsDir", usage = "Directory from where to load model(xml) files (relative to), default is './models'")
-    File modelsDir = new File("./models");
+    @Option(name = "-sourcesDir", usage = "Root directory for templates, includes and models. Default is  './jseance'")
+    File sourcesDir = new File("./jseance");
 
     @Option(name = "-targetDir", usage = "Directory from where to load model(xml) files (relative to), default is './target'")
     File targetDir = new File("./target");
@@ -128,13 +123,27 @@ public class CommandLine implements Logger
             System.exit(1);
         }
 
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFileName, infoLogFileName, debugLogFileName, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
-        return runtime.run(templatesDir, arguments, this);
+        List<File> templateFiles = new ArrayList<File>();
+        File templatesDir = new File(sourcesDir, "/templates");
+        if (!templatesDir.exists())
+        {
+            System.err.println(ExecutionError.INVALID_TEMPLATES_DIR.getMessage(templatesDir));
+            System.exit(1);
+        }
+
+        for(String fileName : arguments)
+        {
+            File file = new File(templatesDir + fileName);
+            templateFiles.add(file);
+        }
+
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFileName, infoLogFileName, debugLogFileName, ignoreReadOnlyOuputFiles, forceRebuild);
+        return runtime.run(sourcesDir, targetDir, templateFiles, this);
     }
 
     public void infoMessage(String message)
     {
-        if (!supressConnsoleInfo)
+        if (!supressConsoleInfo)
         {
             System.out.println(message);
         }

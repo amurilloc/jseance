@@ -135,10 +135,10 @@ public class TestCase implements Logger
             File templateFile = persist();
 
             File parentPath = templateFile.getParentFile();
-            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(logFile, logFile, logFile, parentPath, parentPath, parentPath, ignoreReadOnlyOuputFiles, false);
-            List<String> templateFileNames = new ArrayList<String>();
-            templateFileNames.add(templateFile.getName());
-            outcome = runtime.run(parentPath, templateFileNames, this);
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(logFile, logFile, logFile, ignoreReadOnlyOuputFiles, false);
+            List<File> templateFileNames = new ArrayList<File>();
+            templateFileNames.add(templateFile);
+            outcome = runtime.run(parentPath, parentPath, parentPath, templateFileNames, this);
 
             // Cleanup the dependencies file
             DependencyManager.cleanup(parentPath);
@@ -158,7 +158,7 @@ public class TestCase implements Logger
 
     }
 
-    protected void expectError(ExecutionError error, boolean validIncludesDir, boolean validModelsDir, boolean validTargetDir, boolean validTemplatesDir, boolean ignoreReadOnlyOuputFiles, String invalidFile, boolean deleteTemplateFile)
+    protected void expectError(ExecutionError error, boolean validIncludesDir, boolean validModelsDir, boolean validTargetDir, boolean ignoreReadOnlyOuputFiles, String invalidFile, boolean deleteTemplateFile)
     {
         try
         {
@@ -172,11 +172,11 @@ public class TestCase implements Logger
             File parentPath = templateFile.getParentFile();
             File incorrectDir = new File("YYZ:\\incorrectDir\\//\\");
 
-            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(logFile, logFile, logFile, validIncludesDir ? parentPath : incorrectDir, validModelsDir ? parentPath : incorrectDir, validTargetDir ? parentPath : incorrectDir, ignoreReadOnlyOuputFiles, false);
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(logFile, logFile, logFile, ignoreReadOnlyOuputFiles, false);
 
-            List<String> templateFileNames = new ArrayList<String>();
-            templateFileNames.add(templateFile.getName());
-            runtime.run(validTemplatesDir ? parentPath : incorrectDir, templateFileNames, this);
+            List<File> templateFileNames = new ArrayList<File>();
+            templateFileNames.add(templateFile);
+            runtime.run(validIncludesDir ? parentPath : incorrectDir, validModelsDir ? parentPath : incorrectDir, validTargetDir ? parentPath : incorrectDir, templateFileNames, this);
 
             // Cleanup the dependencies file
             DependencyManager.cleanup(parentPath);

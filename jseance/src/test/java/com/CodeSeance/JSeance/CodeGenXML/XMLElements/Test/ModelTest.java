@@ -273,7 +273,7 @@ public class ModelTest extends TestCase
         template.append(" <Text>@JavaScript{Models['default'].currentNode.A.@val;}@</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_MODELS_DIR, true, false, true, true, false, null, false);
+        expectError(ExecutionError.INVALID_MODELS_DIR, true, false, true, false, null, false);
     }
 
     @Test
@@ -286,7 +286,7 @@ public class ModelTest extends TestCase
         template.append("\"/>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_MODEL_FILE, true, true, true, true, false, invalidModelFile, false);
+        expectError(ExecutionError.INVALID_MODEL_FILE, true, true, true, false, invalidModelFile, false);
     }
 
     @Test
@@ -307,7 +307,7 @@ public class ModelTest extends TestCase
         template.append(" <Text>@JavaScript{Models['default'].currentNode.@val;}@</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_MODEL_E4X_EXPRESSION, true, true, true, true, false, e4XPath, false);
+        expectError(ExecutionError.INVALID_MODEL_E4X_EXPRESSION, true, true, true, false, e4XPath, false);
     }
 
     @Test
@@ -325,7 +325,7 @@ public class ModelTest extends TestCase
 
         ExecutionError.simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR = true;
 
-        expectError(ExecutionError.CONTEXTMANAGER_CREATEXMLOBJECT_ERROR, true, true, true, true, false, null, false);
+        expectError(ExecutionError.CONTEXTMANAGER_CREATEXMLOBJECT_ERROR, true, true, true, false, null, false);
     }
 
     @Test
@@ -341,6 +341,6 @@ public class ModelTest extends TestCase
         template.append(" <Text>@JavaScript{Models['default'].currentNode.A.@val;}@</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_MODEL_XML, true, true, true, true, false, null, false);
+        expectError(ExecutionError.INVALID_MODEL_XML, true, true, true, false, null, false);
     }
 }

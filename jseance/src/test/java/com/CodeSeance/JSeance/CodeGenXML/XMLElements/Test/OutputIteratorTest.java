@@ -118,6 +118,6 @@ public class OutputIteratorTest extends TestCase
         template.append(" </OutputIterator>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION, true, true, true, true, false, e4XPath, false);
+        expectError(ExecutionError.INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION, true, true, true, false, e4XPath, false);
     }
 }
