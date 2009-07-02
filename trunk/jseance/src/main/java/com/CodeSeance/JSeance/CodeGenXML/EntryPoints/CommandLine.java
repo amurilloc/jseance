@@ -133,7 +133,7 @@ public class CommandLine implements Logger
 
         for(String fileName : arguments)
         {
-            File file = new File(templatesDir + fileName);
+            File file = new File(templatesDir, fileName);
             templateFiles.add(file);
         }
 
