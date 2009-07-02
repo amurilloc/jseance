@@ -84,11 +84,11 @@ class FileOutput extends HierarchicalNode
         skipFile = file.exists() && !file.canWrite() && context.getManager().ignoreReadOnlyOuputFiles;
         if (skipFile)
         {
-            context.LogInfoMessage(log, "FileOutput", String.format("Readonly flag set, skipping output fileName:[%s]", fileName));
+            context.LogInfoMessage(log, "FileOutput", String.format("Readonly flag set, skipping output fileName:[%s]", file));
         }
         else
         {
-            context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to fileName:[%s]", fileName));
+            context.LogInfoMessage(log, "FileOutput", String.format("Processing children and writing to fileName:[%s]", file));
 
             if (file.exists() && !file.canWrite())
             {

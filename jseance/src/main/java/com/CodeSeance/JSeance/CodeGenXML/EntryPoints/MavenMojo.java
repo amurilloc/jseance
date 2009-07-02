@@ -48,53 +48,37 @@ import java.util.*;
  * JSeance CodeGenXML Maven Mojo.
  *
  * @author <a href="mailto:andres.murillo@gmail.com">Andres Murillo</a>
- * @goal generate-sources
- * @phase generate-sources
+ * @goal jseance
  */
 public class MavenMojo extends AbstractMojo implements Logger
 {
     /**
      * Location of the error log file.
      *
-     * @parameter expression="${jseance.errorLogFile}" default-value="${project.build.directory}/jseance-errors.log"
+     * @parameter expression="${jseance.errorLogFile}" default-value="${project.build.outputDirectory}/jseance-errors.log"
      */
     private File errorLogFile;
 
     /**
      * Location of the info log file.
      *
-     * @parameter expression="${jseance.infoLogFile}" default-value="${project.build.directory}/jseance-info.log"
+     * @parameter expression="${jseance.infoLogFile}" default-value="${project.build.outputDirectory}/jseance-info.log"
      */
     private File infoLogFile;
 
     /**
      * Location of the debug log file.
      *
-     * @parameter expression="${jseance.debugLogFile}" default-value="${project.build.directory}/jseance-debug.log"
+     * @parameter expression="${jseance.debugLogFile}"
      */
-    private File debugLogFile;
+    private File debugLogFile = null;
 
     /**
-     * Location of the models.
+     * Location of the error log file.
      *
-     * @parameter expression="${jseance.includesDir}"  default-value="${project.build.sourceDirectory}/jseance/includes"
-     * @required
+     * @parameter expression="${jseance.rootDir}" default-value="${project.build.sourceDirectory}/jseance"
      */
-    private File includesDir;
-
-    /**
-     * Location of the models.
-     *
-     * @parameter expression="${jseance.modelsDir}" default-value="${project.build.sourceDirectory}/jseance/models"
-     */
-    private File modelsDir;
-
-    /**
-     * Location of the templates directory.
-     *
-     * @parameter expression="${jseance.templatesDir}" default-value="${project.build.sourceDirectory}/jseance/templates"
-     */
-    private File templatesDir;
+    private File rootDir;
 
     /**
      * Location of the output directory.
@@ -158,7 +142,11 @@ public class MavenMojo extends AbstractMojo implements Logger
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile.toString(), infoLogFile.toString(), debugLogFile.toString(), includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
+        File includesDir = new File(rootDir, "/includes");
+        File modelsDir = new File(rootDir, "/models");
+        File templatesDir = new File(rootDir, "/templates");
+
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile!= null? errorLogFile.toString() : null, infoLogFile!=null ? infoLogFile.toString() : null, debugLogFile!= null ? debugLogFile.toString() : null, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
 
         SourceInclusionScanner scanner = buildInclusionScanner();
 
@@ -220,21 +208,6 @@ public class MavenMojo extends AbstractMojo implements Logger
     private void setDebugLogFile(File debugLogFile)
     {
         this.debugLogFile = debugLogFile;
-    }
-
-    private void setIncludesDir(File includesDir)
-    {
-        this.includesDir = includesDir;
-    }
-
-    private void setModelsDir(File modelsDir)
-    {
-        this.modelsDir = modelsDir;
-    }
-
-    private void setTemplatesDir(File templatesDir)
-    {
-        this.templatesDir = templatesDir;
     }
 
     private void setTargetDir(File targetDir)
