@@ -75,7 +75,7 @@ public class JavaScriptTest extends TestCase
         template.append("}@</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.JAVASCRIPT_EVAL_ERROR, true, true, true, true, false, jsError, false);
+        expectError(ExecutionError.JAVASCRIPT_EVAL_ERROR, true, true, true, false, jsError, false);
     }
 
     @Test
@@ -86,6 +86,6 @@ public class JavaScriptTest extends TestCase
         template.append(" <Text>@JavaScript{testVar</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.JAVASCRIPT_NOT_CLOSED, true, true, true, true, false, null, false);
+        expectError(ExecutionError.JAVASCRIPT_NOT_CLOSED, true, true, true, false, null, false);
     }
 }

@@ -33,6 +33,7 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints;
 
+import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -76,9 +77,9 @@ public class MavenMojo extends AbstractMojo implements Logger
     /**
      * Location of the error log file.
      *
-     * @parameter expression="${jseance.rootDir}" default-value="${project.build.sourceDirectory}/jseance"
+     * @parameter expression="${jseance.sourcesDir}" default-value="${project.build.sourceDirectory}/jseance"
      */
-    private File rootDir;
+    private File sourcesDir;
 
     /**
      * Location of the output directory.
@@ -142,38 +143,29 @@ public class MavenMojo extends AbstractMojo implements Logger
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        File includesDir = new File(rootDir, "/includes");
-        File modelsDir = new File(rootDir, "/models");
-        File templatesDir = new File(rootDir, "/templates");
-
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile!= null? errorLogFile.toString() : null, infoLogFile!=null ? infoLogFile.toString() : null, debugLogFile!= null ? debugLogFile.toString() : null, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile!= null? errorLogFile.toString() : null, infoLogFile!=null ? infoLogFile.toString() : null, debugLogFile!= null ? debugLogFile.toString() : null, ignoreReadOnlyOuputFiles, forceRebuild);
 
         SourceInclusionScanner scanner = buildInclusionScanner();
+        File templatesDir = new File(sourcesDir, "/templates");
+        if (!templatesDir.exists())
+        {
+            throw new MojoExecutionException(ExecutionError.INVALID_TEMPLATES_DIR.getMessage(templatesDir));
+        }
 
         try
         {
             Set files = scanner.getIncludedSources(templatesDir, null);
 
-            Hashtable<File, List<String>> fileGroups = new Hashtable<File, List<String>>();
+            List<File> templateFiles = new ArrayList<File>();
 
-            // Group the files by parent dir
+            // Add files to List obj
             for (Object source : files)
             {
-                File sourceFile = (File) source;
-                File parentFile = sourceFile.getParentFile();
-                if (!fileGroups.containsKey(parentFile))
-                {
-                    List<String> fileList = new ArrayList<String>();
-                    fileGroups.put(parentFile, fileList);
-                }
-                fileGroups.get(parentFile).add(sourceFile.getName());
+                File file = (File) source;
+                templateFiles.add(file);
             }
 
-            // Execute the teplates
-            for (File parentFile : fileGroups.keySet())
-            {
-                runtime.run(parentFile, fileGroups.get(parentFile), this);
-            }
+            runtime.run(sourcesDir, targetDir, templateFiles, this);
         }
         catch (InclusionScanException ex)
         {
@@ -208,6 +200,11 @@ public class MavenMojo extends AbstractMojo implements Logger
     private void setDebugLogFile(File debugLogFile)
     {
         this.debugLogFile = debugLogFile;
+    }
+
+     private void setSourcesDir(File sourcesDir)
+    {
+        this.sourcesDir = sourcesDir;
     }
 
     private void setTargetDir(File targetDir)

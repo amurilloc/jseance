@@ -82,7 +82,7 @@ public class FileOutputTest extends TestCase
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
         ExecutionError.simulate_CANNOT_WRITE_TARGET_FILE = true;
-        expectError(ExecutionError.CANNOT_WRITE_TARGET_FILE, true, true, true, true, false, simulatedFile, false);
+        expectError(ExecutionError.CANNOT_WRITE_TARGET_FILE, true, true, true, false, simulatedFile, false);
     }
 
     @Test
@@ -113,7 +113,7 @@ public class FileOutputTest extends TestCase
         template.append(" </FileOutput>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.TARGET_FILE_READONLY, true, true, true, true, false, outputFile.getName(), false);
+        expectError(ExecutionError.TARGET_FILE_READONLY, true, true, true, false, outputFile.getName(), false);
     }
 
     @Test

@@ -66,9 +66,8 @@ public class ContextManager
     * dispose needs to be called when the ContextManager is no longer needed to release
     * resources
     */
-    public ContextManager(File templatesDir, File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
+    public ContextManager(File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
     {
-        this.templatesDir = templatesDir;
         this.includesDir = includesDir;
         this.modelsDir = modelsDir;
         this.targetDir = targetDir;
@@ -79,7 +78,6 @@ public class ContextManager
     }
 
     // The working directories and runtime configuration
-    public final File templatesDir;
     public final File includesDir;
     public final File modelsDir;
     public final File targetDir;

@@ -45,6 +45,8 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.FileInputStream;
 
 /**
  * Top element of a CodeSeance Template, provides a loader to parse and execute a template
@@ -89,14 +91,14 @@ public class Template extends HierarchicalNode
         }
     }
 
-    public static String run(File templatesDir, File includesDir, File modelsDir, File targetDir, String fileName, boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
+    public static String run(File templateFile, File includesDir, File modelsDir, File targetDir, boolean ignoreReadOnlyOuputFiles, TemplateDependencies templateDependencies)
     {
         // Create a local logger for the static context
         Log log = com.CodeSeance.JSeance.CodeGenXML.Runtime.CreateLogger(Template.class);
 
         if (log.isInfoEnabled())
         {
-            log.info(String.format("Loading Template:[%s]", templatesDir + File.separator + fileName));
+            log.info(String.format("Loading Template:[%s]", templateFile.toString()));
         }
 
         // Load the default schema validator
@@ -106,15 +108,16 @@ public class Template extends HierarchicalNode
         Document document;
         try
         {
-            document = xmlLoader.loadXML(templatesDir, fileName);
+            InputStream inputStream = new FileInputStream(templateFile);
+            document = xmlLoader.loadXML(inputStream);
         }
         catch (FileNotFoundException ex)
         {
-            throw new RuntimeException(ExecutionError.INVALID_TEMPLATE_FILE.getMessage(fileName), ex);
+            throw new RuntimeException(ExecutionError.INVALID_TEMPLATE_FILE.getMessage(templateFile.toString()), ex);
         }
         catch (SAXException ex)
         {
-            throw new RuntimeException(ExecutionError.INVALID_TEMPLATE_XML.getMessage(fileName, ex.getMessage()), ex);
+            throw new RuntimeException(ExecutionError.INVALID_TEMPLATE_XML.getMessage(templateFile.toString(), ex.getMessage()), ex);
         }
 
         // Load the object hierarchy from the XMLDocument
@@ -126,7 +129,7 @@ public class Template extends HierarchicalNode
         }
 
         // Create a new ContextManager
-        ContextManager contextManager = new ContextManager(templatesDir, includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, templateDependencies);
+        ContextManager contextManager = new ContextManager(includesDir, modelsDir, targetDir, ignoreReadOnlyOuputFiles, templateDependencies);
 
         try
         {

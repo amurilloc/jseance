@@ -57,18 +57,7 @@ public class TemplateTest extends TestCase
         template.append(" <Text>B</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_TARGET_DIR, true, true, false, true, false, null, false);
-    }
-
-    @Test
-    public void templateTest_InvalidTemplatesDir()
-    {
-        template.append(TEMPLATE_HEADER_OPEN);
-        template.append(" <Text>A.</Text>");
-        template.append(" <Text>B</Text>");
-        template.append(TEMPLATE_HEADER_CLOSE);
-
-        expectError(ExecutionError.INVALID_TEMPLATES_DIR, true, true, true, false, false, null, false);
+        expectError(ExecutionError.INVALID_TARGET_DIR, true, true, false, false, null, false);
     }
 
     @Test
@@ -79,7 +68,7 @@ public class TemplateTest extends TestCase
         template.append(" <Text>B</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_TEMPLATE_FILE, true, true, true, true, false, null, true);
+        expectError(ExecutionError.INVALID_TEMPLATE_FILE, true, true, true, false, null, true);
     }
 
     @Test
@@ -92,7 +81,7 @@ public class TemplateTest extends TestCase
 
         ExecutionError.simulate_CONTEXTMANAGER_INITIALIZE_ERROR = true;
 
-        expectError(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR, true, true, true, true, false, null, false);
+        expectError(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR, true, true, true, false, null, false);
     }
 
     @Test
@@ -105,7 +94,7 @@ public class TemplateTest extends TestCase
 
         ExecutionError.simulate_XML_PARSER_CONFIG_ERROR = true;
 
-        expectError(ExecutionError.XML_PARSER_CONFIG_ERROR, true, true, true, true, false, null, false);
+        expectError(ExecutionError.XML_PARSER_CONFIG_ERROR, true, true, true, false, null, false);
     }
 
     @Test
@@ -118,7 +107,7 @@ public class TemplateTest extends TestCase
 
         ExecutionError.simulate_XML_PARSER_IO_ERROR = true;
 
-        expectError(ExecutionError.XML_PARSER_IO_ERROR, true, true, true, true, false, null, false);
+        expectError(ExecutionError.XML_PARSER_IO_ERROR, true, true, true, false, null, false);
     }
 
     @Test
@@ -129,6 +118,6 @@ public class TemplateTest extends TestCase
         template.append(" <Text>B</Text>");
         template.append(TEMPLATE_HEADER_CLOSE);
 
-        expectError(ExecutionError.INVALID_TEMPLATE_XML, true, true, true, true, false, null, false);
+        expectError(ExecutionError.INVALID_TEMPLATE_XML, true, true, true, false, null, false);
     }
 }
