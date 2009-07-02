@@ -4,8 +4,7 @@
 	<target name="website">
 		<jseance 	errorLogFile="../common/jseance-errors.log"
 						infoLogFile="../common/jseance-info.log"
-						includesDir="../common/includes"
-						modelsDir="../common/models"
+						sourcesDir="../common"
 						targetDir="../common/target">
 			<fileset dir="../common/templates" includes="**/*.template.xml"/>
 		</jseance>
