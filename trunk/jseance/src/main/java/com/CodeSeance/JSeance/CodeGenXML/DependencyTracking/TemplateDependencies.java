@@ -37,6 +37,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -124,21 +125,21 @@ public class TemplateDependencies
         return inputLastModifiedDate <= outputEarliestModificationDate;
     }
 
-    public Element serialize(Document document)
+    public Element serialize(Document document) throws IOException
     {
         Element result = document.createElement("Template");
-        result.setAttribute("fileName", templateFile.toString());
+        result.setAttribute("fileName", templateFile.getCanonicalPath());
         for (File file : inputs)
         {
             Element child = document.createElement("Input");
-            child.setAttribute("fileName", file.toString());
+            child.setAttribute("fileName", file.getCanonicalPath());
             result.appendChild(child);
         }
 
         for (File file : outputs)
         {
             Element child = document.createElement("Output");
-            child.setAttribute("fileName", file.toString());
+            child.setAttribute("fileName", file.getCanonicalPath());
             result.appendChild(child);
         }
 
