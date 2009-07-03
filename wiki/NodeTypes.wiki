@@ -32,8 +32,7 @@ http://JSeance.googlecode.com/svn/wiki/images/node-types.png
 *Description:* Simple text output to the default text sink.
 
 || *Attribute Name* || *Description* || *Required* ||
-|| escaping || Allows text to be escaped, valid options are: xml-attribute, xml-value, html, java, javascript and sql
- || No ||
+|| escaping || Allows text to be escaped, valid options are: xml-attribute, xml-value, html, java, javascript and sql || No ||
 
  == !FileOutput ==
 
