@@ -37,10 +37,7 @@ import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.compiler.util.scan.InclusionScanException;
-import org.codehaus.plexus.compiler.util.scan.SimpleSourceInclusionScanner;
-import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
-import org.codehaus.plexus.compiler.util.scan.mapping.SuffixMapping;
+import org.codehaus.plexus.util.SimpleSourceInclusionScanner;
 
 import java.io.File;
 import java.util.*;
@@ -116,36 +113,16 @@ public class MavenMojo extends AbstractMojo implements Logger
      */
     private Set<String> excludes = new HashSet<String>();
 
-
-    private SourceInclusionScanner buildInclusionScanner()
-    {
-        SourceInclusionScanner inclusionScanner;
-
-        if (includes.isEmpty() && excludes.isEmpty())
-        {
-            includes = Collections.singleton("**/*.xml");
-            inclusionScanner = new SimpleSourceInclusionScanner(includes, Collections.EMPTY_SET);
-        }
-        else
-        {
-            if (includes.isEmpty())
-            {
-                includes.add("**/*.xml");
-            }
-            inclusionScanner = new SimpleSourceInclusionScanner(includes, excludes);
-        }
-
-        // This is a workaround to a limitation in SimpleSourceInclusionScanner
-        inclusionScanner.addSourceMapping(new SuffixMapping("foobar", "foobar"));
-
-        return inclusionScanner;
-    }
-
     public void execute() throws MojoExecutionException, MojoFailureException
     {
         com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile!= null? errorLogFile.toString() : null, infoLogFile!=null ? infoLogFile.toString() : null, debugLogFile!= null ? debugLogFile.toString() : null, ignoreReadOnlyOuputFiles, forceRebuild);
 
-        SourceInclusionScanner scanner = buildInclusionScanner();
+        if (includes.isEmpty())
+        {
+            includes.add("**/*.xml");
+        }
+        SimpleSourceInclusionScanner scanner = new SimpleSourceInclusionScanner(includes, excludes.isEmpty() ? Collections.EMPTY_SET : excludes);
+
         File templatesDir = new File(sourcesDir, "/templates");
         if (!templatesDir.exists())
         {
@@ -154,7 +131,7 @@ public class MavenMojo extends AbstractMojo implements Logger
 
         try
         {
-            Set files = scanner.getIncludedSources(templatesDir, null);
+            Set files = scanner.getIncludedSources(templatesDir);
 
             List<File> templateFiles = new ArrayList<File>();
 
@@ -166,10 +143,6 @@ public class MavenMojo extends AbstractMojo implements Logger
             }
 
             runtime.run(sourcesDir, targetDir, templateFiles, this);
-        }
-        catch (InclusionScanException ex)
-        {
-            throw new MojoExecutionException(String.format("Cannot load XML Templates from:[%s]", templatesDir), ex);
         }
         catch (Exception ex)
         {
