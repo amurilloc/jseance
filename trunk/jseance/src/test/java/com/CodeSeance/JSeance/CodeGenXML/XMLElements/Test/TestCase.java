@@ -63,10 +63,10 @@ public class TestCase implements Logger
         errors = new ArrayList<String>();
     }
 
-    public static final String TEMPLATE_HEADER_OPEN = "<Template xmlns:JSeance=\"http://www.codeseance.com/JSeance\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.codeseance.com/JSeance\">";
+    public static final String TEMPLATE_HEADER_OPEN = "<Template xmlns:JSeance=\"http://www.codeseance.com/JSeance1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.codeseance.com/JSeance1.0\">";
     public static final String TEMPLATE_HEADER_CLOSE = "</Template>";
 
-    public static final String INCLUDE_HEADER_OPEN = "<Include xmlns:JSeance=\"http://www.codeseance.com/JSeance\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.codeseance.com/JSeance\">";
+    public static final String INCLUDE_HEADER_OPEN = "<Include xmlns:JSeance=\"http://www.codeseance.com/JSeance1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.codeseance.com/JSeance1.0\">";
     public static final String INCLUDE_HEADER_CLOSE = "</Include>";
 
     public StringBuilder createXMLFile(String name)

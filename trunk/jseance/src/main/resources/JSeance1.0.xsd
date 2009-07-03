@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Administrator (N/A) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:JSeance="http://www.codeseance.com/JSeance" targetNamespace="http://www.codeseance.com/JSeance" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" xml:lang="en-us">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:JSeance="http://www.codeseance.com/JSeance1.0" targetNamespace="http://www.codeseance.com/JSeance1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" xml:lang="en-us">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">JSeance Template definition for code generation based on XML models and
             transformations
