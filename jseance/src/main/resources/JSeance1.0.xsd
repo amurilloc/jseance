@@ -61,7 +61,7 @@ Models can be referenced in JavaScript as Models['name'] or Models['default'] fo
 						<xs:extension base="xs:string">
 							<xs:attribute name="escaping" type="JSeance:StringEscaping">
 								<xs:annotation>
-									<xs:documentation>Allows text to be escaped for xml, html, sql, etc. See the StringEscaping definition for valid options.</xs:documentation>
+									<xs:documentation>Allows text to be escaped, valid options are: xml-attribute, xml-value, html, java, javascript and sql.</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
 						</xs:extension>
