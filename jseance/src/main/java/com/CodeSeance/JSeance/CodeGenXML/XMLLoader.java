@@ -55,7 +55,6 @@ import java.io.*;
  */
 public class XMLLoader
 {
-    // TODO: Update manual from schema
     // TODO: Edit JavaDoc tags
     // TODO: Complete manual pages
     // TODO: TestCase for DependencyManager
