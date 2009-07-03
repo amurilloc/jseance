@@ -31,6 +31,10 @@ http://JSeance.googlecode.com/svn/wiki/images/node-types.png
 
 *Description:* Simple text output to the default text sink.
 
+|| *Attribute Name* || *Description* || *Required* ||
+|| escaping || Allows text to be escaped, valid options are: xml-attribute, xml-value, html, java, javascript and sql
+ || No ||
+
  == !FileOutput ==
 
 *Description:* Specifies a file to use as output. All text outputs within children will be written  to the specified file.
