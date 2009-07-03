@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Include xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance" xsi:schemaLocation="http://www.codeseance.com/JSeance http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
+<Include xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance1.0" xsi:schemaLocation="http://www.codeseance.com/JSeance1.0 http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
 	<Template>
 		<Text><![CDATA[<!-- start page -->
 <div id="page">
