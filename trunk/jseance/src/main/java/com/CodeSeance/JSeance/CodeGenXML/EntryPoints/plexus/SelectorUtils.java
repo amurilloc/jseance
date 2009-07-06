@@ -52,12 +52,11 @@
  * <http://www.codehaus.org/>.
  */
 
-package org.codehaus.plexus.util;
+package com.CodeSeance.JSeance.CodeGenXML.EntryPoints.plexus;
 
 import java.io.File;
 import java.util.StringTokenizer;
 import java.util.Vector;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * <p>This is a utility class used by selectors and DirectoryScanner. The
