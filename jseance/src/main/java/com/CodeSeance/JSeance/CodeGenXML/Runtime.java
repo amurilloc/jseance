@@ -142,7 +142,7 @@ public class Runtime
 
         StringBuffer buffer = new StringBuffer();
 
-        if (!(targetDir.exists() || targetDir.mkdirs()))
+        if (!((targetDir.exists() && targetDir.isDirectory()) || targetDir.mkdirs()))
         {
             String message = ExecutionError.INVALID_TARGET_DIR.getMessage(targetDir);
             externalLog.errorMessage(message);

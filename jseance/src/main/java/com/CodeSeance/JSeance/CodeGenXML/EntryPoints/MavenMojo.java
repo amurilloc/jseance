@@ -33,14 +33,14 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints;
 
-import com.CodeSeance.JSeance.CodeGenXML.ExecutionError;
+import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.plexus.DirectoryScanner;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.util.SimpleSourceInclusionScanner;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JSeance CodeGenXML Maven Mojo.
@@ -104,14 +104,14 @@ public class MavenMojo extends AbstractMojo implements Logger
      *
      * @parameter
      */
-    private Set<String> includes = new HashSet<String>();
+    private List<String> includes = new ArrayList<String>();
 
     /**
      * List of files to exclude
      *
      * @parameter
      */
-    private Set<String> excludes = new HashSet<String>();
+    private List<String> excludes = new ArrayList<String>();
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
@@ -121,27 +121,12 @@ public class MavenMojo extends AbstractMojo implements Logger
         {
             includes.add("**/*.xml");
         }
-        SimpleSourceInclusionScanner scanner = new SimpleSourceInclusionScanner(includes, excludes.isEmpty() ? Collections.EMPTY_SET : excludes);
+        DirectoryScanner scanner = new DirectoryScanner(includes, excludes);
 
         File templatesDir = new File(sourcesDir, "/templates");
-        if (!templatesDir.exists())
-        {
-            throw new MojoExecutionException(ExecutionError.INVALID_TEMPLATES_DIR.getMessage(templatesDir));
-        }
-
         try
         {
-            Set files = scanner.getIncludedSources(templatesDir);
-
-            List<File> templateFiles = new ArrayList<File>();
-
-            // Add files to List obj
-            for (Object source : files)
-            {
-                File file = (File) source;
-                templateFiles.add(file);
-            }
-
+            List<File> templateFiles = scanner.scan(templatesDir);           
             runtime.run(sourcesDir, targetDir, templateFiles, this);
         }
         catch (Exception ex)
