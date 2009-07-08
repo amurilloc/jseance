@@ -33,14 +33,34 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Test;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Stack;
 
 public class TestCase
 {
-    private void createModelFile() throws IOException
+    public void registerDisposableFile(File item)
+    {
+        disposableFiles.push(item);
+    }
+    Stack<File> disposableFiles = new Stack<File>();
+
+    public void disposeFiles() throws IOException
+    {
+        while(!disposableFiles.isEmpty())
+        {
+            File file = disposableFiles.pop();
+            boolean result = file.delete();
+            if (!result)
+            {
+                throw new RuntimeException(String.format("Error deleting file:[%s]", file.getCanonicalPath()));
+            }
+        }
+    }
+
+    private void createModelFile(File modelsDir) throws IOException
     {
         StringBuilder model = new StringBuilder();
         model.append("<Model>");
@@ -49,7 +69,7 @@ public class TestCase
         saveXMLFile(model.toString(), modelsDir, "model.xml");
     }
 
-    private void createTemplateFile()  throws IOException
+    private void createTemplateFile(File templatesDir)  throws IOException
     {
         StringBuilder template = new StringBuilder();
         template.append(com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test.TestCase.TEMPLATE_HEADER_OPEN);
@@ -61,7 +81,7 @@ public class TestCase
         saveXMLFile(template.toString(), templatesDir, "template.xml");
     }
 
-    private void createIncludeFile()  throws IOException
+    private void createIncludeFile(File includesDir)  throws IOException
     {
         StringBuilder include = new StringBuilder();
         include.append(com.CodeSeance.JSeance.CodeGenXML.XMLElements.Test.TestCase.INCLUDE_HEADER_OPEN);
@@ -79,41 +99,49 @@ public class TestCase
         bufferedWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         bufferedWriter.write(content);
         bufferedWriter.close();
-        file.deleteOnExit();
+        registerDisposableFile(file);
     }
 
-    protected File includesDir = null;
-    protected File modelsDir = null;
-    protected File targetDir = null;
-    protected File templatesDir = null;
-
+    /*
     protected File getInfoLogFile()
     {
-        File result = new File(targetDir, "jseance-errors.log");
-        result.deleteOnExit();
-        return result;
+        return new File(targetDir, "jseance-info.log");
     }
 
-    protected File createStandardLayout() throws IOException
+    protected File getErrorLogFile()
     {
-        return createDirStructure("includes", "models", "templates", "target");
+       return new File(targetDir, "jseance-errors.log");
+    }  */
+
+    protected void createStandardLayout(File sourcesDir, File targetDir) throws IOException
+    {
+        if (!sourcesDir.exists())
+        {
+            boolean result = sourcesDir.mkdirs();
+            assert result;
+            registerDisposableFile(sourcesDir);
+        }
+
+        createDirStructure(sourcesDir, "includes", "models", "templates", targetDir);
     }
 
-    private File createDirStructure(String includesDirName, String modelsDirName, String templatesDirName, String targetDirName) throws IOException
+    private void createDirStructure(File sourcesDir, String includesDirName, String modelsDirName, String templatesDirName, File targetDir) throws IOException
     {
-        File rootDir = createTempDirectory();
-        includesDir = createTempSubDir(rootDir, includesDirName);
-        createIncludeFile();
+        File includesDir = createTempSubDir(sourcesDir, includesDirName);
+        createIncludeFile(includesDir);
 
-        modelsDir = createTempSubDir(rootDir, modelsDirName);
-        createModelFile();
+        File modelsDir = createTempSubDir(sourcesDir, modelsDirName);
+        createModelFile(modelsDir);
 
-        templatesDir = createTempSubDir(rootDir, templatesDirName);
-        createTemplateFile();
+        File templatesDir = createTempSubDir(sourcesDir, templatesDirName);
+        createTemplateFile(templatesDir);
 
-        targetDir = createTempSubDir(rootDir, targetDirName);
-
-        return rootDir;
+        if (!targetDir.exists())
+        {
+            boolean result = targetDir.mkdirs();
+            assert result;
+            registerDisposableFile(targetDir);
+        }
     }
 
     private File createTempSubDir(File parentDir, String name)
@@ -121,18 +149,18 @@ public class TestCase
         File newDir = new File(parentDir, name);
         boolean result = newDir.mkdir();
         assert result;
-        newDir.deleteOnExit();
+        registerDisposableFile(newDir);
         return newDir;
     }
 
     private File createTempDirectory() throws IOException
     {
         File newFile = File.createTempFile("EntryPointTest", "dir");
-        newFile.deleteOnExit();
         boolean result = newFile.delete();
         assert result;
         result = newFile.mkdir();
         assert result;
+        registerDisposableFile(newFile);
         return newFile;
     }
 }
