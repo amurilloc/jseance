@@ -33,6 +33,7 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Test;
 
+import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.CommandLine;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -43,12 +44,15 @@ import java.util.List;
 /**
  * User: Administrator Date: Jul 6, 2009 Time: 4:57:33 PM To change this template use File | Settings | File Templates.
  */
-public class CommandLineTest extends TestCase
+public class CommandLineTest
 {
     @Test
     public void CommandLineStdTest() throws IOException
     {
-        File rootDir = createStandardLayout();
+        CommandLine commandLine = new CommandLine();
+        TestCase testCase = new TestCase(commandLine.sourcesDir);
+
+        File rootDir = testCase.createStandardLayout();
         List<String> args = new ArrayList<String>();
         args.add("-errorLogFile");
         args.add(getInfoLogFile().getCanonicalPath());
