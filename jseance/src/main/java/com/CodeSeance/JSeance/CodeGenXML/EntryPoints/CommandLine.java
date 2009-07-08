@@ -52,31 +52,31 @@ import java.util.List;
 public class CommandLine implements Logger
 {
     @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is 'jseance-errors.log'")
-    String errorLogFileName = "./jseance-errors.log";
+    public String errorLogFileName = "./jseance-errors.log";
 
     @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is 'jseance-info.log'")
-    String infoLogFileName = "./jseance-info.log";
+    public String infoLogFileName = "./jseance-info.log";
 
     @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is off")
-    String debugLogFileName = null;
+    public String debugLogFileName = null;
 
     @Option(name = "-supressConsoleInfo", usage = "Disable info message logging to the console (only errors will be reported)")
-    boolean supressConsoleInfo = false;
+    public boolean supressConsoleInfo = false;
 
     @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
-    boolean consoleTemplateOut = false;
+    public  boolean consoleTemplateOut = false;
 
     @Option(name = "-sourcesDir", usage = "Root directory for templates, includes and models. Default is  './jseance'")
-    File sourcesDir = new File("./jseance");
+    public File sourcesDir = new File("./jseance");
 
     @Option(name = "-targetDir", usage = "Directory from where to load model(xml) files (relative to), default is './target'")
-    File targetDir = new File("./target");
+    public File targetDir = new File("./target");
 
     @Option(name = "-ignoreReadOnlyOuputFiles", usage = "Skips production of ouput files with readonly flag")
-    boolean ignoreReadOnlyOuputFiles = false;
+    public boolean ignoreReadOnlyOuputFiles = false;
 
     @Option(name = "-forceRebuild", usage = "Skips dependency checks and forces a rebuild")
-    boolean forceRebuild = false;
+    public boolean forceRebuild = false;
 
     // The list of files to process
     @Argument
