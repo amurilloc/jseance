@@ -263,7 +263,7 @@ public class TestCase implements Logger
         return resultFile;
     }
 
-    private String convertFileToString(File file)
+    public static String convertFileToString(File file)
     {
         StringBuffer stringBuffer;
         try

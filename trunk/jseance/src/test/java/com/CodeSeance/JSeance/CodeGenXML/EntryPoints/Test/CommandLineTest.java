@@ -49,13 +49,24 @@ public class CommandLineTest
     @Test
     public void CommandLineStdTest() throws IOException
     {
-        CommandLine commandLine = new CommandLine();
-        TestCase testCase = new TestCase(commandLine.sourcesDir);
+        TestHelper testHelper = new TestHelper();
+        try
+        {
+            CommandLine commandLine = new CommandLine();
+            File outputFile = testHelper.createStandardLayout(commandLine.sourcesDir, commandLine.targetDir);
 
-        File rootDir = testCase.createStandardLayout();
-        List<String> args = new ArrayList<String>();
-        args.add("-errorLogFile");
-        args.add(getInfoLogFile().getCanonicalPath());
-        
+            List<String> args = new ArrayList<String>();
+            args.add("template.xml");
+            String[] obj = {};
+            commandLine.run(args.toArray(obj));
+            testHelper.validateSucess(outputFile,
+                commandLine.errorLogFileName != null ? new File(commandLine.errorLogFileName) : null,
+                commandLine.infoLogFileName != null ? new File(commandLine.infoLogFileName) : null,
+                commandLine.debugLogFileName != null ? new File(commandLine.debugLogFileName) : null);
+        }
+        finally
+        {
+            testHelper.disposeFiles();
+        }
     }
 }
