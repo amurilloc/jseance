@@ -57,9 +57,9 @@ public class CommandLineTest
             String[] obj = {};
             CommandLine.main(args.toArray(obj));
             testHelper.validateSucess(outputFile,
-                commandLine.errorLogFileName != null ? new File(commandLine.errorLogFileName) : null,
-                commandLine.infoLogFileName != null ? new File(commandLine.infoLogFileName) : null,
-                commandLine.debugLogFileName != null ? new File(commandLine.debugLogFileName) : null);
+                commandLine.errorLogFile,
+                commandLine.infoLogFile,
+                commandLine.debugLogFile);
         }
         finally
         {
