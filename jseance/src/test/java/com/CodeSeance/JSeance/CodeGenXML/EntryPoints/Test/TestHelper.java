@@ -54,10 +54,13 @@ public class TestHelper
         while(!disposableFiles.isEmpty())
         {
             File file = disposableFiles.pop();
-            boolean result = file.delete();
-            if (!result)
+            if (file.exists())
             {
-                throw new RuntimeException(String.format("Error deleting file:[%s]", file.getCanonicalPath()));
+                boolean result = file.delete();
+                if (!result)
+                {
+                    throw new RuntimeException(String.format("Error deleting file:[%s]", file.getCanonicalPath()));
+                }
             }
         }
     }

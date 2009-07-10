@@ -90,7 +90,7 @@ public class MavenMojo extends AbstractMojo implements Logger
      *
      * @parameter expression="${jseance.ignoreReadOnlyOuputFiles}" default-value="false"
      */
-    private boolean ignoreReadOnlyOuputFiles;
+    public boolean ignoreReadOnlyOuputFiles;
 
     /**
      * Skips dependency checks and forces a rebuild
@@ -145,37 +145,37 @@ public class MavenMojo extends AbstractMojo implements Logger
         getLog().error(message);
     }
 
-    private void setErrorLogFile(File errorLogFile)
+    public void setErrorLogFile(File errorLogFile)
     {
         this.errorLogFile = errorLogFile;
     }
 
-    private void setInfoLogFile(File infoLogFile)
+    public void setInfoLogFile(File infoLogFile)
     {
         this.infoLogFile = infoLogFile;
     }
 
-    private void setDebugLogFile(File debugLogFile)
+    public void setDebugLogFile(File debugLogFile)
     {
         this.debugLogFile = debugLogFile;
     }
 
-     private void setSourcesDir(File sourcesDir)
+     public void setSourcesDir(File sourcesDir)
     {
         this.sourcesDir = sourcesDir;
     }
 
-    private void setTargetDir(File targetDir)
+    public void setTargetDir(File targetDir)
     {
         this.targetDir = targetDir;
     }
 
-    private void setIgnoreReadOnlyOuputFiles(boolean ignoreReadOnlyOuputFiles)
+    public void setIgnoreReadOnlyOuputFiles(boolean ignoreReadOnlyOuputFiles)
     {
         this.ignoreReadOnlyOuputFiles = ignoreReadOnlyOuputFiles;
     }
 
-    private void setForceRebuild(boolean forceRebuild)
+    public void setForceRebuild(boolean forceRebuild)
     {
         this.forceRebuild = forceRebuild;
     }

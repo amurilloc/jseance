@@ -33,33 +33,43 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Test;
 
-import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.CommandLine;
+import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.MavenMojo;
 import org.testng.annotations.Test;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CommandLineTest
+public class MavenMojoTest
 {
     @Test
-    public void CommandLineStdTest() throws IOException
+    public void MavenMojoStdTest() throws IOException, MojoExecutionException, MojoFailureException
     {
         TestHelper testHelper = new TestHelper();
         try
         {
-            CommandLine commandLine = new CommandLine();
-            File outputFile = testHelper.createStandardLayout(commandLine.sourcesDir, commandLine.targetDir);
+            File sourcesDir = new File("./jseance");
+            File targetDir = new File("./target");
+            File errorLogFile = new File("./jseance-errors.log");
+            File infoLogFile = new File("./jseance-info.log");
+            MavenMojo mavenMojo = new  MavenMojo();
+            mavenMojo.setErrorLogFile(errorLogFile);
+            mavenMojo.setInfoLogFile(infoLogFile);
+            mavenMojo.setDebugLogFile(null);
+            mavenMojo.setSourcesDir(sourcesDir);
+            mavenMojo.setTargetDir(targetDir);
+            mavenMojo.setIgnoreReadOnlyOuputFiles(false);
+            mavenMojo.setForceRebuild(false);
+            
+            File outputFile = testHelper.createStandardLayout(sourcesDir, targetDir);
 
-            List<String> args = new ArrayList<String>();
-            args.add("template.xml");
-            String[] obj = {};
-            CommandLine.main(args.toArray(obj));
+            mavenMojo.execute();
+
             testHelper.validateSucess(outputFile,
-                commandLine.errorLogFileName != null ? new File(commandLine.errorLogFileName) : null,
-                commandLine.infoLogFileName != null ? new File(commandLine.infoLogFileName) : null,
-                commandLine.debugLogFileName != null ? new File(commandLine.debugLogFileName) : null);
+                errorLogFile,
+                infoLogFile,
+                null);
         }
         finally
         {
