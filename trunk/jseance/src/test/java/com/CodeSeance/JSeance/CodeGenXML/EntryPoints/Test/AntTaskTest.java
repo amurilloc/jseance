@@ -33,33 +33,38 @@
 
 package com.CodeSeance.JSeance.CodeGenXML.EntryPoints.Test;
 
-import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.CommandLine;
+import com.CodeSeance.JSeance.CodeGenXML.EntryPoints.AntTask;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.FileSet;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CommandLineTest
+public class AntTaskTest
 {
-    @Test
-    public void CommandLineStdTest() throws IOException
+        @Test
+    public void AntTaskStdTest() throws IOException
     {
         TestHelper testHelper = new TestHelper();
         try
         {
-            CommandLine commandLine = new CommandLine();
-            File outputFile = testHelper.createStandardLayout(commandLine.sourcesDir, commandLine.targetDir);
+            AntTask antTask = new AntTask();
+            File outputFile = testHelper.createStandardLayout(antTask.getSourcesDir(), antTask.getTargetDir());
 
-            List<String> args = new ArrayList<String>();
-            args.add("template.xml");
-            String[] obj = {};
-            CommandLine.main(args.toArray(obj));
+
+            FileSet fileSet = new FileSet();
+            fileSet.setDir(new File("./jseance/templates"));
+            fileSet.setIncludes("**/*.xml");
+            antTask.addFileset(fileSet);
+            Project project = new Project();
+            project.setBasedir(".");
+            antTask.setProject(project);
+            antTask.execute();
             testHelper.validateSucess(outputFile,
-                commandLine.errorLogFileName != null ? new File(commandLine.errorLogFileName) : null,
-                commandLine.infoLogFileName != null ? new File(commandLine.infoLogFileName) : null,
-                commandLine.debugLogFileName != null ? new File(commandLine.debugLogFileName) : null);
+                antTask.getErrorLogFile(),
+                antTask.getInfoLogFile(),
+                antTask.getDebugLogFile());
         }
         finally
         {

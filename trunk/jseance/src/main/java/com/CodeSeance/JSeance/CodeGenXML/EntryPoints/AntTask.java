@@ -60,6 +60,11 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
         errorLogFile = file;
     }
 
+    public File getErrorLogFile()
+    {
+        return errorLogFile;
+    }
+
     private File errorLogFile = new File("./jseance-errors.log");
 
     public void setInfoLogFile(File file)
@@ -67,11 +72,21 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
         infoLogFile = file;
     }
 
-    private File infoLogFile =  new File("./jseance-info.log");
+    public File getInfoLogFile()
+    {
+        return infoLogFile;
+    }
+
+    private File infoLogFile = new File("./jseance-info.log");
 
     public void setDebugLogFile(File file)
     {
         debugLogFile = file;
+    }
+
+    public File getDebugLogFile()
+    {
+        return debugLogFile;
     }
 
     private File debugLogFile = null;
@@ -81,11 +96,21 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
         sourcesDir = file;
     }
 
+    public File getSourcesDir()
+    {
+        return sourcesDir;
+    }
+
     private File sourcesDir = new File("./jseance");
 
     public void setTargetDir(File file)
     {
         targetDir = file;
+    }
+
+    public File getTargetDir()
+    {
+        return targetDir;
     }
 
     private File targetDir = new File("./target");
@@ -114,31 +139,31 @@ public class AntTask extends org.apache.tools.ant.Task implements Logger
     @Override
     public void execute() throws BuildException
     {
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile != null? errorLogFile.toString() : null, infoLogFile != null ? infoLogFile.toString() : null, debugLogFile!= null? debugLogFile.toString() : null, ignoreReadOnlyOuputFiles, forceRebuild);
-
-        for (FileSet fileSet : filesets)
+        try
         {
-            DirectoryScanner dirScanner = fileSet.getDirectoryScanner(getProject());
-            File templatesDir = dirScanner.getBasedir();
+            com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile != null ? errorLogFile.toString() : null, infoLogFile != null ? infoLogFile.toString() : null, debugLogFile != null ? debugLogFile.toString() : null, ignoreReadOnlyOuputFiles, forceRebuild);
 
-            String[] includedFiles = dirScanner.getIncludedFiles();
-            List<File> templateFiles = new ArrayList<File>();
-
-            // Replace windows-only slashes with platform independant representation and populate the files
-            for (String fileName : includedFiles)
+            for (FileSet fileSet : filesets)
             {
-                File file = new File(templatesDir, fileName);
-                templateFiles.add(file);
-            }
+                DirectoryScanner dirScanner = fileSet.getDirectoryScanner(getProject());
+                File templatesDir = dirScanner.getBasedir();
 
-            try
-            {
+                String[] includedFiles = dirScanner.getIncludedFiles();
+                List<File> templateFiles = new ArrayList<File>();
+
+                // Replace windows-only slashes with platform independant representation and populate the files
+                for (String fileName : includedFiles)
+                {
+                    File file = new File(templatesDir, fileName);
+                    templateFiles.add(file);
+                }
+
                 runtime.run(sourcesDir, targetDir, templateFiles, this);
             }
-            catch (Exception ex)
-            {
-                throw new BuildException(ex);
-            }
+        }
+        catch (Exception ex)
+        {
+            throw new BuildException(ex);
         }
     }
 
