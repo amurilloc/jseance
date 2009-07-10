@@ -49,8 +49,23 @@ http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg
 
 = Integration Options =
 JSeance can be integrated into your project in three ways:
- * Using the Command Line ([Annex#Command_Line_Arguments link])
- * As an [http://ant.apache.org/ Apache Ant] task ([Annex#Using_Apache_Ant link])
+ * Using the Command Line:
+{{{java -jar jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar [Options] [Template Files...]}}}
+ * As an [http://ant.apache.org/ Apache Ant] task:
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="example" basedir="." default="generate-code">
+ <taskdef name="jseance"
+  classname="com.CodeSeance.JSeance.CodeGenXML.EntryPoints.AntTask"
+  classpath="jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar"/>
+ <target name="generate-code">
+  <!-- add the options as jseance node attributes-->
+  <jseance>
+   <fileset dir="./jseance/templates" includes="**/*.xml"/>
+  </jseance>
+ </target>
+</project>
+}}}
  * As a [http://maven.apache.org/ Apache Maven] Mojo ([Annex#Using_Apache_Maven link])
 
 Common Options and Defaults:
