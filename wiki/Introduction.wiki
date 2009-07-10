@@ -54,7 +54,7 @@ JSeance can be integrated into your project in three ways:
  * As a [http://maven.apache.org/ Apache Maven] Mojo ([Annex#Using_Apache_Maven link])
 
 Common Options and Defaults:
-|| *OptionName* || *Description* || *Default* ||
+|| *Option Name* || *Description* || *Default* ||
 || errorLogFile || Uses the specified filename for error logging || ./jseance-errors.log ||
 || infoLogFile || Uses the specified filename for info logging || ./jseance-info.log ||
 || debugLogFile || Uses the specified filename for debug logging || null ||
