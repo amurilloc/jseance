@@ -53,4 +53,14 @@ JSeance can be integrated into your project in three ways:
  * As an [http://ant.apache.org/ Apache Ant] task ([Annex#Using_Apache_Ant link])
  * As a [http://maven.apache.org/ Apache Maven] Mojo ([Annex#Using_Apache_Maven link])
 
+Common Options and Defaults:
+|| *OptionName* || *Description* || *Default* ||
+|| errorLogFile || Uses the specified filename for error logging || ./jseance-errors.log ||
+|| infoLogFile || Uses the specified filename for info logging || ./jseance-info.log ||
+|| debugLogFile || Uses the specified filename for debug logging || null ||
+|| sourcesDir || Parent directory of the 'templates', 'models' and 'includes' directories || ./jseance ||
+|| targetDir || Ouput root directory for files || ./target ||
+|| ignoreReadOnlyOuputFiles || Skips production of ouput files with readonly flag || false ||
+|| forceRebuild || Skips dependency checks and forces a rebuild || false ||
+
 [GeneralConcepts Next: General Concepts]
