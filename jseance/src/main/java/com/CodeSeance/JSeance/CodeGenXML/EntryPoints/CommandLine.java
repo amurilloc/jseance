@@ -51,31 +51,31 @@ import java.util.List;
  */
 public class CommandLine implements Logger
 {
-    @Option(name = "-errorLogFile", usage = "uses the specified filename for error logging, default is 'jseance-errors.log'")
-    public String errorLogFileName = "./jseance-errors.log";
+    @Option(name = "-errorLogFile", usage = "Uses the specified filename for error logging, default is './jseance-errors.log'")
+    public File errorLogFile = new File("./jseance-errors.log");
 
-    @Option(name = "-infoLogFile", usage = "uses the specified filename for info logging, default is 'jseance-info.log'")
-    public String infoLogFileName = "./jseance-info.log";
+    @Option(name = "-infoLogFile", usage = "Uses the specified filename for info logging, default is './jseance-info.log'")
+    public File infoLogFile = new File("./jseance-info.log");
 
-    @Option(name = "-debugLogFile", usage = "uses the specified filename for debugging, default is off")
-    public String debugLogFileName = null;
+    @Option(name = "-debugLogFile", usage = "Uses the specified filename for debugging, default is NULL")
+    public File debugLogFile = null;
 
     @Option(name = "-supressConsoleInfo", usage = "Disable info message logging to the console (only errors will be reported)")
     public boolean supressConsoleInfo = false;
 
-    @Option(name = "-consoleTemplateOut", usage = "outputs Template resulting text to the console")
+    @Option(name = "-consoleTemplateOut", usage = "Outputs Template resulting text to the console")
     public  boolean consoleTemplateOut = false;
 
-    @Option(name = "-sourcesDir", usage = "Root directory for templates, includes and models. Default is  './jseance'")
+    @Option(name = "-sourcesDir", usage = "Parent directory of the 'templates', 'models' and 'includes' directories. Default is  './jseance'")
     public File sourcesDir = new File("./jseance");
 
-    @Option(name = "-targetDir", usage = "Directory from where to load model(xml) files (relative to), default is './target'")
+    @Option(name = "-targetDir", usage = "Ouput root directory for files. Default is './target'")
     public File targetDir = new File("./target");
 
-    @Option(name = "-ignoreReadOnlyOuputFiles", usage = "Skips production of ouput files with readonly flag")
+    @Option(name = "-ignoreReadOnlyOuputFiles", usage = "Skips production of ouput files with readonly flag. Default is 'false'")
     public boolean ignoreReadOnlyOuputFiles = false;
 
-    @Option(name = "-forceRebuild", usage = "Skips dependency checks and forces a rebuild")
+    @Option(name = "-forceRebuild", usage = "Skips dependency checks and forces a rebuild. Default is 'false'")
     public boolean forceRebuild = false;
 
     // The list of files to process
@@ -84,7 +84,7 @@ public class CommandLine implements Logger
 
     // static entry point for executable jar
     public static void main(String[] args)
-    {
+    {   
         try
         {
             CommandLine commandLine = new CommandLine();
@@ -137,7 +137,7 @@ public class CommandLine implements Logger
             templateFiles.add(file);
         }
 
-        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFileName, infoLogFileName, debugLogFileName, ignoreReadOnlyOuputFiles, forceRebuild);
+        com.CodeSeance.JSeance.CodeGenXML.Runtime runtime = new com.CodeSeance.JSeance.CodeGenXML.Runtime(errorLogFile != null ? errorLogFile.toString() : null, infoLogFile != null ? infoLogFile.toString() : null, debugLogFile != null ? debugLogFile.toString() : null, ignoreReadOnlyOuputFiles, forceRebuild);
         return runtime.run(sourcesDir, targetDir, templateFiles, this);
     }
 

@@ -58,7 +58,6 @@ public class XMLLoader
     // TODO: Edit JavaDoc tags
     // TODO: Complete manual pages
     // TODO: TestCase for DependencyManager
-    // TODO: TestCase for all EntryPoints
 
     /*
     * Builds an XML Builder loading the XSD embedded into the project
