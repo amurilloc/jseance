@@ -7,7 +7,9 @@ It's possible to embed !JavaScript code in any attribute or text node of a JSean
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://www.codeseance.com/JSeance">
  <FileOutput fileName="test.txt">
   <Text>@JavaScript{Date()}@</Text>
  </FileOutput>
@@ -18,7 +20,9 @@ Template attributes can also include !JavaScript code, the following example dec
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xmlns="http://www.codeseance.com/JSeance">
  <JavaScript>var fileNameVar = 'file.txt';</JavaScript>
  <FileOutput fileName="@JavaScript{fileNameVar}@">
   <Text>TestOutput</Text>
@@ -49,7 +53,9 @@ XML Model file (model.xml):
 The JSeance  template:
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://www.codeseance.com/JSeance">
  <Model fileName="model.xml" e4XPath="A.B"/>
  <FileOutput fileName="test.txt">
   <Text>@JavaScript{Models['default'].rootNode.A.@attribute1}@</Text>
@@ -71,7 +77,9 @@ The following example shows how to access Definitions from script:
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance">
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xmlns="http://www.codeseance.com/JSeance">
  <Definition name="MyDefinition">
   <Text>Definition Value</Text>
  </Definition>
