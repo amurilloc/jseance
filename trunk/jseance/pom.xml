@@ -58,18 +58,6 @@
 			<scope>test</scope>
 			<classifier>jdk15</classifier>
 		</dependency>
-		<!-- Plexus
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-compiler-api</artifactId>
-			<version>1.6-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.codehaus.plexus</groupId>
-					<artifactId>plexus-component-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
 	</dependencies>
 	<build>
 		<plugins>
@@ -115,18 +103,6 @@
 		</extensions>
 	</build>
 	<repositories>
-	<!--
-		<repository>
-			<id>codehaus.snapshots</id>
-			<url>http://snapshots.repository.codehaus.org/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
--->
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
