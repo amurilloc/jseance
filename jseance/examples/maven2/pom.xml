@@ -20,6 +20,7 @@
 				<artifactId>jseance</artifactId>
 				<version>1.0-beta-1-SNAPSHOT</version>
 				<configuration>
+				    <!-- Options go here as XMLNodes with value as node text -->
 					<errorLogFile>../common/target/jseance-errors.log</errorLogFile>
 					<infoLogFile>../common/target/jseance-info.log</infoLogFile>
 					<sourcesDir>../common</sourcesDir>
