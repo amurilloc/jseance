@@ -22,7 +22,3 @@
     * [JavaScriptSupport#JSeance_Object_Model JSeance Object Model]
     * [JavaScriptSupport#E4X_Reference E4X Reference]
   * [PuttingItAllTogether Putting it all together: Example]
-  * [Annex Annex]
-    * [Annex#Command_Line_Arguments Command Line Arguments]
-    * [Annex#Using_Apache_Ant Using Apache Ant]
-    * [Annex#Using_Apache_Maven Using Apache Maven]
