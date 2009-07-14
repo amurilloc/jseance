@@ -144,3 +144,36 @@ Besides the use of iterators and text nodes, the following section is important:
 This shows another way to perform text escaping using an attribute of the Text node, see [NodeTypes#Text Text] for details.
 
 === Sidebar.xml ===
+
+Besides using iterators, the sidebar needs to render the following HTML:
+{{{
+				<ul class="back_title">
+					<li class="top"><a href="#">Category A</a></li>
+					<li><a href="#">Category B</a></li>
+					<li><a href="#">Category C</a></li>
+					<li><a href="#">Category D</a></li>
+				</ul>
+}}}
+
+Where the first {{{<li>}}} element requires a special attribute. To accomplish this we can embed JavaScript code in combination with a [NodeTypes#Conditional Conditional] node:
+
+{{{
+...
+   <JavaScript>var first = true;</JavaScript>  <-- Declares a variable and initializes it
+   <OutputIterator e4XPath="Category">
+    <Conditional>
+     <If jsExpression="first">
+      <JavaScript>first = false;</JavaScript>
+      <Text><![CDATA[     <li class="top">]]></Text>  <-- Text will only be shown for 1st element
+     </If>
+     <Else>
+      <Text><![CDATA[     <li>]]></Text>              <-- Text to show for all ohter elements
+     </Else>
+    </Conditional>
+    <Text><![CDATA[<a href="@JavaScript{Models['default'].currentNode.@href}@">]]></Text>
+    <Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
+    <Text><![CDATA[</a></li>
+]]></Text>
+   </OutputIterator>
+...
+}}}
