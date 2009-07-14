@@ -132,4 +132,4 @@ This will change the {{{Models['default'].currentNode}}} context variable for ch
                      @JavaScript{EscapeHTML(Models['default'].currentNode.@name)}@ ...]]></Text>  
 }}}
 
-Which use /WebPage/Menu/Item href and name XML attributes accordingly. Notice the use of the {{{EscapeHTML}}} embedded JavaScript function
+Which use /WebPage/Menu/Item href and name XML attributes accordingly. Notice the use of the {{{EscapeHTML}}} embedded JavaScript function, see [JavaScriptSupport#JSeance_Object_Model JSeance Object Model] for a list of available escaping functions.
