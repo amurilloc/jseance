@@ -95,6 +95,16 @@ Output file contents (test.txt):
 Definition Value
 }}}
 
+ == Built-In Encoding Functions ==
+
+The following JavaScript functions are available by default:
+|| EscapeHTML || Escapes HTML text ||
+|| EscapeXMLValue || Escapes the content of an XML node ||
+|| EscapeXMLAttribute || Escapes the text of an xml attribute ||
+|| EscapeJava || Escapes a Java String ||
+|| EscapeJavaScript || Escapes a JavaScript string ||
+|| EscapeSQL || Escapes a SQL string ||
+
  = E4X Reference =
 
 Example XML:
