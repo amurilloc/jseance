@@ -141,5 +141,6 @@ Besides the use of iterators and text nodes, the following section is important:
      <Text escaping="html">@JavaScript{Models['default'].currentNode.@title}@</Text>
 }}}
 
-This shows another way to perform text escaping using an attribute of the Text node, see [NodeTypes#Text Text] for details
+This shows another way to perform text escaping using an attribute of the Text node, see [NodeTypes#Text Text] for details.
 
+=== Sidebar.xml ===
