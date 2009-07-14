@@ -5,19 +5,19 @@
 
 This example is based on a template found in [http://www.opendesigns.org/ OpenDesigns.org], it shows how to use a model, template and includes to generate a static web page. More examples are under construction, this should at least show the general concepts.
 
-Download the [http://jseance.googlecode.com/files/examples.zip Examples File] and unzip, this should create the following directory structure:
+ # Make sure you have JDK 5 or greater installed and Ant or Maven if you plan to use for building.
+ # Download the [http://jseance.googlecode.com/files/examples.zip Examples File] and unzip, this should create the following directory structure:
 {{{
-home
+examples
 |-- jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar
-|-- examples
-    |-- ant
-    |-- command-line
-    |-- common
-        |-- includes
-        |-- models
-        |-- target
-        |-- templates
-    |-- maven2
+'-- ant
+    command-line
+    common
+     |-- includes
+     |-- models
+     |-- target
+     '-- templates
+    maven2
 }}}
 
 = Example Details =
