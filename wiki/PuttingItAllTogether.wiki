@@ -5,7 +5,7 @@
 
 This example is based on a template found in [http://www.opendesigns.org/ OpenDesigns.org], it shows how to use a model, template and includes to generate a static web page. More examples are under construction, this should at least show the general concepts.
 
- # Download the [http://jseance.googlecode.com/files/examples.zip Examples File] and unzip, this should create the following directory structure:
+Download the [http://jseance.googlecode.com/files/examples.zip Examples File] and unzip, this should create the following directory structure:
 {{{
 home
 |-- jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar
@@ -75,15 +75,29 @@ The XML template splits the page generation into subsections, each with an inclu
 </Template>
 }}}
 
-It perform 3 main steps:
- # Loads the default XML model into the context, see [NodeTypes#Model Model] for details:
-{{{
+The template performs 3 main steps:
+
+1. Loads the default XML model into the context, see [NodeTypes#Model Model] for details:
+ {{{
  <Model fileName="WebPage.xml"/>
 }}}
 
- # Declares an output file, whose children produced text will be written to, see [NodeTypes#FileOutput FileOutput] for details:
-{{{
+2. Declares an output file, whose children produced text will be written to, see [NodeTypes#FileOutput FileOutput] for details:
+ {{{
  <FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
 }}}
 
-Note that since the model name was not specified, a 'default' name is used.
+ Note that the file name is determined at run time from a model attribute:
+{{{
+<WebPage>                       <-- rootNode
+ <FileName>home.html</FileName> <-- FileName.toString()
+...
+}}}
+
+3. Includes the top, body, side and bottom sections, see [NodeTypes#Include Include] for details:
+ {{{
+   <Include fileName="Header.xml"/>
+   <Include fileName="Content.xml"/>
+   <Include fileName="Sidebar.xml"/>   
+   <Include fileName="Footer.xml"/>
+}}}
