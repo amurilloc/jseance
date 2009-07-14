@@ -133,3 +133,13 @@ This will change the {{{Models['default'].currentNode}}} context variable for ch
 }}}
 
 Which use /WebPage/Menu/Item href and name XML attributes accordingly. Notice the use of the {{{EscapeHTML}}} embedded JavaScript function, see [JavaScriptSupport#JSeance_Object_Model JSeance Object Model] for a list of available escaping functions.
+
+=== Content.xml ===
+
+Besides the use of iterators and text nodes, the following section is important:
+{{{
+     <Text escaping="html">@JavaScript{Models['default'].currentNode.@title}@</Text>
+}}}
+
+This shows another way to perform text escaping using an attribute of the Text node, see [NodeTypes#Text Text] for details
+
