@@ -101,3 +101,35 @@ The template performs 3 main steps:
    <Include fileName="Sidebar.xml"/>   
    <Include fileName="Footer.xml"/>
 }}}
+
+== The Includes ==
+The includes can be found in the home/common/includes directory. The full template text can be found in the corresponding XML files, the following are the key sections from each one:
+
+=== Header.xml ===
+
+This include is responsible for generating the top section of the page, it needs to draw the menus:
+{{{
+<Include ...>
+ <Template>
+  <Text><![CDATA[<!DOCTYPE html PUBLIC...]]></Text>  <<-- Header text
+  <OutputIterator e4XPath="Header.Menu.Item" >       <<-- Child Iterator
+   <Text><![CDATA[...@JavaScript{Models['default'].currentNode.@href}@ ...
+                     @JavaScript{EscapeHTML(Models['default'].currentNode.@name)}@ ...]]></Text>
+  </OutputIterator>
+  ...
+ </Template>
+</Include>
+}}}
+
+To iterate through the menu nodes of the model, it uses the following expression (see [NodeTypes#OutputIterator OutputIterator] for reference):
+{{{
+  <OutputIterator e4XPath="Header.Menu.Item" >
+}}}
+
+This will change the {{{Models['default'].currentNode}}} context variable for children accordignly, thus the following section can be used to generate the menu text and link:
+{{{
+   <Text><![CDATA[...@JavaScript{Models['default'].currentNode.@href}@ ...
+                     @JavaScript{EscapeHTML(Models['default'].currentNode.@name)}@ ...]]></Text>  
+}}}
+
+Which use /WebPage/Menu/Item href and name XML attributes accordingly. Notice the use of the {{{EscapeHTML}}} embedded JavaScript function
