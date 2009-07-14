@@ -48,6 +48,8 @@ http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg
  * *Runtime Template Parametrization*: Every attribute and text content of a JSeance template element can be embedded with !JavaScript to be evaluated at runtime. Input and output file names can be decided based on context and input data. This complements the structured XML template approach with added flexibility for cases where the concrete inputs, outputs and actions need to be discovered at runtime.
 
 = Integration Options =
+The latest jars can be obtained from the [http://jseance.googlecode.com/svn/maven2-snapshots/ Maven Repository]
+
 JSeance can be integrated into your project in three ways:
  * Using the Command Line:
  {{{java -jar jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar [Options] [Template Files...]}}}
