@@ -1,13 +1,89 @@
 #summary Putting it all together: An Example.
+#sidebar TableOfContents
 
-= Introduction =
+= Introduction & Preparation =
 
-Example under construction.
+This example is based on a template found in [http://www.opendesigns.org/ OpenDesigns.org], it shows how to use a model, template and includes to generate a static web page. More examples are under construction, this should at least show the general concepts.
 
+ # Download the [http://jseance.googlecode.com/files/examples.zip Examples File] and unzip, this should create the following directory structure:
+{{{
+home
+|-- jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar
+|-- examples
+    |-- ant
+    |-- command-line
+    |-- common
+        |-- includes
+        |-- models
+        |-- target
+        |-- templates
+    |-- maven2
+}}}
 
-= Details =
+= Example Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== The Model ==
+The XML model to use as input data to the template can be found in home/examples/common/models
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<WebPage>
+ <FileName>home.html</FileName>
+ <Header>
+  <Name>My Website Name</Name>
+  <SubName>Website sub-name</SubName>
+  <Menu>
+   <Item name="Home" href="#"/>
+   <Item name="Blogs" href="#"/>
+   <Item name="Photos" href="#"/>
+   <Item name="About" href="#"/>
+   <Item name="Contact" href="#"/>
+  </Menu>
+ </Header>
+ <Sidebar>
+  <Section name="Categories">
+   <Category name="Category A" href="#"/>
+   <Category name="Category B" href="#"/>
+   <Category name="Category C" href="#"/>
+   <Category name="Category D" href="#"/>
+  </Section>
+  <Section name="Archives">
+   <Category name="September" href="#"/>
+   <Category name="August" href="#"/>
+   <Category name="July" href="#"/>
+   <Category name="June" href="#"/>
+   <Category name="May" href="#"/>
+  </Section>
+ </Sidebar>
+ <Posts>
+  <Post title="First Post" date="June 27, 2009"><![CDATA[<p>Lorem ...</p>]]></Post>
+ </Posts>
+</WebPage>
+}}}
+
+== The Template ==
+The XML template splits the page generation into subsections, each with an include for readability. The main template can be found in home/examples/common/templates:
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance1.0" xsi:schemaLocation="http://www.codeseance.com/JSeance1.0 http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
+ <Model fileName="WebPage.xml"/>
+ <FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
+   <Include fileName="Header.xml"/>
+   <Include fileName="Content.xml"/>
+   <Include fileName="Sidebar.xml"/>   
+   <Include fileName="Footer.xml"/>
+ </FileOutput>
+</Template>
+}}}
+
+It perform 3 main steps:
+ # Loads the default XML model into the context, see [NodeTypes#Model Model] for details:
+{{{
+ <Model fileName="WebPage.xml"/>
+}}}
+
+ # Declares an output file, whose children produced text will be written to, see [NodeTypes#FileOutput FileOutput] for details:
+{{{
+ <FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
+}}}
+
+Note that since the model name was not specified, a 'default' name is used.
