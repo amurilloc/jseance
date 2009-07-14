@@ -1,4 +1,5 @@
 #summary Table of Contents (Sidebar)
+  * [http://code.google.com/p/jseance/ Home]
   * [Introduction Introduction]
     * [Introduction#Code_Generation_Basics Code Generation Basics]
     * [Introduction#JSeance_Features JSeance Features]
