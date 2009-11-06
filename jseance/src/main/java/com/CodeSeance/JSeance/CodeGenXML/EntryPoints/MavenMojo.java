@@ -74,14 +74,14 @@ public class MavenMojo extends AbstractMojo implements Logger
     /**
      * Location of the error log file.
      *
-     * @parameter expression="${jseance.sourcesDir}" default-value="${project.build.directory}/jseance"
+     * @parameter expression="${jseance.sourcesDir}" default-value="${project.directory}/jseance"
      */
     private File sourcesDir;
 
     /**
      * Location of the output directory.
      *
-     * @parameter expression="${jseance.targetDir}"  default-value="${project.build.outputDirectory}/jseance"
+     * @parameter expression="${jseance.targetDir}"  default-value="${project.build.outputDirectory}"
      */
     private File targetDir;
 
