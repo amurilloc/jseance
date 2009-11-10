@@ -59,6 +59,39 @@ public class OutputIteratorTest extends TestCase
     }
 
     @Test
+    public void outputIteratorTest_Namespace()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model xmlns:XNamespace=\"http://www.xnamespace.com/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.xnamespace.com/\">");
+        model.append(" <A val=\"A.\"/>");
+        model.append(" <A val=\"B.\"/>");
+        model.append(" <A val=\"C\"/>");
+        model.append("</Model>");
+
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <Model fileName=\"{MODEL}\"/>");
+        //template.append("<JavaScript>default xml namespace = \"http://www.xnamespace.com/\"</JavaScript>");
+        // Ignore namespace
+        template.append(" <OutputIterator e4XPath=\"*::A\" >");
+        template.append("  <Text>@JavaScript{Models['default'].currentNode.@val;}@</Text>");
+        template.append(" </OutputIterator>");
+
+        // Specific namespace
+        template.append(" <OutputIterator e4XPath=\"child(QName('http://www.xnamespace.com/', 'A'))\" >");
+        template.append("  <Text>@JavaScript{Models['default'].currentNode.@val;}@</Text>");
+        template.append(" </OutputIterator>");
+
+        // Default namespace
+        template.append(" <JavaScript>default xml namespace = 'http://www.xnamespace.com/'</JavaScript>");
+        template.append(" <OutputIterator e4XPath=\"A\" >");
+        template.append("  <Text>@JavaScript{Models['default'].currentNode.@val;}@</Text>");
+        template.append(" </OutputIterator>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectResult("A.B.CA.B.CA.B.C");
+    }
+
+    @Test
     public void outputIteratorTest_NamedModel()
     {
         StringBuilder model = createXMLFile("MODEL");
@@ -120,4 +153,5 @@ public class OutputIteratorTest extends TestCase
 
         expectError(ExecutionError.INVALID_OUTPUT_ITERATOR_E4X_EXPRESSION, true, true, true, false, e4XPath, false);
     }
+
 }

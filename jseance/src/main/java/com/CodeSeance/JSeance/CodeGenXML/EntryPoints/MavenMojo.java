@@ -53,14 +53,14 @@ public class MavenMojo extends AbstractMojo implements Logger
     /**
      * Location of the error log file.
      *
-     * @parameter expression="${jseance.errorLogFile}" default-value="${project.build.outputDirectory}/jseance-errors.log"
+     * @parameter expression="${jseance.errorLogFile}" default-value="${project.build.directory}/jseance-errors.log"
      */
     private File errorLogFile;
 
     /**
      * Location of the info log file.
      *
-     * @parameter expression="${jseance.infoLogFile}" default-value="${project.build.outputDirectory}/jseance-info.log"
+     * @parameter expression="${jseance.infoLogFile}" default-value="${project.build.directory}/jseance-info.log"
      */
     private File infoLogFile;
 
@@ -74,14 +74,14 @@ public class MavenMojo extends AbstractMojo implements Logger
     /**
      * Location of the error log file.
      *
-     * @parameter expression="${jseance.sourcesDir}" default-value="jseance"
+     * @parameter expression="${jseance.sourcesDir}" default-value="${basedir}/jseance"
      */
     private File sourcesDir;
 
     /**
      * Location of the output directory.
      *
-     * @parameter expression="${jseance.targetDir}"  default-value="${project.build.outputDirectory}"
+     * @parameter expression="${jseance.targetDir}"  default-value="${project.build.directory}/jseance"
      */
     private File targetDir;
 

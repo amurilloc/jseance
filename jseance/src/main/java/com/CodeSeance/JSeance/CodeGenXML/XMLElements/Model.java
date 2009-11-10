@@ -79,7 +79,6 @@ class Model extends Node
         File modelsDir = context.getManager().modelsDir;
 
         File modelFile = new File(modelsDir, fileName);
-        context.LogInfoMessage(log, "Include", String.format("Loading model fileName:[%s], name:[%s], e4XPath:[%s], validate:[%s], xsdFileName[%s]\", fileName, name, e4XPath, validate, xsdFileName", fileName, name, e4XPath, validate, xsdFileName));
 
         if (!modelsDir.exists())
         {
@@ -97,7 +96,7 @@ class Model extends Node
         {
             xmlLoader = XMLLoader.buildFromXSDFileName(context.getManager().modelsDir, xsdFileName);
         }
-        Document xmlDoc = null;
+        Document xmlDoc;
         try
         {
             xmlDoc = xmlLoader.loadXML(context.getManager().modelsDir, fileName);
