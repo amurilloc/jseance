@@ -118,6 +118,13 @@ class FileOutput extends HierarchicalNode
                     throw new IOException("Simulated exception for log testing");
                 }
 
+                // Create the path to the file if required
+                File parentDir = file.getParentFile();
+                if (parentDir != null && !parentDir.exists())
+                {
+                    assert file.getParentFile().mkdirs();
+                }
+
                 OutputStream fileOutputStream = new FileOutputStream(file);
                 OutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
 
