@@ -56,6 +56,65 @@ public class FileOutputTest extends TestCase
     }
 
     @Test
+    public void fileOutputTest_AutoCreateParentDirs()
+    {
+        CleanupAutoCreateParentDirs();
+
+        try
+        {
+            File outputFile = new File("A" + File.separator + "B" + File.separator + "C" + File.separator + "Output.txt");
+            template.append(TEMPLATE_HEADER_OPEN);
+            template.append(String.format(" <FileOutput fileName=\"%s\">", outputFile));
+            template.append("  <Text>Test</Text>");
+            template.append(" </FileOutput>");
+            template.append(TEMPLATE_HEADER_CLOSE);
+            expectResult("", false, false);
+
+            File fullPath = new File(System.getProperty("java.io.tmpdir") + File.separator + outputFile.toString());
+            String outcome = convertFileToString(fullPath);
+
+            if (!"Test".equals(outcome))
+            {
+                throw new RuntimeException("Test Failed: Was expecting:[Test] and obtained:[" + outcome + "]");
+            }
+            reset();
+        }
+        finally
+        {
+            CleanupAutoCreateParentDirs();
+        }
+    }
+
+    private void CleanupAutoCreateParentDirs()
+    {
+        String tempFileDir = System.getProperty("java.io.tmpdir");
+        // Cleanup if needed
+        File cleanupDir = new File(tempFileDir + File.separator + "A" + File.separator + "B" + File.separator + "C" + File.separator + "Output.txt");
+        if (cleanupDir.exists())
+        {
+            cleanupDir.delete();
+        }
+
+        cleanupDir = new File(tempFileDir + File.separator + "A" + File.separator + "B" + File.separator + "C");
+        if (cleanupDir.exists())
+        {
+            cleanupDir.delete();
+        }
+
+        cleanupDir = new File(tempFileDir + File.separator + "A" + File.separator + "B");
+        if (cleanupDir.exists())
+        {
+            cleanupDir.delete();
+        }
+
+        cleanupDir = new File(tempFileDir + File.separator + "A");
+        if (cleanupDir.exists())
+        {
+            cleanupDir.delete();
+        }
+    }
+
+    @Test
     public void fileOutputTest_UTF16()
     {
         createOutputFile("FILE");

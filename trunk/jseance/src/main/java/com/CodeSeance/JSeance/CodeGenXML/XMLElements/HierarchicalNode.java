@@ -56,6 +56,8 @@ abstract class HierarchicalNode extends Node
 
     protected void LoadChildren(NodeList elements)
     {
+        // Empty the child elements, BUGFIX: When iterating over include elements which call LoadChildren repeatedly
+        children.clear();
         for (int i = 0; i < elements.getLength(); i++)
         {
             if (elements.item(i) instanceof Element)

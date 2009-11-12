@@ -122,7 +122,11 @@ class FileOutput extends HierarchicalNode
                 File parentDir = file.getParentFile();
                 if (parentDir != null && !parentDir.exists())
                 {
-                    assert file.getParentFile().mkdirs();
+                    boolean result = parentDir.mkdirs();
+                    if (result == false)
+                    {
+                        throw new IOException(String.format("Cannot create parent dir path:[%s]", parentDir.toString()));
+                    }
                 }
 
                 OutputStream fileOutputStream = new FileOutputStream(file);
