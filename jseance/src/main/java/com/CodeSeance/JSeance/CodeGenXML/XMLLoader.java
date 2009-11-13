@@ -34,7 +34,9 @@
 package com.CodeSeance.JSeance.CodeGenXML;
 
 import org.w3c.dom.Document;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -139,6 +141,7 @@ public class XMLLoader
         try
         {
             documentBuilder = docFactory.newDocumentBuilder();
+            documentBuilder.setErrorHandler(errorHandler);
             if (ExecutionError.simulate_XML_PARSER_CONFIG_ERROR)
             {
                 ExecutionError.simulate_XML_PARSER_CONFIG_ERROR = false;
@@ -181,6 +184,26 @@ public class XMLLoader
             throw new RuntimeException(ExecutionError.XML_PARSER_IO_ERROR.getMessage(ex.getMessage()));
         }
     }
+
+    private class XMLErrorHandler implements ErrorHandler
+    {
+        public void warning(SAXParseException exception) throws SAXException
+        {
+            throw exception;
+        }
+
+        public void error(SAXParseException exception) throws SAXException
+        {
+             throw exception;
+        }
+
+        public void fatalError(SAXParseException exception) throws SAXException
+        {
+            throw exception;
+        }
+    }
+
+    private ErrorHandler errorHandler = new XMLErrorHandler();
 
     // The instance document builder
     private DocumentBuilder documentBuilder = null;
