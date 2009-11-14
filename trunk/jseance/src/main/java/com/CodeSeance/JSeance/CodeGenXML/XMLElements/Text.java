@@ -34,9 +34,12 @@
 package com.CodeSeance.JSeance.CodeGenXML.XMLElements;
 
 import com.CodeSeance.JSeance.CodeGenXML.Context;
-import com.CodeSeance.JSeance.CodeGenXML.XMLTextContent;
 import com.CodeSeance.JSeance.CodeGenXML.XMLAttribute;
+import com.CodeSeance.JSeance.CodeGenXML.XMLTextContent;
 import org.w3c.dom.Element;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class for writing text to the text sink in the current context
@@ -89,7 +92,54 @@ public class Text extends Node
                 text = org.apache.commons.lang.StringEscapeUtils.escapeSql(text);
             }
         }
+
+        String[] fragments = text.split("\\\\");
+        String result = "";
+        for (String fragment : fragments)
+        {
+            if (!result.equals(""))
+            {
+                result += "\\";
+            }
+            result += fragment.replace("\\n", "\n").replace("\\r", "\r");
+        }
+        text = escapeNewLine(text);
+
         context.writeText(text);
+    }
+
+    private String escapeNewLine(String text)
+    {
+        StringBuffer result = new StringBuffer();
+        List<String>fragments = split(text, "\\\\");
+        for (String fragment : fragments)
+        {
+            String escapedText = fragment.replace("\\n", "\n").replace("\\r", "\r").replace("\\t", "\t");
+            result.append("".equals(fragment) ? "\\" : escapedText);
+         }
+        return result.toString();
+    }
+
+    // This method is required due to extrange behavior from String.split
+    public List<String> split(String text, String separator)
+    {
+        List<String> result = new ArrayList<String>();
+
+        int start = text.indexOf(separator);
+        if (start == -1)
+        {
+            result.add(text);
+        }
+        else
+        {
+            while (start > -1)
+            {
+                result.add(text.substring(0, start));
+                text = text.substring(start == 0 ? separator.length() : start);
+                start = text.indexOf(separator);
+            }
+        }
+        return result;
     }
 
     public static String escapeXMLValue(String text)
