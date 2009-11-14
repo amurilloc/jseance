@@ -128,6 +128,10 @@ public class MavenMojo extends AbstractMojo implements Logger
         {
             List<File> templateFiles = scanner.scan(templatesDir);           
             runtime.run(sourcesDir, targetDir, templateFiles, this);
+            if (runtime.hasErrors())
+            {
+                throw new MojoFailureException("JSeance build failed");
+            }
         }
         catch (Exception ex)
         {

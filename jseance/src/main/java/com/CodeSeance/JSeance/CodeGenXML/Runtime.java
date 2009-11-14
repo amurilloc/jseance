@@ -136,8 +136,16 @@ public class Runtime
         return run(includesDir, modelsDir, targetDir, templateFiles, externalLog);
     }
 
+    private boolean errors = false;
+
+    public boolean hasErrors()
+    {
+        return errors;
+    }
+
     public String run(File includesDir, File modelsDir, File targetDir, List<File> templateFiles, Logger externalLog)
     {
+        errors = false;
         Log log = LogFactory.getLog("Runtime");
 
         StringBuffer buffer = new StringBuffer();
@@ -172,6 +180,7 @@ public class Runtime
                 }
                 catch (Exception ex)
                 {
+                    errors = true;
                     externalLog.errorMessage(ex.getMessage());
                     log.error(ex.getMessage());
                 }
