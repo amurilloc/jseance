@@ -51,15 +51,6 @@ public class TextTest extends TestCase
     }
 
     @Test
-    public void textTest_Newline()
-    {
-        template.append(TEMPLATE_HEADER_OPEN);
-        template.append(" <Text>\\\\n\\\\r\\n\\r\\n\\r\\\\n\\\\r\\\\</Text>");
-        template.append(TEMPLATE_HEADER_CLOSE);
-        expectResult("\\n\\r\n\r\n\r\\n\\r\\");
-    }
-
-    @Test
     public void textTest_EscapingAttributeCoverage()
     {
         template.append(TEMPLATE_HEADER_OPEN);
