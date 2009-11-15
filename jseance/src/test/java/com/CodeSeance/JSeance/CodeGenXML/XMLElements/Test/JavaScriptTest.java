@@ -50,6 +50,17 @@ public class JavaScriptTest extends TestCase
     }
 
     @Test
+    public void javaScript_Shortname_Test()
+    {
+        template.append(TEMPLATE_HEADER_OPEN);
+        template.append(" <JavaScript>var testVar = 'A';</JavaScript>");
+        template.append(" <Text>@JS{testVar}@</Text>");
+        template.append(TEMPLATE_HEADER_CLOSE);
+
+        expectResult("A");
+    }
+
+    @Test
     public void javaScriptTestAttribute()
     {
         createOutputFile("FILE");
