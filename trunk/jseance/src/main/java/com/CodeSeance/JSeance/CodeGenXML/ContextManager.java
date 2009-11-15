@@ -94,7 +94,7 @@ public class ContextManager
     private final static String XML_LENGTH_FN = "JSeance_XMLLength";
     private final static String XML_GET_NODE_AT_FN = "JSeance_XMLGetNodeAt";
     private final static String XML_NODE_TO_STRING = "JSeance_XMLNodeToString";
-
+    
     //Initializes the JavaScript engine (Rhino) with the required context objects and instances
     private void initializeJavaScriptEngine()
     {
@@ -120,13 +120,12 @@ public class ContextManager
             throw new RuntimeException(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR.getMessage(ex.getMessage()));
         }
 
-        evaluateJSPrivate("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "ContextManager.java", 127);
-        evaluateJSPrivate("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "ContextManager.java", 128);
-        evaluateJSPrivate("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "ContextManager.java", 129);
-        evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "ContextManager.java", 130);
-        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "ContextManager.java", 131);
-        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "ContextManager.java", 132);
-
+        evaluateJSPrivate("function " + XML_CREATE_FN + "(xmlText){return new XML(xmlText);};", "ContextManager.java", 123);
+        evaluateJSPrivate("function " + XML_EVAL_PATH_FN + "(xml, path){return eval('xml.' + path);};", "ContextManager.java", 124);
+        evaluateJSPrivate("function " + XML_LENGTH_FN + "(xml){return xml.length();};", "ContextManager.java", 125);
+        evaluateJSPrivate("function " + XML_GET_NODE_AT_FN + "(xml, index){return xml[index];};", "ContextManager.java", 126);
+        evaluateJSPrivate("function " + XML_NODE_TO_STRING + "(xml){return xml.toXMLString();};", "ContextManager.java", 127);
+        
         declareStringConversionFunction("EscapeXMLValue", "com.CodeSeance.JSeance.CodeGenXML.XMLElements.Text.escapeXMLValue");
         declareStringConversionFunction("EscapeXMLAttribute", "com.CodeSeance.JSeance.CodeGenXML.XMLElements.Text.escapeXMLAttribute");
         declareStringConversionFunction("EscapeHTML", "org.apache.commons.lang.StringEscapeUtils.escapeHtml");
@@ -137,7 +136,7 @@ public class ContextManager
 
     private void declareStringConversionFunction(String name, String method)
     {
-        evaluateJSPrivate(String.format("function %s (val){return String(%s(val));};", name, method), "ContextManager.java", 145);
+        evaluateJSPrivate(String.format("function %s (val){return String(%s(val));};", name, method), "ContextManager.java", 139);
     }
 
     public void setCurrentDefinitions(JSDefinitions jsDefinitions)
@@ -297,32 +296,33 @@ public class ContextManager
     }
 
     // Prefix to be used when embedding JavaScript code into text
-    public final static String CODE_PREFIX = "@JavaScript{";
+    public final static String[] CODE_PREFIXES = {"@JavaScript{", "@JS{"};
     // Suffix to be used when embedding JavaScript code into text
     public final static String CODE_SUFFIX = "}@";
 
     // Resolves the embedded script fragments within a piece of texts
     public String resolveCodeFragments(String input)
     {
-        int locStart = input.indexOf(CODE_PREFIX);
-        if (locStart >= 0)
+        String result = input;
+        for (String codePrefix : CODE_PREFIXES)
         {
-            StringBuilder result = new StringBuilder();
-            int locEnd = input.indexOf(CODE_SUFFIX, locStart);
-            if (locEnd < 0)
+            int locStart = input.indexOf(codePrefix);
+            if (locStart >= 0)
             {
-                throw new RuntimeException(ExecutionError.JAVASCRIPT_NOT_CLOSED.getMessage(input, CODE_SUFFIX));
+                StringBuilder builder = new StringBuilder();
+                int locEnd = input.indexOf(CODE_SUFFIX, locStart);
+                if (locEnd < 0)
+                {
+                    throw new RuntimeException(ExecutionError.JAVASCRIPT_NOT_CLOSED.getMessage(input, CODE_SUFFIX));
+                }
+                String subExpression = input.substring(locStart + codePrefix.length(), locEnd);
+                builder.append(input.substring(0, locStart));
+                builder.append(evaluateJS(subExpression, input, 0));
+                builder.append(input.substring(locEnd + CODE_SUFFIX.length()));
+                result = resolveCodeFragments(builder.toString());
             }
-            String subExpression = input.substring(locStart + CODE_PREFIX.length(), locEnd);
-            result.append(input.substring(0, locStart));
-            result.append(evaluateJS(subExpression, input, 0));
-            result.append(input.substring(locEnd + CODE_SUFFIX.length()));
-            return resolveCodeFragments(result.toString());
         }
-        else
-        {
-            return input;
-        }
+        return result;
     }
 
     // The stack used to maintain state as the XML Template document gets explored
