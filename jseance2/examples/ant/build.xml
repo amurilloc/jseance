@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="and-example" basedir="." default="website">
+    <taskdef name="jseance" classname="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.AntTask"
+             classpath="../../target/jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar"/>
+    <target name="website">
+        <jseance errorLogFile="../common/target/jseance-errors.log"
+                 infoLogFile="../common/target/jseance-info.log"
+                 sourcesDir="../common"
+                 targetDir="../common/target">
+            <fileset dir="../common/templates" includes="**/*.template.xml"/>
+        </jseance>
+    </target>
+</project>

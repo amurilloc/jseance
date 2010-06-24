@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebPage>
+    <FileName>home.html</FileName>
+    <Header>
+        <Name>My Website Name</Name>
+        <SubName>Website sub-name</SubName>
+        <Menu>
+            <Item name="Home" href="#"/>
+            <Item name="Blogs" href="#"/>
+            <Item name="Photos" href="#"/>
+            <Item name="About" href="#"/>
+            <Item name="Contact" href="#"/>
+        </Menu>
+    </Header>
+    <Sidebar>
+        <Section name="Categories">
+            <Category name="Category A" href="#"/>
+            <Category name="Category B" href="#"/>
+            <Category name="Category C" href="#"/>
+            <Category name="Category D" href="#"/>
+        </Section>
+        <Section name="Archives">
+            <Category name="September" href="#"/>
+            <Category name="August" href="#"/>
+            <Category name="July" href="#"/>
+            <Category name="June" href="#"/>
+            <Category name="May" href="#"/>
+        </Section>
+    </Sidebar>
+    <Posts>
+        <Post title="First Post" date="June 27, 2009">
+            <![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>]]></Post>
+    </Posts>
+</WebPage>
