@@ -56,6 +56,36 @@ public class ForTest extends TestCase
     }
 
     @Test
+    public void outputIteratorTest_DoubleIfEmprt()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A val=\"A.\"/>");
+        model.append(" <A val=\"B.\"/>");
+        model.append(" <A val=\"C\"/>");
+        model.append("</Model>");
+
+        template.append("!XMLModel(\"{MODEL}\")!");
+        template.append("!For(\"A\")!");
+        template.append("!Eval(Models['default'].currentNode.@val)!");
+        template.append("!IfEmpty!");
+        template.append("ExecutionError");
+        template.append("!IfEmpty!");
+        template.append("ExecutionError");
+        template.append("!End!");
+
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
+    }
+
+    @Test
+    public void switchTest_OrphanIfEmpty()
+    {
+        template.append("!IfEmpty!");
+        template.append("!End!");
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
+    }
+
+    @Test
     public void outputIteratorTest_IfEmpty()
     {
         StringBuilder model = createXMLFile("MODEL");

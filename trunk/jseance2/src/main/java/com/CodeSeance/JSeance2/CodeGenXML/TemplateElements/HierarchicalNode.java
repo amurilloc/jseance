@@ -66,4 +66,36 @@ class HierarchicalNode extends Node
             child.onExecutionEnd(context);
         }
     }
+
+    protected void parseUntilTag(Template template, String[] tags)
+    {
+        boolean endFound = false;
+        do
+        {
+            String nextTag = template.peekNodeTag();
+            for(String tag : tags)
+            {
+                if (tag.equals(nextTag))
+                {
+                    endFound = true;
+                    break;
+                }
+            }
+            if (!endFound)
+            {
+                children.add(template.parseNode(this));
+            }
+        }
+        while (!endFound);
+    }
+
+    protected void expectParent(Template template, Node parent, Class expectedParentClass)
+    {
+        String thisClassName = this.getClass().getSimpleName();
+        String expectedParentClassName = expectedParentClass.getSimpleName();
+        if (parent == null || !expectedParentClass.equals(parent.getClass()))
+        {
+            template.throwError(String.format("[%s] statement needs to be a direct child of an [%s] statement", thisClassName, expectedParentClassName));
+        }
+    }
 }

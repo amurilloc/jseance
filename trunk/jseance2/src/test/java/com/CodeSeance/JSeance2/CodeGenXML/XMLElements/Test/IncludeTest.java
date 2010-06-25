@@ -47,6 +47,17 @@ public class IncludeTest extends TestCase
     }
 
     @Test
+    public void includeTest_WrongTermination()
+    {
+        StringBuilder include = createIncludeFile("INCLUDE", ".wrongTermination");
+        include.append("Ok");
+
+        template.append("!Include(\"{INCLUDE}\")!");
+
+        expectError(ExecutionError.INVALID_INCLUDE_TERMINATION, true, true, true, false, null, false );
+    }
+
+    @Test
     public void includeTest_SimpleJS()
     {
         StringBuilder include = createIncludeFile("INCLUDE", ".js");

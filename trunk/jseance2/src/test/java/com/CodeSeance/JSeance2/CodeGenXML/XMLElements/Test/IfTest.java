@@ -31,6 +31,7 @@
 package com.CodeSeance.JSeance2.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
+import com.CodeSeance.JSeance2.CodeGenXML.ExecutionError;
 
 public class IfTest extends TestCase
 {
@@ -46,6 +47,36 @@ public class IfTest extends TestCase
         template.append("!End!");
 
         expectResult("Ok");
+    }
+
+    @Test
+    public void conditionalTest_DoubleElse()
+    {
+        template.append("!If(1 > 0)!");
+        template.append("Ok");   // << Executed Statement
+        template.append("!Else!");
+        template.append("ExecutionError");
+        template.append("!Else!");
+        template.append("ExecutionError");
+        template.append("!End!");
+
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
+    }
+
+    @Test
+    public void switchTest_OrphanElseIf()
+    {
+        template.append("!ElseIf!");
+        template.append("!End!");
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
+    }
+
+    @Test
+    public void switchTest_OrphanElse()
+    {
+        template.append("!Else!");
+        template.append("!End!");
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
     }
 
     @Test

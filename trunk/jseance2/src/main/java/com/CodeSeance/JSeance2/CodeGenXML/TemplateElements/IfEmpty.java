@@ -44,17 +44,7 @@ class IfEmpty extends HierarchicalNode
     {
         // Clear the children, this is needed to avoid double addition if the tag is within a loop
         children.clear();
-
-        if (parent == null || !parent.getClass().equals(For.class))
-        {
-            template.throwError("IfEmpty statement needs to be a direct child of a For statement");
-        }
-
-        Class nextNodeClass;
-        while (!(nextNodeClass = template.peekNodeClass()).equals(End.class))
-        {
-            children.add(template.parseNode(this));
-            nextNodeClass = template.peekNodeClass();
-        }
+        expectParent(template, parent, For.class);
+        parseUntilTag(template, new String[]{"end"});
     }
 }

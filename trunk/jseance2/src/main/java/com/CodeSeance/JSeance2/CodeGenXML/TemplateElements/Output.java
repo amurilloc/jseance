@@ -74,11 +74,9 @@ class Output extends HierarchicalNode
         // Clear the children, this is needed to avoid double addition if the tag is within a loop
         children.clear();
 
-        Node child;
-        while (!(child = template.parseNode(this)).getClass().equals(End.class))
-        {
-            children.add(child);
-        }
+        parseUntilTag(template, new String[]{"end"});
+        // Process the closing tag
+        children.add(template.parseNode(this));
     }
 
     private StringBuffer textSink = null;

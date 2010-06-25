@@ -64,11 +64,6 @@ class Switch extends Node
         Node child;
         while (!(child = template.parseNode(this)).getClass().equals(End.class))
         {
-            if (defaultTag != null)
-            {
-                template.throwError("Default statement needs to be the last child of a Switch statement");
-            }
-
             if (child.getClass().equals(Case.class))
             {
                 cases.add((Case) child);
@@ -79,7 +74,7 @@ class Switch extends Node
             }
             else
             {
-                template.throwError("Case and Default are the only valid direct children of a Switch statement");
+                template.throwError("[Case] and [Default] are the only valid direct children of a [Switch] statement");
             }
         }
     }

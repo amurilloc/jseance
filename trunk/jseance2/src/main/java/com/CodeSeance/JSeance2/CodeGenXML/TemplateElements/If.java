@@ -67,11 +67,6 @@ class If extends HierarchicalNode
         Node child;
         while (!(child = template.parseNode(this)).getClass().equals(End.class))
         {
-            if (elseTag != null)
-            {
-                template.throwError("Else statement needs to be the last child of an If statement");
-            }
-
             if (child.getClass().equals(ElseIf.class))
             {
                 elseIfs.add((ElseIf) child);
