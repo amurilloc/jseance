@@ -320,37 +320,6 @@ public class Context
         return fx.call(jsContext, jsScope, jsScope, fxArgs);
     }
 
-    // Prefix to be used when embedding JavaScript code into text
-    public final static String[] CODE_PREFIXES = {"@JavaScript{", "@JS{"};
-    // Suffix to be used when embedding JavaScript code into text
-    public final static String CODE_SUFFIX = "}@";
-
-    // Resolves the embedded script fragments within a piece of texts
-
-    public String resolveCodeFragments(String input)
-    {
-        String result = input;
-        for (String codePrefix : CODE_PREFIXES)
-        {
-            int locStart = input.indexOf(codePrefix);
-            if (locStart >= 0)
-            {
-                StringBuilder builder = new StringBuilder();
-                int locEnd = input.indexOf(CODE_SUFFIX, locStart);
-                if (locEnd < 0)
-                {
-                    throw new RuntimeException(ExecutionError.JAVASCRIPT_NOT_CLOSED.getMessage(input, CODE_SUFFIX));
-                }
-                String subExpression = input.substring(locStart + codePrefix.length(), locEnd);
-                builder.append(input.substring(0, locStart));
-                builder.append(evaluateJS(subExpression, input, 0));
-                builder.append(input.substring(locEnd + CODE_SUFFIX.length()));
-                result = resolveCodeFragments(builder.toString());
-            }
-        }
-        return result;
-    }
-
     public void loadJavaScriptInclude(File file) throws IOException
     {
         // Add the dependency
