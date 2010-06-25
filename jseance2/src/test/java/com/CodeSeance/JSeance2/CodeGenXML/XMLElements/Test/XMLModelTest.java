@@ -303,6 +303,38 @@ public class XMLModelTest extends TestCase
     }
 
     @Test
+    public void modelTest_ParserConfig_Error()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A val=\"A\"/>");
+        model.append("</Model>");
+
+        template.append("!XMLModel(\"{MODEL}\")!");
+        template.append("!Eval(Models['default'].currentNode.A.@val)!");
+
+        ExecutionError.simulate_XML_PARSER_CONFIG_ERROR = true;
+
+        expectError(ExecutionError.XML_PARSER_CONFIG_ERROR, true, true, true, false, null, false);
+    }
+
+    @Test
+    public void modelTest_ParserIO_Error()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A val=\"A\"/>");
+        model.append("</Model>");
+
+        template.append("!XMLModel(\"{MODEL}\")!");
+        template.append("!Eval(Models['default'].currentNode.A.@val)!");
+
+        ExecutionError.simulate_XML_PARSER_IO_ERROR = true;
+
+        expectError(ExecutionError.XML_PARSER_IO_ERROR, true, true, true, false, null, false);
+    }
+
+    @Test
     public void modelTest_InvalidModelXML()
     {
         StringBuilder model = createXMLFile("MODEL");

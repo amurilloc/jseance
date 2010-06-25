@@ -127,10 +127,6 @@ class For extends HierarchicalNode
         {
             if (child.getClass().equals(IfEmpty.class))
             {
-                if (ifEmpty != null)
-                {
-                    template.throwError("IfEmpty statement needs to be the last child of a For statement");
-                }
                 ifEmpty = child;
             }
             else

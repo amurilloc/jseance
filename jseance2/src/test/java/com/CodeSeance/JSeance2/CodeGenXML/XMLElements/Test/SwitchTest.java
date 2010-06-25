@@ -31,6 +31,7 @@
 package com.CodeSeance.JSeance2.CodeGenXML.XMLElements.Test;
 
 import org.testng.annotations.Test;
+import com.CodeSeance.JSeance2.CodeGenXML.ExecutionError;
 
 /**
  User: Administrator Date: May 3, 2009 Time: 5:23:01 PM To change this template use File | Settings | File Templates.
@@ -56,6 +57,22 @@ public class SwitchTest extends TestCase
     }
 
     @Test
+    public void switchTest_OrphanCase()
+    {
+        template.append("!Case(1)!");
+        template.append("!End!");
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
+    }
+
+    @Test
+    public void switchTest_OrphanDefault()
+    {
+        template.append("!Default!");
+        template.append("!End!");
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
+    }
+
+    @Test
     public void switchTest_Default()
     {
         template.append("!Switch(2*3)!");
@@ -71,5 +88,16 @@ public class SwitchTest extends TestCase
         template.append("Ok");
         template.append("!End!");
         expectResult("Ok");
+    }
+
+        @Test
+    public void switchTest_IncorrectChild()
+    {
+        template.append("!Switch(2*3)!");
+        template.append("!Eval('Ok')!");
+        template.append("!Default!");
+        template.append("Ok");
+        template.append("!End!");
+        expectError(ExecutionError.INVALID_TEMPLATE_FORMAT, true, true, true, false, null, false );
     }
 }

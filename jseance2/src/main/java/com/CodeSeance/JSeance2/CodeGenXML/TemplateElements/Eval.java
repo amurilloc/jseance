@@ -84,18 +84,6 @@ public class Eval extends Node
                 text = org.apache.commons.lang.StringEscapeUtils.escapeSql(text);
             }
         }
-
-        String[] fragments = text.split("\\\\");
-        String result = "";
-        for (String fragment : fragments)
-        {
-            if (!result.equals(""))
-            {
-                result += "\\";
-            }
-            result += fragment.replace("\\n", "\n").replace("\\r", "\r");
-        }
-
         context.writeText(text);
     }
 

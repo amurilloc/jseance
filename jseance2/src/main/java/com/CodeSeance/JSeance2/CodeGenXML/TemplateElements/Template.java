@@ -119,7 +119,7 @@ public class Template extends HierarchicalNode
         return (charPos >= text.length());
     }
 
-    public Class peekNodeClass()
+    public String peekNodeTag()
     {
         String pendingText = getPendingText();
 
@@ -138,17 +138,16 @@ public class Template extends HierarchicalNode
             int startMatch = matcher.start();
             if (startMatch > 0)
             {
-                return Text.class;
+                return "text";
             }
 
-            // Determine the tag and arguments (if any)
+            // Determine the tag
             String tag = matcher.group(1);
-
-            return NodeFactory.getInstance().getNodeClass(tag);
+            return tag.toLowerCase();
         }
         else
         {
-            return Text.class;
+            return "text";
         }
 
     }

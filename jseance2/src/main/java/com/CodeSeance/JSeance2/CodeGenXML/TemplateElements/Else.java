@@ -45,17 +45,7 @@ class Else extends HierarchicalNode
     {
         // Clear the children, this is needed to avoid double addition if the tag is within a loop
         children.clear();
-
-        if (parent == null || !parent.getClass().equals(If.class))
-        {
-            template.throwError("Else statement needs to be a direct child of a If statement");
-        }
-
-        Class nextNodeClass = template.peekNodeClass();
-        while (!nextNodeClass.equals(End.class))
-        {
-            children.add(template.parseNode(this));
-            nextNodeClass = template.peekNodeClass();
-        }
+        expectParent(template, parent, If.class);
+        parseUntilTag(template, new String[]{"end"});
     }
 }

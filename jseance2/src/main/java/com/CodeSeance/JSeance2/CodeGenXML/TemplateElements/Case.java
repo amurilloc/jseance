@@ -52,17 +52,7 @@ class Case extends HierarchicalNode
     {
         // Clear the children, this is needed to avoid double addition if the tag is within a loop
         children.clear();
-
-        if (parent == null || !parent.getClass().equals(Switch.class))
-        {
-            template.throwError("Case statement needs to be a direct child of a Switch statement");
-        }
-
-        Class nextNodeClass = template.peekNodeClass();
-        while (!nextNodeClass.equals(Case.class) && !nextNodeClass.equals(Default.class) && !nextNodeClass.equals(End.class))
-        {
-            children.add(template.parseNode(this));
-            nextNodeClass = template.peekNodeClass();
-        }
+        expectParent(template, parent, Switch.class);
+        parseUntilTag(template, new String[]{"case", "default", "end"});
     }
 }
