@@ -46,10 +46,11 @@ public class MavenMojoTest
         com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.TestHelper testHelper = new com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.TestHelper();
         try
         {
-            File sourcesDir = new File("./jseance");
-            File targetDir = new File("./target");
-            File errorLogFile = new File("./jseance-errors.log");
-            File infoLogFile = new File("./jseance-info.log");
+            File testDir = testHelper.createTempDirectory();
+            File sourcesDir = new File(testDir, "jseance");
+            File targetDir = new File(testDir, "target");
+            File errorLogFile = File.createTempFile("jseance-errors", ".log");
+            File infoLogFile = File.createTempFile("jseance-info", ".log");
             MavenMojo mavenMojo = new MavenMojo();
             mavenMojo.setErrorLogFile(errorLogFile);
             mavenMojo.setInfoLogFile(infoLogFile);

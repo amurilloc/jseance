@@ -51,11 +51,18 @@ public class Template extends HierarchicalNode
         StringBuffer buffer = new StringBuffer(1024);
         BufferedReader reader = new BufferedReader(new FileReader(templateFile));
 
-        char[] chars = new char[1024];
-        int readChars;
-        while ((readChars = reader.read(chars)) > -1)
+        try
         {
-            buffer.append(String.valueOf(chars, 0, readChars));
+            char[] chars = new char[1024];
+            int readChars;
+            while ((readChars = reader.read(chars)) > -1)
+            {
+                buffer.append(String.valueOf(chars, 0, readChars));
+            }
+        }
+        finally
+        {
+            reader.close();
         }
 
         this.text = buffer.toString();
