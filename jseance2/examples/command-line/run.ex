@@ -1,2 +1,0 @@
-java -jar ../../target/jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar -errorLogFile "../common/target/jseance-errors.log" -infoLogFile "../common/target/jseance-info.log" -sourcesDir "../common" -targetDir "../common/target" WebPage.template.xml
- pause

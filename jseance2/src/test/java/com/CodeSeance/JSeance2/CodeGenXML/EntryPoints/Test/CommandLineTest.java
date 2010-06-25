@@ -46,13 +46,18 @@ public class CommandLineTest
         com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.TestHelper testHelper = new com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.TestHelper();
         try
         {
+            File testDir = testHelper.createTempDirectory();
             CommandLine commandLine = new CommandLine();
+            commandLine.sourcesDir = new File(testDir, "jseance");
+            commandLine.targetDir = new File(testDir, "target");
+            commandLine.errorLogFile = File.createTempFile("jseance-errors", ".log");
+            commandLine.infoLogFile = File.createTempFile("jseance-info", ".log");
             File outputFile = testHelper.createStandardLayout(commandLine.sourcesDir, commandLine.targetDir);
 
             List<String> args = new ArrayList<String>();
             args.add("template.jseance");
             String[] obj = {};
-            CommandLine.main(args.toArray(obj));
+            commandLine.run(args.toArray(obj));
             testHelper.validateSucess(outputFile,
                     commandLine.errorLogFile,
                     commandLine.infoLogFile,

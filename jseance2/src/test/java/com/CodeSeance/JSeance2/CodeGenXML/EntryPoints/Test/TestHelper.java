@@ -54,7 +54,15 @@ public class TestHelper
             File file = disposableFiles.pop();
             if (file.exists())
             {
-                boolean result = file.delete();
+                boolean result;
+                if (file.isDirectory())
+                {
+                    result = deleteDirectoryRecursive(file);
+                }
+                else
+                {
+                    result = file.delete();
+                }
                 if (!result)
                 {
                     throw new RuntimeException(String.format("Error deleting file:[%s]", file.getCanonicalPath()));
@@ -142,6 +150,21 @@ public class TestHelper
         registerDisposableFile(outputFile);
         return outputFile;
     }
+
+    public boolean deleteDirectoryRecursive(File path) {
+    if( path.exists() ) {
+      File[] files = path.listFiles();
+      for(int i=0; i<files.length; i++) {
+         if(files[i].isDirectory()) {
+           deleteDirectoryRecursive(files[i]);
+         }
+         else {
+           files[i].delete();
+         }
+      }
+    }
+    return( path.delete() );
+  }
 
     private File createTempSubDir(File parentDir, String name)
     {

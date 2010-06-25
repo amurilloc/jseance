@@ -46,12 +46,16 @@ public class AntTaskTest
         com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.TestHelper testHelper = new com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.TestHelper();
         try
         {
+            File testDir = testHelper.createTempDirectory();
             AntTask antTask = new AntTask();
-            antTask.setSourcesDir(testHelper.createTempDirectory());
+            antTask.setSourcesDir(new File(testDir, "jseance"));
+            antTask.setTargetDir(new File(testDir, "target"));
+            antTask.setErrorLogFile(File.createTempFile("jseance-errors", ".log"));
+            antTask.setInfoLogFile(File.createTempFile("jseance-info", ".log"));
             File outputFile = testHelper.createStandardLayout(antTask.getSourcesDir(), antTask.getTargetDir());
 
             FileSet fileSet = new FileSet();
-            fileSet.setDir(new File("./jseance/templates"));
+            fileSet.setDir(new File(testDir, "jseance/templates"));
             fileSet.setIncludes("**/*.jseance");
             antTask.addFileset(fileSet);
             Project project = new Project();
