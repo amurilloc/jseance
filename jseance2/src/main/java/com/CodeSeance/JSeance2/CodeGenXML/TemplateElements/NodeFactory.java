@@ -104,10 +104,6 @@ class NodeFactory
         {
             return new Switch(arguments, position);
         }
-        else if (tag.equals("text"))
-        {
-            return new Text(arguments);
-        }
         else if (tag.equals("xmlmodel"))
         {
             return new XMLModel(arguments, position);

@@ -34,23 +34,6 @@ import org.mozilla.javascript.ScriptableObject;
 
 public class JSModels extends ScriptableObject
 {
-    public JSModels deepClone()
-    {
-        JSModels result = new JSModels();
-        for (Object property : getPropertyIds(this))
-        {
-            String name = (String) property;
-            Object val = get(name, this);
-            if (val instanceof JSModel)
-            {
-                JSModel jsModel = (JSModel) val;
-                val = jsModel.deepClone();
-            }
-            result.put(name, result, val);
-        }
-        return result;
-    }
-
     public String getClassName()
     {
         return "ModelsClass";
