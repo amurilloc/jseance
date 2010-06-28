@@ -126,7 +126,7 @@ File: template.jseance
 || *Attribute Name* || *Description* || *Type* || *Required* ||
 || fileName|| File name relative to the templates directory, needs to end in .jseance or .js or an error is produced || String || Yes ||
 
- == !For-IfEmpty ==
+ == For-IfEmpty ==
 
 *Description:* Allows for-like iteration over a collection of XMLNodes in an XML model.
 
@@ -147,7 +147,10 @@ File: template.jseance
 {{{
 @!XMLModel("model.xml")!
 @!For('Child', null, ', ')!
-!Eval(Models['default'].currentNode.@attribute1)!@!End!
+!Eval(Models['default'].currentNode.@attribute1)!
+@!IfEmpty!
+Nothing to display
+@!End!
 }}}
 
 || *Attribute Name* || *Description* || *Type* || *Required* ||
@@ -158,5 +161,13 @@ File: template.jseance
  == !Code ==
 
 *Description:* Allows custom !JavaScript declarations to be embedded into the template.
+
+*Example:* Simple 'Hello World' with a code section:
+{{{
+@!Code!
+var a = 'Hello World'!
+@!End!
+!Eval(a)!;
+}}}
 
 [GeneralConcepts Prev: General Concepts] [JavaScriptSupport Next: JavaScript Support]
