@@ -4,8 +4,24 @@
  = JSeance Function Summary = 
 
  == XMLModel ==
-
 *Description:* Loads an XML model into the context. Model data can be referenced in !JavaScript as Models`['name'`] or Models`['default'`] for unnamed models.
+
+*Example:* For loading the following model file:
+
+File: model.xml
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<ExampleModel>
+    <Child attribute1="A"/>  
+</ExampleModel>
+}}}
+
+And display the value of attribute1:
+File: template.jseance
+{{{
+@!Model("model.xml")!
+The value of attribute1 is !Eval(Models['default'].currentNode.Child.@attribute1)!
+}}}
 
 || *Parameter* || *Description* || *Required* ||
 || fileName || The filename of the model relative to the Models runtime directory || Yes ||
