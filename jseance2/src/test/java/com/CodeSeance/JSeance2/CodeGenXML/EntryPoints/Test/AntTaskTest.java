@@ -52,6 +52,7 @@ public class AntTaskTest
             antTask.setTargetDir(new File(testDir, "target"));
             antTask.setErrorLogFile(File.createTempFile("jseance-errors", ".log"));
             antTask.setInfoLogFile(File.createTempFile("jseance-info", ".log"));
+            antTask.setDebugLogFile(File.createTempFile("jseance-debug", ".log"));
             File outputFile = testHelper.createStandardLayout(antTask.getSourcesDir(), antTask.getTargetDir());
 
             FileSet fileSet = new FileSet();
