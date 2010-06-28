@@ -7,7 +7,7 @@
 
 *Description:* Loads an XML model into the context. Model data can be referenced in !JavaScript as Models`['name'`] or Models`['default'`] for unnamed models.
 
-|| *Parameter Name* || *Description* || *Required* ||
+|| *Parameter* || *Description* || *Required* ||
 || fileName || The filename of the model relative to the Models runtime directory || Yes ||
 || _name_|| Name of the model if specific model references are needed, the last declared model becomes the current model in the context, make sure to define a model names if you are using multiple input models || No ||
 || _e4XPath_ || The E4X Path of the currentNode, otherwise rootNode becomes the currentNode || No ||
