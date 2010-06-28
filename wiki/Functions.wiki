@@ -1,13 +1,122 @@
-#summary One-sentence summary of this page.
+#summary jSeance Functions
+#sidebar TableOfContents
 
-= Introduction =
+ = JSeance Function Summary = 
 
-Add your content here.
+ == XMLModel ==
+
+*Description:* Loads an XML model into the context. Model data can be referenced in !JavaScript as Models`['name'`] or Models`['default'`] for unnamed models.
+
+|| *Parameter Name* || *Description* || *Required* ||
+|| fileName || The filename of the model relative to the Models runtime directory || Yes ||
+|| _name_|| Name of the model if specific model references are needed, the last declared model becomes the current model in the context, make sure to define a model names if you are using multiple input models || No ||
+|| _e4XPath_ || The E4X Path of the currentNode, otherwise rootNode becomes the currentNode || No ||
+|| _validate_ || Indicates if the parser should validate the XML file against an XSD schema, either included in the XML file or specified in the xsdFileName parameter || No ||
+|| _xsdFileName_ || Indicates the name of the XSD file to use if validate is true, relative to the Models runtime directory || No ||
+
+ == Eval ==
+
+*Description:* Evaluates the specified !JavaScript expression as text.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| expression || A valid JavaScriptExpression || No ||
+|| escaping || Allows text to be escaped, valid options are: xml-attribute, xml-value, html, java, javascript and sql || No ||
+
+ == Output ==
+
+TODO: Finish Editing this page with examples
+
+*Description:* Specifies a file to use as output. All text produced inside the tag will be written  to the specified file.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| fileName || The filename to open, relative to the Target runtime directory || Yes ||
+|| encoding || File eoncoding to use, valid options are: ISO-8859-1, ISO-8859-2, ISO-8859-3, ISO-8859-4, ISO-8859-5, ISO-8859-6, ISO-8859-7, ISO-8859-8, ISO-8859-9, ISO-8859-13, ISO-8859-15, UTF-8, UTF-16, ISO-2022-JP, Shift_JIS, EUC-JP, US-ASCII, GBK, Big5, ISO-2022-CN, ISO-2022-KR, ISO-8859-15, ISO-8859-15 || No ||
+|| writeXMLHeader || Specifies if an XML header needs to be created for the file || No ||
+
+ == Conditional ==
+
+*Description:* Parent node for if--elseif-else functionality.
+
+*Child Elements:* If, !ElseIf, Else.
+
+ === If ===
+
+*Description:* Fist child element of the Conditional node, represents the first comparison statement.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| jsExpression || The !JavaScript expression to evaluate || Yes ||
+
+ === !ElseIf ===
+
+*Description:* Second or greater child element of the Conditional node, represents an else-if expression.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| jsExpression || The !JavaScript expression to evaluate || Yes ||
 
 
-= Details =
+ === Else ===
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+*Description:* Parent node for  switch-case functionality.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+
+ == Switch ==
+
+*Description:* Parent node for  switch-case functionality.
+
+*Child Elements:* Case, Default.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| jsExpression || The !JavaScript expression to evaluate || Yes ||
+
+ === Case ===
+
+*Description:* Evaluation option for a Switch parent node.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| value || The value to compare the parent node jsExpression result || Yes ||
+
+ === Default ===
+
+*Description:* The default expression to evaluate if no match is found.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+
+ == Definition ==
+
+*Description:* Named variable used to send parameters to included templates of for oten-used values. Can be referenced from !JavaScript by Definitions`['name'`].
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| name || Name of the Definition || Yes ||
+
+ == Include ==
+
+*Description:* Includes another template file in the current template.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| fileName|| File name relative to the Includes runtime directory || Yes ||
+
+ == !OutputIterator ==
+
+*Description:* An XML node iterator relative to the current model node, it text production while iterating over an XML node list.
+
+*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| e4XPath || The e4XPath from the current node to select a group of nodes to iterate from, e4XPath expression is expected to return a nodegroup || Yes ||
+|| _modelName_ || The name of the model to use || No ||
+|| _separator_ || A separator to use when concatenating data, useful for building text structures such as comma-separated lists || No ||
+
+ == !JavaScript ==
+
+*Description:* Allows custom !JavaScript declarations to be embedded into the template.
+
+[GeneralConcepts Prev: General Concepts] [JavaScriptSupport Next: JavaScript Support]
