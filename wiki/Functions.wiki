@@ -40,9 +40,11 @@ File: model.xml
 And display the value of attribute1:
 File: template.jseance
 {{{
-@!Model("model.xml")!
+@!XMLModel("model.xml")!
 The value of attribute1 is !Eval(Models['default'].currentNode.Child.@attribute1)!
 }}}
+
+*Note*: The @ before the !XMLModel tag instructs the parser to ignore any whitespace in that line before the instruction as well as the endline proceeding it. It can be used to keep JSeance instruction in a line by themselves without adding extra whitespace of newlines to the template output
 
 || *Parameter* || *Description* || *Required* ||
 || fileName || The filename of the model relative to the Models runtime directory || Yes ||
