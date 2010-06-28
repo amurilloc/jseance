@@ -158,7 +158,7 @@ Nothing to display
 || _modelName_ || The name of the model to use || String || No ||
 || _separator_ || A separator to use when concatenating data, useful for building text structures such as comma-separated lists || String || No ||
 
- == !Code ==
+ == Code ==
 
 *Description:* Allows custom !JavaScript declarations to be embedded into the template.
 
