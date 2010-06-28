@@ -4,7 +4,7 @@
     * [Introduction#Code_Generation_Basics Code Generation Basics]
     * [Introduction#JSeance_Features JSeance Features]
     * [Introduction#Integration_Options Integration Options]
-  * [Template Functions]
+  * [Functions Template Functions]
     * [Functions#Eval Eval]
     * [Functions#XMLModel XMLModel]
     * [Functions#Output Output]
