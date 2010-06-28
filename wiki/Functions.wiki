@@ -3,6 +3,27 @@
 
  = JSeance Function Summary = 
 
+ == Eval ==
+
+*Description:* Evaluates the specified !JavaScript expression as text.
+
+*Example:*
+The following template:
+{{{
+The value of adding one plus one is !Eval(1+1)!
+The value of PI is !Eval(Math.PI)!
+}}}
+
+Produces:
+{{{
+The value of adding one plus one is 2
+The value of PI is 3.141592653589793
+}}}
+
+|| *Attribute Name* || *Description* || *Required* ||
+|| expression || A valid JavaScriptExpression || No ||
+|| escaping || Allows text to be escaped, valid options are: 'xml-attribute', 'xml-value', 'html', 'java', 'javascript' and 'sql' || No ||
+
  == XMLModel ==
 *Description:* Loads an XML model into the context. Model data can be referenced in !JavaScript as Models`['name'`] or Models`['default'`] for unnamed models.
 
@@ -29,14 +50,6 @@ The value of attribute1 is !Eval(Models['default'].currentNode.Child.@attribute1
 || _e4XPath_ || The E4X Path of the currentNode, otherwise rootNode becomes the currentNode || No ||
 || _validate_ || Indicates if the parser should validate the XML file against an XSD schema, either included in the XML file or specified in the xsdFileName parameter || No ||
 || _xsdFileName_ || Indicates the name of the XSD file to use if validate is true, relative to the Models runtime directory || No ||
-
- == Eval ==
-
-*Description:* Evaluates the specified !JavaScript expression as text.
-
-|| *Attribute Name* || *Description* || *Required* ||
-|| expression || A valid JavaScriptExpression || No ||
-|| escaping || Allows text to be escaped, valid options are: xml-attribute, xml-value, html, java, javascript and sql || No ||
 
  == Output ==
 
