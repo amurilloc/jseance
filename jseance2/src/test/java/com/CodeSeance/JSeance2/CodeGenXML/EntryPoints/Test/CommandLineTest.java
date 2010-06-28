@@ -52,6 +52,7 @@ public class CommandLineTest
             commandLine.targetDir = new File(testDir, "target");
             commandLine.errorLogFile = File.createTempFile("jseance-errors", ".log");
             commandLine.infoLogFile = File.createTempFile("jseance-info", ".log");
+            commandLine.debugLogFile = File.createTempFile("jseance-debug", ".log");
             File outputFile = testHelper.createStandardLayout(commandLine.sourcesDir, commandLine.targetDir);
 
             List<String> args = new ArrayList<String>();

@@ -37,7 +37,7 @@ package com.CodeSeance.JSeance2.CodeGenXML.TemplateElements;
  Time: 6:02:32 PM
  To change this template use File | Settings | File Templates.
  */
-class NodeFactory
+public class NodeFactory
 {
     private static class SingletonHolder
     {
@@ -110,8 +110,7 @@ class NodeFactory
         }
         else
         {
-            // this should never happen since the XML Document is validated by the regular expression
-            assert false : tag;
+            // this should never happen since the tags are validated by the regular expression
             return null;
         }
     }

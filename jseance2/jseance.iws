@@ -2,26 +2,20 @@
 <project relativePaths="false" version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Default.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Default.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IfTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IfTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/SwitchTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/SwitchTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Template.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Template.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/HierarchicalNode.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/HierarchicalNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Eval.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Eval.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/OutputTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/OutputTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/ForTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/ForTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Output.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Output.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/For.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/For.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/XMLModelTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/XMLModelTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Code.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Code.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/NodeFactory.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/NodeFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Switch.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Switch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/IfEmpty.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/IfEmpty.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/ElseIf.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/ElseIf.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/Test/CommandLineTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/Test/CommandLineTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jseance.iws" afterPath="$PROJECT_DIR$/jseance.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/If.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/If.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Case.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Case.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Else.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Else.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/TemplateTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/TemplateTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/ExecutionError.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/ExecutionError.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IncludeTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IncludeTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Node.java" afterPath="$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Node.java" />
     </list>
     <ignored path="jseance.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +23,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/jseance$IfTest_switchTest_OrphanElse.ic" NAME="IfTest.switchTest_OrphanElse Coverage Results" MODIFIED="1277500642562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
-    <SUITE FILE_PATH="coverage/jseance$com_CodeSeance_JSeance2_CodeGenXML.ic" NAME="com.CodeSeance.JSeance2.CodeGenXML Coverage Results" MODIFIED="1277507086561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/jseance$com_CodeSeance_JSeance2_CodeGenXML.ic" NAME="com.CodeSeance.JSeance2.CodeGenXML Coverage Results" MODIFIED="1277744049517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>com.CodeSeance.JSeance2.CodeGenXML.*</FILTER>
     </SUITE>
   </component>
@@ -41,60 +35,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/AntTask.java" line="139" class="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.AntTask" package="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/Test/CommandLineTest.java" line="59" class="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.CommandLineTest" package="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/CommandLine.java" line="112" class="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.CommandLine" package="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Code.java" line="52" class="com.CodeSeance.JSeance2.CodeGenXML.TemplateElements.Code" package="com.CodeSeance.JSeance2.CodeGenXML.TemplateElements">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -136,83 +76,41 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="IncludeTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IncludeTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="16" selection-start="1881" selection-end="1881" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Node.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Node.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="129" column="131" selection-start="4753" selection-end="4753" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NodeFactory.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/NodeFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="9" selection-start="3600" selection-end="3600" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Output.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Output.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="6" selection-start="1777" selection-end="1777" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Switch.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Switch.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="6" selection-start="1725" selection-end="1725" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SwitchTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/SwitchTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="99" selection-start="3666" selection-end="3666" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Runtime.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/Runtime.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="13" selection-start="2175" selection-end="2175" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XMLLoader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/XMLLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="13" selection-start="2186" selection-end="2186" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Template.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Template.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Template.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="289" column="0" selection-start="8951" selection-end="9022" vertical-scroll-proportion="0.6433566">
+            <state line="102" column="68" selection-start="3422" selection-end="3422" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Runtime.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/Runtime.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="112" column="14" selection-start="4773" selection-end="4773" vertical-scroll-proportion="2.106961">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommandLineTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/Test/CommandLineTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="24" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TemplateTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/TemplateTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="56" column="16" selection-start="2089" selection-end="2089" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1277743574732" expanded="true" signature="3940:4187" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -220,7 +118,7 @@
       <file leaf-file-name="XMLModelTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/XMLModelTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="330" column="28" selection-start="12486" selection-end="12486" vertical-scroll-proportion="-17.8">
+            <state line="115" column="10" selection-start="4221" selection-end="4266" vertical-scroll-proportion="-12.64">
               <folding />
             </state>
           </provider>
@@ -456,74 +354,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="jseance" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="jseance" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="jseance2" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="src" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="CodeGenXML" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="EntryPoints" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="jseance" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="jseance" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="jseance2" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="src" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="CodeGenXML" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="DependencyTracking" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
@@ -563,16 +393,16 @@
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="TestNG.com.CodeSeance.JSeance2.CodeGenXML">
-    <tempConfiguration default="false" name="com.CodeSeance.JSeance2.CodeGenXML.XMLElements.Test" type="TestNG" factoryName="TestNG" enabled="true" merge="false" sample_coverage="true" runner="emma">
+    <tempConfiguration default="false" name="CommandLineTest.CommandLineStdTest" type="TestNG" factoryName="TestNG" enabled="false" merge="false" sample_coverage="true" runner="emma">
       <module name="jseance" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="SUITE_NAME" value="" />
-      <option name="PACKAGE_NAME" value="com.CodeSeance.JSeance2.CodeGenXML.XMLElements.Test" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
+      <option name="PACKAGE_NAME" value="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test" />
+      <option name="MAIN_CLASS_NAME" value="com.CodeSeance.JSeance2.CodeGenXML.EntryPoints.Test.CommandLineTest" />
+      <option name="METHOD_NAME" value="CommandLineStdTest" />
       <option name="GROUP_NAME" value="" />
-      <option name="TEST_OBJECT" value="PACKAGE" />
+      <option name="TEST_OBJECT" value="METHOD" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -588,8 +418,12 @@
       <envs />
       <properties />
       <listeners />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="2201" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
       <method>
         <option name="Maven.BeforeRunTask" value="false" />
         <option name="AntTarget" value="false" />
@@ -779,7 +613,13 @@
       <envs />
       <properties />
       <listeners />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="1949" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="Maven.BeforeRunTask" value="false" />
@@ -790,7 +630,7 @@
     </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="TestNG.com.CodeSeance.JSeance2.CodeGenXML" />
-      <item index="1" class="java.lang.String" itemvalue="TestNG.com.CodeSeance.JSeance2.CodeGenXML.XMLElements.Test" />
+      <item index="1" class="java.lang.String" itemvalue="TestNG.CommandLineTest.CommandLineStdTest" />
     </list>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
@@ -927,114 +767,117 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/XMLModel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/AntTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="6" selection-start="1952" selection-end="1952" vertical-scroll-proportion="0.0">
+        <state line="139" column="0" selection-start="3531" selection-end="3531" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/HierarchicalNode.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/CommandLine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="0" selection-start="2462" selection-end="2462" vertical-scroll-proportion="0.0">
+        <state line="112" column="0" selection-start="4412" selection-end="4412" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Code.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1787" selection-end="1829" vertical-scroll-proportion="0.0">
+        <state line="52" column="0" selection-start="1957" selection-end="1957" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/CodeTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/OutputTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="25" selection-start="2199" selection-end="2199" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IfTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="8" selection-start="2577" selection-end="2668" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Include.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="85" selection-start="3019" selection-end="3046" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IncludeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="16" selection-start="1881" selection-end="1881" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/NodeFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="9" selection-start="3600" selection-end="3600" vertical-scroll-proportion="0.0">
+        <state line="81" column="23" selection-start="2949" selection-end="2949" vertical-scroll-proportion="-2.6">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Output.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="6" selection-start="1777" selection-end="1777" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Switch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="6" selection-start="1725" selection-end="1725" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/SwitchTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="99" selection-start="3666" selection-end="3666" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/Runtime.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="13" selection-start="2175" selection-end="2175" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/XMLModelTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="330" column="28" selection-start="12486" selection-end="12486" vertical-scroll-proportion="-17.8">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/XMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="13" selection-start="2186" selection-end="2186" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Template.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="289" column="0" selection-start="8951" selection-end="9022" vertical-scroll-proportion="0.6433566">
+        <state line="134" column="0" selection-start="4573" selection-end="4573" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="131" selection-start="4753" selection-end="4753" vertical-scroll-proportion="0.0">
+        <state line="50" column="7" selection-start="1994" selection-end="1994" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/TestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="168" column="159" selection-start="5834" selection-end="5858" vertical-scroll-proportion="-12.64">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/ForTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/IfTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="30" selection-start="4409" selection-end="4409" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/NodeFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="94" selection-start="3533" selection-end="3533" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/ExecutionError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="26" selection-start="4830" selection-end="4854" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/XMLModelTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="10" selection-start="4221" selection-end="4266" vertical-scroll-proportion="-12.64">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/XMLElements/Test/TemplateTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="16" selection-start="2089" selection-end="2089" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1277743574732" expanded="true" signature="3940:4187" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/CodeSeance/JSeance2/CodeGenXML/EntryPoints/Test/CommandLineTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="24" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/TemplateElements/Template.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="68" selection-start="3422" selection-end="3422" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/CodeSeance/JSeance2/CodeGenXML/Runtime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="14" selection-start="4773" selection-end="4773" vertical-scroll-proportion="2.106961">
           <folding />
         </state>
       </provider>

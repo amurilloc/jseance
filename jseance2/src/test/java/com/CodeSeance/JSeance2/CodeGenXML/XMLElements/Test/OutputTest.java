@@ -78,6 +78,20 @@ public class OutputTest extends TestCase
         }
     }
 
+    @Test
+    public void fileOutputTest_AutoCreateParentDirsError()
+    {
+        CleanupAutoCreateParentDirs();
+        ExecutionError.simulate_CANNOT_CREATE_PARENT_DIRS = true;
+
+        File outputFile = new File("A" + File.separator + "B" + File.separator + "C" + File.separator + "Output.txt");
+        template.append(String.format("!Output(\"%s\")!", org.apache.commons.lang.StringEscapeUtils.escapeJavaScript(outputFile.toString())));
+        template.append("Test");
+        template.append("!End!");
+        expectError(ExecutionError.CANNOT_WRITE_TARGET_FILE, true, true, true, false, null, false);
+        CleanupAutoCreateParentDirs();
+    }
+
     private void CleanupAutoCreateParentDirs()
     {
         String tempFileDir = System.getProperty("java.io.tmpdir");

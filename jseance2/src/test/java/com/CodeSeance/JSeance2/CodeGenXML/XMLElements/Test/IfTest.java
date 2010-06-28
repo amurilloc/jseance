@@ -104,4 +104,39 @@ public class IfTest extends TestCase
         template.append("!End!");
         expectResult("Ok");
     }
+
+    @Test
+    public void conditionalTest_NestedIfs()
+    {
+        template.append("!If(1 > 0)!");
+
+            template.append("       @!If(1 < 0)!\n");
+            template.append("ExecutionError\n");
+            template.append("       @!ElseIf(1 == 1)!\n");
+            template.append("Ok\n");
+            template.append("       @!Else!\n");
+            template.append("ExecutionError\n");
+            template.append("       @!End!\n");
+
+        template.append("!ElseIf(1 == 1)!");
+        template.append("ExecutionError");
+        template.append("!Else!");
+        template.append("ExecutionError");
+        template.append("!End!");
+
+        expectResult("Ok\n");
+    }
+
+    @Test
+    public void conditionalTest_NestedIfsIncomplete()
+    {
+        template.append("!If(1 > 0)!");
+
+            template.append("       @!If(1 < 0)!\n");
+            template.append("ExecutionError\n");
+            template.append("       @!ElseIf(1 == 1)!\n");
+            template.append("Ok\n");
+
+        expectError(ExecutionError.INVALID_TEMPLATE_MISSING_END, true, true, true, false, null, false );
+    }
 }

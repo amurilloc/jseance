@@ -50,9 +50,10 @@ public enum ExecutionError
     JAVASCRIPT_NOT_CLOSED(204, "Embedded JavaScript code in text:[%s] missing termination marker:[%s]"),
     INVALID_TEMPLATE_XML(205, "Error parsing template XML file:[%s] - Message:[%s]"),
     INVALID_TEMPLATE_FORMAT(206, "Error parsing template file:[%s], line:[%d], col:[%d], error:[%s]"),
-    INVALID_TAG_ARGUMENTS(206, "Error parsing template tag arguments:[%s], line:[%d], col:[%d], error:[%s]"),
-    INVALID_TEMPLATE_END_STATEMENT(207, "Template has an extra @End@ statement"),
-    INVALID_TEMPLATE_MISSING_END(207, "Template has a missing End statement, unexpected end of file while parsing"),
+    INVALID_TAG_ARGUMENTS(207, "Error parsing template tag arguments:[%s], line:[%d], col:[%d], error:[%s]"),
+    MISSING_TAG_ARGUMENTS(208, "Missing tag arguments:[%s] on line:[%d], col:[%d]"),
+    INVALID_TEMPLATE_END_STATEMENT(209, "Template has an extra @End@ statement"),
+    INVALID_TEMPLATE_MISSING_END(210, "Template has a missing End statement, unexpected end of file while parsing"),
 
     // 300 Model Errors
     INVALID_MODELS_DIR(300, "Cannot read models directory:[%s]"),
@@ -75,10 +76,12 @@ public enum ExecutionError
 
     // Exception simulation, for cases where throwing is too complex
     public static boolean simulate_CANNOT_WRITE_TARGET_FILE = false;
+    public static boolean simulate_CANNOT_CREATE_PARENT_DIRS = false;
     public static boolean simulate_CONTEXTMANAGER_INITIALIZE_ERROR = false;
     public static boolean simulate_CONTEXTMANAGER_CREATEXMLOBJECT_ERROR = false;
     public static boolean simulate_XML_PARSER_IO_ERROR = false;
     public static boolean simulate_XML_PARSER_CONFIG_ERROR = false;
+    public static boolean simulate_MEMORY_IO_ERROR = false;
 
     private final int id;
     private final String message;

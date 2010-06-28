@@ -31,6 +31,8 @@
 package com.CodeSeance.JSeance2.CodeGenXML.XMLElements.Test;
 
 import com.CodeSeance.JSeance2.CodeGenXML.ExecutionError;
+import com.CodeSeance.JSeance2.CodeGenXML.TemplateElements.Node;
+import com.CodeSeance.JSeance2.CodeGenXML.TemplateElements.NodeFactory;
 import org.testng.annotations.Test;
 
 public class TemplateTest extends TestCase
@@ -59,6 +61,16 @@ public class TemplateTest extends TestCase
         template.append("   @!Eval('C')!\n");
         expectResult("A.B.C");
     }
+    
+    @Test
+    public void templateTest_MixedLineTag()
+    {
+        template.append("!Eval('0.')!");
+        template.append("   @!Eval('A.')!   \r\n");
+        template.append("!Eval('B.')!");
+        template.append("   @!Eval('C')!\n");
+        expectResult("0.A.B.C");
+    }
 
     @Test
     public void templateTest_InvalidTargetDir()
@@ -86,39 +98,48 @@ public class TemplateTest extends TestCase
         expectError(ExecutionError.CONTEXTMANAGER_INITIALIZE_ERROR, true, true, true, false, null, false);
     }
 
-    /*
     @Test
-    public void templateTest_XMLParserConfigError()
+    public void templateTest_MissingArguments()
     {
-        template.append("A.");
-        template.append("B");
+        template.append("!If!");
+        template.append("Ok");
+        template.append("!End!");
 
-        ExecutionError.simulate_XML_PARSER_CONFIG_ERROR = true;
-
-        expectError(ExecutionError.XML_PARSER_CONFIG_ERROR, true, true, true, false, null, false);
+        expectError(ExecutionError.MISSING_TAG_ARGUMENTS, true, true, true, false, null, false);
+    }
+    
+    @Test
+    public void templateTest_MissingEnd()
+    {
+        template.append("!If!");
+        template.append("Ok");
+        expectError(ExecutionError.INVALID_TEMPLATE_MISSING_END, true, true, true, false, null, false);
     }
 
     @Test
-    public void templateTest_XMLIOError()
+    public void templateTest_InvalidArguments()
     {
-        template.append(" <Text>A.</Text>");
-        template.append(" <Text>B</Text>");
+        template.append("!If(askhjaksdhajshd asdjashdkjashd asdjhakjdha)!");
+        template.append("Ok");
+        template.append("!End!");
 
-        ExecutionError.simulate_XML_PARSER_IO_ERROR = true;
-
-        expectError(ExecutionError.XML_PARSER_IO_ERROR, true, true, true, false, null, false);
+        expectError(ExecutionError.INVALID_TAG_ARGUMENTS, true, true, true, false, null, false);
     }
-
 
     @Test
-    public void templateTest_InvalidXML()
+    public void templateText_InvalidNodeFactoryTag()
     {
-        template.append(" <TextA.</Text>"); // Missing >
-        template.append(" <Text>B</Text>");
-
-        expectError(ExecutionError.INVALID_TEMPLATE_XML, true, true, true, false, null, false);
+        Node result = NodeFactory.getInstance().createNode("ErrorTag", null, null);
+        assert result == null;
     }
 
-
-*/
+    @Test(expectedExceptions = {AssertionError.class})
+    public void templateTest_SimulateMemoryError()
+    {
+        ExecutionError.simulate_MEMORY_IO_ERROR = true;
+        template.append("A.\n");
+        template.append("B.\n");
+        template.append("C\n");
+        expectResult("A.\n.B.\nC\n");
+    }
 }
