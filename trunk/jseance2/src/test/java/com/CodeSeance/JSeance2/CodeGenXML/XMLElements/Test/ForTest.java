@@ -56,6 +56,26 @@ public class ForTest extends TestCase
     }
 
     @Test
+    public void outputIteratorTest_Simple2()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<ExampleModel>");
+        model.append(" <Child attribute1=\"A\"/>");
+        model.append(" <Child attribute1=\"B\"/>");
+        model.append(" <Child attribute1=\"C\"/>");
+        model.append("</ExampleModel>");
+
+
+        template.append("@!XMLModel(\"{MODEL}\")!\n");
+        template.append("@!For('Child', null, ', ')!\n");
+        template.append("!Eval(Models['default'].currentNode.@attribute1)!");
+        template.append("@!End!\n");
+
+
+        expectResult("A, B, C");
+    }
+
+    @Test
     public void outputIteratorTest_DoubleIfEmprt()
     {
         StringBuilder model = createXMLFile("MODEL");

@@ -61,6 +61,16 @@ public class TemplateTest extends TestCase
         template.append("   @!Eval('C')!\n");
         expectResult("A.B.C");
     }
+
+    @Test
+    public void templateTest_RemovePrecedingNewline()
+    {
+        template.append("A.\r\n");
+        template.append("   @!Eval('B.')!\n");
+        template.append("C.\n");
+        template.append("   @!Eval('D')!\n");
+        expectResult("A.B.C.D");
+    }
     
     @Test
     public void templateTest_MixedLineTag()
