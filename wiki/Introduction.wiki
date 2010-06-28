@@ -3,7 +3,7 @@
 
 = What is JSeance? =
 
-JSeance is an structured code generator, it takes a template XML file (JSeance schema) and one or more XML model files (any schema) and produces text output in the form of classes, resources, HTML files, etc.
+JSeance is an structured code generator, it takes a template file and one or more XML model files and produces text output in the form of classes, resources, HTML files, etc.
 
 It supports !JavaScript code embedded in templates for flexibility and extensibility. JSeance aims to provide an easy to understand yet feature complete framework to build complex APIs and content from user defined XML files.
 
@@ -30,8 +30,6 @@ What is wrong with this?
 
 http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg
 
- * *Context Sensitive State Management*: Allows state and content isolation between areas of a code template, reducing the overall complexity and unintended side effects. This is critical for large and complex templates, it guarantees that changes in a template section won't have negative side-effects on another non-related section. Context-independent values are also supported through a shared !JavaScript executing context.
-
  * *Embedded !JavaScript^TM^ Engine* ([http://www.mozilla.org/rhino/ Rhino]): While the general features of the engine support most common cases, there will be situations where specialized code is required. The embedded full-featured !JavaScript Engine allows developers and template designers to achieve specialized code generation behaviors and transformations without requiring external code files. 
 
 
@@ -41,7 +39,7 @@ http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg
 
  * *Conditional Expressions*: Part of the template XML schema includes If /!ElseIf/Else and Switch/Case functionality with rich !JavaScript expression syntax. This provides a standard mechanism for expressing choices and conditional clauses within the same template structure, which improves maintainability and readability.
 
- * *External Includes with dependency validation*: This allows template designers to split large template files into smaller, semi-independent sections which can later be re-used by other parent templates while explicitly declaring the required prerequisites to be fulfilled for the include to work correctly.
+ * *External Includes*: This allows template designers to split large template files into smaller, semi-independent sections which can later be re-used by other templates.
 
  * *Multiple Output Files*: A template can generate multiple files; the name, location and contents can be customized at runtime based on model data, context information or embedded !JavaScript. This allows simultaneous generation of files related to a feature or functionality from a single template.
 
@@ -52,14 +50,14 @@ The latest jars can be obtained from the [http://jseance.googlecode.com/svn/mave
 
 JSeance can be integrated into your project in three ways:
  * Using the Command Line:
- {{{java -jar jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar [Options] [Template Files...]}}}
+ {{{java -jar jseance-2.0-beta-2-SNAPSHOT-jar-with-dependencies.jar [Options] [Template Files...]}}}
  * As an [http://ant.apache.org/ Apache Ant] task:
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="example" basedir="." default="generate-code">
  <taskdef name="jseance"
   classname="com.CodeSeance.JSeance.CodeGenXML.EntryPoints.AntTask"
-  classpath="jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar"/>
+  classpath="jseance-2.0-beta-2-SNAPSHOT-jar-with-dependencies.jar"/>
  <target name="generate-code">
   <!-- add the options as jseance node attributes-->
   <jseance>
@@ -78,7 +76,7 @@ JSeance can be integrated into your project in three ways:
   <dependency>
    <groupId>com.codeseance</groupId>
    <artifactId>jseance</artifactId>
-   <version>1.0-beta-1-SNAPSHOT</version>
+   <version>2.0-beta-2-SNAPSHOT</version>
   </dependency>
  </dependencies>
 ...
@@ -87,7 +85,7 @@ JSeance can be integrated into your project in three ways:
    <plugin>
     <groupId>com.codeseance</groupId>
     <artifactId>jseance</artifactId>
-    <version>1.0-beta-1-SNAPSHOT</version>
+    <version>2.0-beta-2-SNAPSHOT</version>
     <configuration>
      <!-- Options go here as XMLNodes with value as node text -->
      <includes>
