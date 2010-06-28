@@ -130,7 +130,7 @@ class Output extends HierarchicalNode
                 if (parentDir != null && !parentDir.exists())
                 {
                     boolean result = parentDir.mkdirs();
-                    if (!result)
+                    if (!result || ExecutionError.simulate_CANNOT_CREATE_PARENT_DIRS)
                     {
                         throw new IOException(String.format("Cannot create parent dir path:[%s]", parentDir.toString()));
                     }

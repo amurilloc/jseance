@@ -98,10 +98,16 @@ public class Template extends HierarchicalNode
             try
             {
                 currentLine = lineReader.readLine();
+                if (ExecutionError.simulate_MEMORY_IO_ERROR)
+                {
+                    ExecutionError.simulate_MEMORY_IO_ERROR = false;
+                    throw new IOException("Simulated Exception for Error testing");    
+                }
             }
-            catch (IOException e)
+            catch (IOException ex)
             {
-                // Safe to ignore exception since we are reading from memory
+                // This should never happen since we are reading from memory
+                assert false : ex.getMessage();
             }
             position.line++;
         }

@@ -48,7 +48,7 @@ import java.lang.reflect.Type;
  Time: 4:43:42 PM
  To change this template use File | Settings | File Templates.
  */
-class Node
+public class Node
 {
     // The common logger for this class and derived classes
     protected final Log log;
@@ -91,50 +91,42 @@ class Node
 
     public void loadAttributes(Context context)
     {
-        if (arguments != null)
+        StringBuilder missingParameters = new StringBuilder();
+        try
         {
-            StringBuilder missingParameters = new StringBuilder();
-            try
+            Object[] params = evaluateParams(context, arguments);
+            int paramNumber = 0;
+            for (Field field : this.getClass().getDeclaredFields())
             {
-                Object[] params = evaluateParams(context, arguments);
-                int paramNumber = 0;
-                for (Field field : this.getClass().getDeclaredFields())
+                if (field.isAnnotationPresent(TagParameter.class))
                 {
-                    if (field.isAnnotationPresent(TagParameter.class))
+                    TagParameter annotation = field.getAnnotation(TagParameter.class);
+
+                    if (paramNumber < params.length)
                     {
-                        TagParameter annotation = (TagParameter) field.getAnnotation(TagParameter.class);
-
-                        if (paramNumber < params.length)
-                        {
-                            Object paramValue = params[paramNumber++];
-                            setFieldValue(field, paramValue == null ? annotation.defaultValue() : paramValue);
-                        }
-                        else if (!annotation.required())
-                        {
-                            setFieldValue(field, annotation.defaultValue());
-                        }
-                        else
-                        {
-                            if (missingParameters.length() > 0)
-                            {
-                                missingParameters.append(", ");
-                            }
-                            missingParameters.append(field.getName());
-                        }
+                        Object paramValue = params[paramNumber++];
+                        setFieldValue(field, paramValue == null ? annotation.defaultValue() : paramValue);
                     }
-
+                    else if (!annotation.required())
+                    {
+                        setFieldValue(field, annotation.defaultValue());
+                    }
+                    else
+                    {
+                        missingParameters.append( missingParameters.length() > 0 ? ", " + field.getName() : field.getName());
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new RuntimeException(ExecutionError.INVALID_TAG_ARGUMENTS.getMessage(arguments, position.getLine(), position.getCol(), ex.getMessage()));
-            }
 
-            if (missingParameters.length() > 0)
-            {
-                // TODO: throw correct error
-                throw new RuntimeException(ExecutionError.INVALID_TAG_ARGUMENTS.getMessage(arguments, position.getLine(), position.getCol(), "Required arguments omitted:" + missingParameters.toString()));
             }
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(ExecutionError.INVALID_TAG_ARGUMENTS.getMessage(arguments, position.getLine(), position.getCol(), ex.getMessage()));
+        }
+
+        if (missingParameters.length() > 0)
+        {
+            throw new RuntimeException(ExecutionError.MISSING_TAG_ARGUMENTS.getMessage(missingParameters, position.getLine(), position.getCol()));
         }
     }
 
@@ -159,11 +151,18 @@ class Node
 
     private Object[] evaluateParams(Context context, String elementText) throws NoSuchFieldException, IllegalAccessException
     {
-        String evalCode = "JSeanceUtils_ConvertArgsToArray" + elementText;
-        Object result = context.evaluateJS(evalCode, position.getFileName(), position.getLine());
-        Field argsField = result.getClass().getDeclaredField("args");
-        argsField.setAccessible(true);
-        return (Object[]) argsField.get(result);
+        if (arguments == null || "".equals(arguments))
+        {
+            return new Object[0];
+        }
+        else
+        {
+            String evalCode = "JSeanceUtils_ConvertArgsToArray" + elementText;
+            Object result = context.evaluateJS(evalCode, position.getFileName(), position.getLine());
+            Field argsField = result.getClass().getDeclaredField("args");
+            argsField.setAccessible(true);
+            return (Object[]) argsField.get(result);
+        }
     }
 
 
