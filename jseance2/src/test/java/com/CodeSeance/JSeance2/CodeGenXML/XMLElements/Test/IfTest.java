@@ -124,7 +124,7 @@ public class IfTest extends TestCase
         template.append("ExecutionError");
         template.append("!End!");
 
-        expectResult("Ok\n");
+        expectResult("Ok");
     }
 
     @Test

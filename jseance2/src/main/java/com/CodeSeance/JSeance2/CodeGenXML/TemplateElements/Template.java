@@ -232,7 +232,25 @@ public class Template extends HierarchicalNode
             if (startMatch > 0)
             {
                 advanceText(startMatch);
-                return new Text(pendingText.substring(0, startMatch));
+                String text = pendingText.substring(0, startMatch);
+                if (matcher == singleLineMatcher)
+                {
+                    // Special case when we want to supress the endline of a text section if the following line
+                    // is a full line tag, for example in:
+                    // @!Output('file.txt')!
+                    // text
+                    // @!End!
+                    // text will be writtend to the file without the trailing end
+                    if (text.endsWith("\r\n"))
+                    {
+                        text = text.substring(0, text.length() - 2);
+                    }
+                    else if (text.endsWith("\n"))
+                    {
+                        text = text.substring(0, text.length() - 1);
+                    }
+                }
+                return new Text(text);
             }
 
             advanceText(matcher.end());
