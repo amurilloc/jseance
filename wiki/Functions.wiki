@@ -71,7 +71,7 @@ Hello World
 
  === If-ElseIF-Else ===
 
-*Description:* Allow If, ElseIf and Else functionality within templates.
+*Description:* Allows If, ElseIf and Else functionality within templates.
 
 *Example:* The following template shows the basic structure:
 {{{
@@ -84,57 +84,29 @@ Then two is greater than one
 @!End!
 }}}
 
-|| *Attribute Name* || *Description* || *Required* ||
-|| jsExpression || The !JavaScript expression to evaluate (boolean) || Yes ||
+|| *Tags* || *Attribute Name* || *Description* || *Type* || *Required* ||
+|| If, ElseIf || jsExpression || The !JavaScript expression to evaluate || boolean || Yes ||
 
- === !ElseIf ===
+ == Switch-Case-Default ==
 
-*Description:* Second or greater child element of the Conditional node, represents an else-if expression.
+*Description:* Allows Switch, Case and Default functionality within templates.
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+*Example:* The following template shows the basic structure:
+{{{
+@!Switch((new Date()).getDay())!
+    @!Case(0)!
+Sunday
+    @!Case(1)!
+Monday
+    @!Case(2)!
+Tuesday
+    @!Default!
+Some other day
+@!End!
+}}}
 
-|| *Attribute Name* || *Description* || *Required* ||
-|| jsExpression || The !JavaScript expression to evaluate || Yes ||
-
-
- === Else ===
-
-*Description:* Parent node for  switch-case functionality.
-
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
-
- == Switch ==
-
-*Description:* Parent node for  switch-case functionality.
-
-*Child Elements:* Case, Default.
-
-|| *Attribute Name* || *Description* || *Required* ||
-|| jsExpression || The !JavaScript expression to evaluate || Yes ||
-
- === Case ===
-
-*Description:* Evaluation option for a Switch parent node.
-
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
-
-|| *Attribute Name* || *Description* || *Required* ||
-|| value || The value to compare the parent node jsExpression result || Yes ||
-
- === Default ===
-
-*Description:* The default expression to evaluate if no match is found.
-
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
-
- == Definition ==
-
-*Description:* Named variable used to send parameters to included templates of for oten-used values. Can be referenced from !JavaScript by Definitions`['name'`].
-
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include & !JavaScript.
-
-|| *Attribute Name* || *Description* || *Required* ||
-|| name || Name of the Definition || Yes ||
+|| *Tags* || *Attribute Name* || *Description* || *Type* || *Required* ||
+|| Case, Switch || jsExpression || The !JavaScript expression to evaluate || Object || Yes ||
 
  == Include ==
 
