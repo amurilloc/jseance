@@ -110,23 +110,52 @@ Some other day
 
  == Include ==
 
-*Description:* Includes another template file in the current template.
+*Description:* Includes another template file (.jseance) or JavaScript file (.js) in the current template.
 
-|| *Attribute Name* || *Description* || *Required* ||
-|| fileName|| File name relative to the Includes runtime directory || Yes ||
+*Example:* Simple Hello World:
+File: include.jseance
+{{{
+Hello World
+}}}
 
- == !OutputIterator ==
+File: template.jseance
+{{{
+@!Include("include.jseance")!
+}}}
 
-*Description:* An XML node iterator relative to the current model node, it text production while iterating over an XML node list.
+|| *Attribute Name* || *Description* || *Type* || *Required* ||
+|| fileName|| File name relative to the templates directory, needs to end in .jseance or .js or an error is produced || String || Yes ||
 
-*Child Elements:* Model, Text, !FileOutput, Conditional, Switch, Definition, Include, !OutputIterator & !JavaScript.
+ == !For-IfEmpty ==
 
-|| *Attribute Name* || *Description* || *Required* ||
-|| e4XPath || The e4XPath from the current node to select a group of nodes to iterate from, e4XPath expression is expected to return a nodegroup || Yes ||
-|| _modelName_ || The name of the model to use || No ||
-|| _separator_ || A separator to use when concatenating data, useful for building text structures such as comma-separated lists || No ||
+*Description:* Allows for-like iteration over a collection of XMLNodes in an XML model.
 
- == !JavaScript ==
+*Example:* For displaying a commma-separated list of the Child attributes:
+
+File: model.xml
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<ExampleModel>
+    <Child attribute1="A"/>
+    <Child attribute1="B"/>
+    <Child attribute1="C"/> 
+</ExampleModel>
+}}}
+
+And display the value of attribute1:
+File: template.jseance
+{{{
+@!XMLModel("model.xml")!
+@!For('Child', null, ', ')!
+!Eval(Models['default'].currentNode.@attribute1)!@!End!
+}}}
+
+|| *Attribute Name* || *Description* || *Type* || *Required* ||
+|| e4XPath || The e4XPath from the current node to select a group of nodes to iterate from, e4XPath expression is expected to return a nodegroup || e4XPath || Yes ||
+|| _modelName_ || The name of the model to use || String || No ||
+|| _separator_ || A separator to use when concatenating data, useful for building text structures such as comma-separated lists || String || No ||
+
+ == !Code ==
 
 *Description:* Allows custom !JavaScript declarations to be embedded into the template.
 
