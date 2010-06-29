@@ -110,7 +110,7 @@ Some other day
 
  == Include ==
 
-*Description:* Includes another template file (.jseance) or JavaScript file (.js) in the current template.
+*Description:* Includes another template file or JavaScript file ( must end in .js) in the current template.
 
 *Example:* Simple Hello World:
 File: include.jseance
@@ -124,7 +124,7 @@ File: template.jseance
 }}}
 
 || *Attribute Name* || *Description* || *Type* || *Required* ||
-|| fileName|| File name relative to the templates directory, needs to end in .jseance or .js or an error is produced || String || Yes ||
+|| fileName|| File name relative to the templates directory, needs to end in .js to be interpreted as JavaScript || String || Yes ||
 
  == For-IfEmpty ==
 
