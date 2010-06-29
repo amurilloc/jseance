@@ -1,0 +1,7 @@
+@!XMLModel("WebPage.xml")!
+@!Output(Models['default'].rootNode.FileName)!
+  @!Include("Header.xml")!
+  @!Include("Content.xml")!
+  @!Include("Sidebar.xml")!
+  @!Include("Footer.xml")!
+@!End!
