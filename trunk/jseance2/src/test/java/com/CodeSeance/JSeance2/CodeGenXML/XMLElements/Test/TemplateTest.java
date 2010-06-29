@@ -62,6 +62,8 @@ public class TemplateTest extends TestCase
         expectResult("A.B.C");
     }
 
+    // Experimental code, so far not needed
+    /*
     @Test
     public void templateTest_RemovePrecedingNewline()
     {
@@ -71,6 +73,7 @@ public class TemplateTest extends TestCase
         template.append("   @!Eval('D')!\n");
         expectResult("A.B.C.D");
     }
+    */
     
     @Test
     public void templateTest_MixedLineTag()

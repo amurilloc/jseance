@@ -233,6 +233,8 @@ public class Template extends HierarchicalNode
             {
                 advanceText(startMatch);
                 String text = pendingText.substring(0, startMatch);
+                // Experimental code, so far not desired
+                /*
                 if (matcher == singleLineMatcher)
                 {
                     // Special case when we want to supress the endline of a text section if the following line
@@ -250,6 +252,7 @@ public class Template extends HierarchicalNode
                         text = text.substring(0, text.length() - 1);
                     }
                 }
+                */
                 return new Text(text);
             }
 
