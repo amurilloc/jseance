@@ -47,7 +47,7 @@ The value of attribute1 is !Eval(Models['default'].currentNode.Child.@attribute1
 *Note*: The @ before the !XMLModel tag instructs the parser to ignore any whitespace in that line before the instruction as well as the endline proceeding it. It can be used to keep JSeance instruction in a line by themselves without adding extra whitespace of newlines to the template output
 
 || *Parameter* || *Description* || *Type* || *Required* ||
-|| fileName || The filename of the model relative to the Models runtime directory || String || Yes ||
+|| fileName || The filename of the model relative to the Models irectory || String || Yes ||
 || _name_|| Name of the model if specific model references are needed, the last declared model becomes the current model in the context, make sure to define a model names if you are using multiple input models || String || No ||
 || _e4XPath_ || The E4X Path of the currentNode, otherwise rootNode becomes the currentNode || String || No ||
 || _validate_ || Indicates if the parser should validate the XML file against an XSD schema, either included in the XML file or specified in the xsdFileName parameter || boolean || No ||
@@ -124,7 +124,7 @@ File: template.jseance
 }}}
 
 || *Attribute Name* || *Description* || *Type* || *Required* ||
-|| fileName|| File name relative to the templates directory, needs to end in .js to be interpreted as JavaScript || String || Yes ||
+|| fileName|| File name relative to the Includes directory, needs to end in .js to be interpreted as JavaScript or .jseance to be interpreted as a template || String || Yes ||
 
  == For-IfEmpty ==
 
