@@ -7,7 +7,7 @@
                  infoLogFile="../common/target/jseance-info.log"
                  sourcesDir="../common"
                  targetDir="../common/target">
-            <fileset dir="../common/templates" includes="**/*.template.xml"/>
+            <fileset dir="../common/templates" includes="**/*.jseance"/>
         </jseance>
     </target>
 </project>
