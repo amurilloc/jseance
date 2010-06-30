@@ -9,7 +9,7 @@ This example is based on a template found in [http://www.opendesigns.org/ OpenDe
  # Download the [http://jseance.googlecode.com/files/examples.zip Examples File] and unzip, this should create the following directory structure:
 {{{
 examples
-|-- jseance-1.0-beta-1-SNAPSHOT-jar-with-dependencies.jar
+|-- jseance-2.0-beta-2-SNAPSHOT-jar-with-dependencies.jar
 '-- ant
     command-line
     common
