@@ -63,28 +63,25 @@ The XML model to use as input data to the template can be found in home/examples
 == The Template ==
 The XML template splits the page generation into subsections, each with an include for readability. The main template can be found in home/examples/common/templates:
 {{{
-<?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns:JSeance="http://www.codeseance.com/JSeance" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.codeseance.com/JSeance1.0" xsi:schemaLocation="http://www.codeseance.com/JSeance1.0 http://jseance.googlecode.com/svn/trunk/jseance/src/main/resources/JSeance1.0.xsd">
- <Model fileName="WebPage.xml"/>
- <FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
-   <Include fileName="Header.xml"/>
-   <Include fileName="Content.xml"/>
-   <Include fileName="Sidebar.xml"/>   
-   <Include fileName="Footer.xml"/>
- </FileOutput>
-</Template>
+@!XMLModel("WebPage.xml")!
+@!Output(Models['default'].rootNode.FileName)!
+  @!Include("Header.jseance")!
+  @!Include("Content.jseance")!
+  @!Include("Sidebar.jseance")!
+  @!Include("Footer.jseance")!
+@!End!
 }}}
 
 The template performs 3 main steps:
 
-1. Loads the default XML model into the context, see [NodeTypes#Model Model] for details:
+1. Loads the default XML model into the context, see [Functions#XMLModel XMLModel] for details:
  {{{
- <Model fileName="WebPage.xml"/>
+@!XMLModel("WebPage.xml")!
 }}}
 
-2. Declares an output file, whose children produced text will be written to, see [NodeTypes#FileOutput FileOutput] for details:
+2. Declares an output file, whose children produced text will be written to, see [Functions#Output Output] for details:
  {{{
- <FileOutput fileName="@JavaScript{Models['default'].rootNode.FileName.toString()}@">
+@!Output(Models['default'].rootNode.FileName)!
 }}}
 
  Note that the file name is determined at run time from a model attribute:
@@ -96,10 +93,10 @@ The template performs 3 main steps:
 
 3. Includes the top, body, side and bottom sections, see [NodeTypes#Include Include] for details:
  {{{
-   <Include fileName="Header.xml"/>
-   <Include fileName="Content.xml"/>
-   <Include fileName="Sidebar.xml"/>   
-   <Include fileName="Footer.xml"/>
+  @!Include("Header.jseance")!
+  @!Include("Content.jseance")!
+  @!Include("Sidebar.jseance")!
+  @!Include("Footer.jseance")!
 }}}
 
 == The Includes ==
@@ -109,39 +106,45 @@ The includes can be found in the home/common/includes directory. The full templa
 
 This include is responsible for generating the top section of the page, it needs to draw the menus:
 {{{
-<Include ...>
- <Template>
-  <Text><![CDATA[<!DOCTYPE html PUBLIC...]]></Text>  <<-- Header text
-  <OutputIterator e4XPath="Header.Menu.Item" >       <<-- Child Iterator
-   <Text><![CDATA[...@JavaScript{Models['default'].currentNode.@href}@ ...
-                     @JavaScript{EscapeHTML(Models['default'].currentNode.@name)}@ ...]]></Text>
-  </OutputIterator>
-  ...
- </Template>
-</Include>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+...
+@!For("Header.Menu.Item")!
+     <li><a href="!Eval(Models['default'].currentNode.@href, "html")!">!Eval(Models['default'].currentNode.@name, "html")!</a></li>
+@!End!
+...
 }}}
 
-To iterate through the menu nodes of the model, it uses the following expression (see [NodeTypes#OutputIterator OutputIterator] for reference):
+To iterate through the menu nodes of the model, it uses the following expression (see [Functions#For-IfEmpty For-IfEmpty] for reference):
 {{{
-  <OutputIterator e4XPath="Header.Menu.Item" >
+@!For("Header.Menu.Item")!
 }}}
 
 This will change the {{{Models['default'].currentNode}}} context variable for children accordignly, thus the following section can be used to generate the menu text and link:
 {{{
-   <Text><![CDATA[...@JavaScript{Models['default'].currentNode.@href}@ ...
-                     @JavaScript{EscapeHTML(Models['default'].currentNode.@name)}@ ...]]></Text>  
+     <li><a href="!Eval(Models['default'].currentNode.@href, "html")!">!Eval(Models['default'].currentNode.@name, "html")!</a></li>
 }}}
 
-Which use /WebPage/Menu/Item href and name XML attributes accordingly. Notice the use of the {{{EscapeHTML}}} embedded JavaScript function, see [JavaScriptSupport#JSeance_Object_Model JSeance Object Model] for a list of available escaping functions.
+Which use /WebPage/Menu/Item href and name XML attributes accordingly. Notice the use of the {{{html}}} escaping functionality, see [Functions#Eval Eval] for a list of available escaping options.
 
 === Content.xml ===
 
-Besides the use of iterators and text nodes, the following section is important:
+Notice the use of For and Eval nodes:
 {{{
-     <Text escaping="html">@JavaScript{Models['default'].currentNode.@title}@</Text>
-}}}
+<!-- start page -->
+ <div id="page">
+	<!-- start content -->
+	<div id="content">
+@!For("Posts.Post")!
+		<div class="post">
+			<h1 class="title">!Eval(Models['default'].currentNode.@title, "html")!</h1>
+			<p class="meta"><small>!Eval(Models['default'].currentNode.@date, "html")!</small></p>
+		  <div class="entry">!Eval(Models['default'].currentNode, "html")!</div>
+		</div>
+@!End!
+	</div>
+<!-- end content -->
 
-This shows another way to perform text escaping using an attribute of the Text node, see [NodeTypes#Text Text] for details.
+}}}
 
 === Sidebar.xml ===
 
@@ -155,27 +158,22 @@ Besides using iterators, the sidebar needs to render the following HTML:
 				</ul>
 }}}
 
-Where the first {{{<li>}}} element requires a special attribute. To accomplish this we can embed JavaScript code in combination with a [NodeTypes#Conditional Conditional] node:
+Where the first {{{<li>}}} element requires a special attribute. To accomplish this we can embed JavaScript code in combination with an [Functions#If-EiseIf-Else If-EiseIf-Else] expression:
 
 {{{
 ...
-   <JavaScript>var first = true;</JavaScript>  <-- Declares a variable and initializes it
-   <OutputIterator e4XPath="Category">
-    <Conditional>
-     <If jsExpression="first">
-      <JavaScript>first = false;</JavaScript>
-      <Text><![CDATA[     <li class="top">]]></Text>  <-- Text will only be shown for 1st element
-     </If>
-     <Else>
-      <Text><![CDATA[     <li>]]></Text>              <-- Text to show for all ohter elements
-     </Else>
-    </Conditional>
-    <Text><![CDATA[<a href="@JavaScript{Models['default'].currentNode.@href}@">]]></Text>
-    <Text escaping="html">@JavaScript{Models['default'].currentNode.@name}@</Text>
-    <Text><![CDATA[</a></li>
-]]></Text>
-   </OutputIterator>
-...
+@!Code!
+  var count = 0;
+  @!End!
+  @!For("Category")!
+    @!If(count++ > 0)!
+	   <li class="top">
+    @!Else!
+		 <li>
+    @!End!
+      <a href="!Eval(Models['default'].currentNode.@href)!">!Eval(Models['default'].currentNode.@name, "html")!</a>
+     </li>
+  @!End!...
 }}}
 
 [JavaScriptSupport Prev: JavaScript Support]
