@@ -162,18 +162,22 @@ Where the first {{{<li>}}} element requires a special attribute. To accomplish t
 
 {{{
 ...
-@!Code!
-  var count = 0;
+  @!Code!
+  var first = true;
   @!End!
   @!For("Category")!
-    @!If(count++ > 0)!
+    @!If(first)!
+    @!Code!
+    first = false;
+    @!End!    
 	   <li class="top">
     @!Else!
 		 <li>
     @!End!
       <a href="!Eval(Models['default'].currentNode.@href)!">!Eval(Models['default'].currentNode.@name, "html")!</a>
      </li>
-  @!End!...
+  @!End!
+...
 }}}
 
 [JavaScriptSupport Prev: JavaScript Support]
