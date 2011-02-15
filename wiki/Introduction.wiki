@@ -89,7 +89,7 @@ JSeance can be integrated into your project in three ways:
     <configuration>
      <!-- Options go here as XMLNodes with value as node text -->
      <includes>
-      <include> **/*.xml </include>
+      <include> **/*.jseance</include>
      </includes>
     </configuration>
     <executions>
@@ -98,6 +98,16 @@ JSeance can be integrated into your project in three ways:
       <goals><goal>jseance</goal></goals>
      </execution>
     </executions>
+   </plugin>
+   <plugin>
+   <id>jseance.googlecode.com</id>
+   <url>http://jseance.googlecode.com/svn/maven2-snapshots</url>
+   <snapshots>
+    <enabled>true</enabled>
+   </snapshots>
+   <releases>
+    <enabled>false</enabled>
+   </releases>
    </plugin>
   </plugins>
  </build>
