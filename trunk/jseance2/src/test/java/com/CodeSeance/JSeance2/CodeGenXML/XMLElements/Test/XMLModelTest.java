@@ -50,6 +50,20 @@ public class XMLModelTest extends TestCase
     }
 
     @Test
+    public void modelTest_Default_Unnamed()
+    {
+        StringBuilder model = createXMLFile("MODEL");
+        model.append("<Model>");
+        model.append(" <A val=\"A\"/>");
+        model.append("</Model>");
+
+        template.append("!XMLModel(\"{MODEL}\")!");
+        template.append("!Eval(Model.currentNode.A.@val)!");
+
+        expectResult("A");
+    }
+
+    @Test
     public void modelTest_Named()
     {
         StringBuilder model = createXMLFile("MODEL");

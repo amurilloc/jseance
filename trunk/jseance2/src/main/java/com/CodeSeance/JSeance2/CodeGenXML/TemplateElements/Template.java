@@ -101,13 +101,13 @@ public class Template extends HierarchicalNode
                 if (ExecutionError.simulate_MEMORY_IO_ERROR)
                 {
                     ExecutionError.simulate_MEMORY_IO_ERROR = false;
-                    throw new IOException("Simulated Exception for Error testing");    
+                    throw new IOException("Simulated Exception for Error testing");
                 }
             }
             catch (IOException ex)
             {
                 // This should never happen since we are reading from memory
-                assert false : ex.getMessage();
+                throw new RuntimeException(ex);
             }
             position.line++;
         }

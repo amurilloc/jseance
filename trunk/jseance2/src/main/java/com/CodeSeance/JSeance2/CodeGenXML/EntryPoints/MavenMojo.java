@@ -96,7 +96,7 @@ public class MavenMojo extends AbstractMojo implements Logger
     private boolean forceRebuild;
 
     /**
-     List of files to include, default is all .xml files in the templates dir
+     List of files to include, default is all .jseance files in the templates dir
 
      @parameter
      */

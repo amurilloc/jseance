@@ -128,6 +128,11 @@ public class Context
     {
         name = setDefaultModelNameIfEmpty(name);
         jsModels.setModel(name, model);
+
+        // Added for supporting a default model referenced by the word "Model"
+        if (name.equals(UNNAMED_MODEL_NAME)) {
+            ScriptableObject.putProperty(jsScope, "Model", model);
+        }
     }
 
     private final static String UNNAMED_MODEL_NAME = "default";
@@ -140,7 +145,6 @@ public class Context
     }
 
     private JSModels jsModels = new JSModels();
-
 
     /*
     * Returns the specified JavaScript representation of a model

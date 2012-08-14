@@ -146,13 +146,13 @@ public class TemplateTest extends TestCase
         assert result == null;
     }
 
-    @Test(expectedExceptions = {AssertionError.class})
+    @Test(expectedExceptions = {RuntimeException.class})
     public void templateTest_SimulateMemoryError()
     {
         ExecutionError.simulate_MEMORY_IO_ERROR = true;
         template.append("A.\n");
         template.append("B.\n");
         template.append("C\n");
-        expectResult("A.\n.B.\nC\n");
+        expectResult("A.\nB.\nC\n");
     }
 }
