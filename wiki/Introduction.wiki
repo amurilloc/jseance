@@ -46,18 +46,18 @@ http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg
  * *Runtime Template Parametrization*: Every attribute and text content of a JSeance template element can be embedded with !JavaScript to be evaluated at runtime. Input and output file names can be decided based on context and input data. This complements the structured XML template approach with added flexibility for cases where the concrete inputs, outputs and actions need to be discovered at runtime.
 
 = Integration Options =
-The latest jars can be obtained from the [http://jseance.googlecode.com/svn/maven2-snapshots/ Maven Repository]
+The latest jars can be obtained from the [http://jseance.googlecode.com/svn/maven2/ Maven Repository]
 
 JSeance can be integrated into your project in three ways:
  * Using the Command Line:
- {{{java -jar jseance-2.0-beta-2-SNAPSHOT-jar-with-dependencies.jar [Options] [Template Files...]}}}
+ {{{java -jar jseance-2.0-jar-with-dependencies.jar [Options] [Template Files...]}}}
  * As an [http://ant.apache.org/ Apache Ant] task:
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="example" basedir="." default="generate-code">
  <taskdef name="jseance"
   classname="com.CodeSeance.JSeance.CodeGenXML.EntryPoints.AntTask"
-  classpath="jseance-2.0-beta-2-SNAPSHOT-jar-with-dependencies.jar"/>
+  classpath="jseance-2.0-jar-with-dependencies.jar"/>
  <target name="generate-code">
   <!-- add the options as jseance node attributes-->
   <jseance>
@@ -76,7 +76,7 @@ JSeance can be integrated into your project in three ways:
   <dependency>
    <groupId>com.codeseance</groupId>
    <artifactId>jseance</artifactId>
-   <version>2.0-beta-2-SNAPSHOT</version>
+   <version>2.0</version>
   </dependency>
  </dependencies>
 ...
@@ -85,7 +85,7 @@ JSeance can be integrated into your project in three ways:
    <plugin>
     <groupId>com.codeseance</groupId>
     <artifactId>jseance</artifactId>
-    <version>2.0-beta-2-SNAPSHOT</version>
+    <version>2.0</version>
     <configuration>
      <!-- Options go here as XMLNodes with value as node text -->
      <includes>
@@ -101,27 +101,15 @@ JSeance can be integrated into your project in three ways:
    </plugin>
    <plugin>
    <id>jseance.googlecode.com</id>
-   <url>http://jseance.googlecode.com/svn/maven2-snapshots</url>
-   <snapshots>
-    <enabled>true</enabled>
-   </snapshots>
-   <releases>
-    <enabled>false</enabled>
-   </releases>
+   <url>http://jseance.googlecode.com/svn/maven2</url>
    </plugin>
   </plugins>
  </build>
  <pluginRepositories>
   <pluginRepository>
    <id>jseance.googlecode.com</id>
-   <url>http://jseance.googlecode.com/svn/maven2-snapshots</url>
-   <snapshots>
-    <enabled>true</enabled>
-   </snapshots>
-   <releases>
-    <enabled>false</enabled>
-   </releases>
-  </pluginRepository>
+   <url>http://jseance.googlecode.com/svn/maven2</url>
+   </pluginRepository>
  </pluginRepositories>
 ...
 </project>
