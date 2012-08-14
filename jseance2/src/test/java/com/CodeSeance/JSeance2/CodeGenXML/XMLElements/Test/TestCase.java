@@ -228,8 +228,13 @@ public class TestCase implements Logger
 
     protected void expectFileOutput(String filePlaceholder, String result)
     {
+        expectFileOutput(filePlaceholder, result, "UTF-8");
+    }
+
+    protected void expectFileOutput(String filePlaceholder, String result, String charset)
+    {
         File file = ouputFiles.get(filePlaceholder);
-        String outcome = convertFileToString(file);
+        String outcome = convertFileToString(file, charset);
 
         if (!result.equals(outcome))
         {
@@ -271,13 +276,13 @@ public class TestCase implements Logger
         return resultFile;
     }
 
-    public static String convertFileToString(File file)
+    public static String convertFileToString(File file, String charset)
     {
         StringBuffer stringBuffer;
         try
         {
             FileInputStream inputStream = new FileInputStream(file);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset));
             stringBuffer = new StringBuffer(1000);
             char[] buffer = new char[1024];
             int length;

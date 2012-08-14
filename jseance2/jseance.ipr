@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project relativePaths="false" version="4">
+<project version="4">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
   </component>
@@ -51,7 +51,6 @@
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
-    <option name="DEPLOY_AFTER_MAKE" value="0" />
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -68,11 +67,13 @@
       <entry name="?*.tld" />
       <entry name="?*.ftl" />
     </wildcardResourcePatterns>
+    <annotationProcessing enabled="false" useClasspath="true" />
   </component>
   <component name="CopyrightManager" default="MPL 1.1">
     <copyright>
       <option name="notice" value="The contents of this file are subject to the Mozilla Public License Version&#10;1.1 (the &quot;License&quot;); you may not use this file except in compliance with&#10;the License. You may obtain a copy of the License at&#10;http://www.mozilla.org/MPL/&#10;&#10;Software distributed under the License is distributed on an &quot;AS IS&quot; basis,&#10;WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License&#10;for the specific language governing rights and limitations under the&#10;License.&#10;&#10;The Original Code is JSeance code, released&#10;May 6, 2009.&#10;&#10;The Initial Developer of the Original Code is&#10;Andres Murillo.&#10;Portions created by the Initial Developer are Copyright (C) 2009&#10;the Initial Developer. All Rights Reserved.&#10;&#10;Alternatively, the contents of this file may be used under the terms of&#10;the GNU General Public License Version 2 or later (the &quot;GPL&quot;), in which&#10;case the provisions of the GPL are applicable instead of those above. If&#10;you wish to allow use of your version of this file only under the terms of&#10;the GPL and not to allow others to use your version of this file under the&#10;MPL, indicate your decision by deleting the provisions above and replacing&#10;them with the notice and other provisions required by the GPL. If you do&#10;not delete the provisions above, a recipient may use your version of this&#10;file under either the MPL or the GPL." />
       <option name="keyword" value="Copyright" />
+      <option name="allowReplaceKeyword" value="" />
       <option name="myName" value="MPL 1.1" />
       <option name="myLocal" value="true" />
     </copyright>
@@ -90,48 +91,48 @@
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
   <component name="InspectionProjectProfileManager">
-    <option name="PROJECT_PROFILE" value="Project Default" />
-    <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
-    <scopes />
     <profiles>
       <profile version="1.0" is_locked="false">
         <option name="myName" value="Project Default" />
         <option name="myLocal" value="false" />
-        <inspection_tool class="AmbiguousMethodCall" level="WARNING" enabled="true" />
-        <inspection_tool class="EqualsAndHashcode" level="WARNING" enabled="true" />
-        <inspection_tool class="Finalize" level="WARNING" enabled="true" />
-        <inspection_tool class="HardcodedFileSeparators" level="WARNING" enabled="true">
+        <inspection_tool class="AmbiguousMethodCall" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="EqualsAndHashcode" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="Finalize" enabled="true" level="WARNING" enabled_by_default="true">
+          <option name="ignoreTrivialFinalizers" value="true" />
+        </inspection_tool>
+        <inspection_tool class="HardcodedFileSeparators" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_recognizeExampleMediaType" value="false" />
         </inspection_tool>
-        <inspection_tool class="HardcodedLineSeparators" level="WARNING" enabled="true" />
-        <inspection_tool class="JavaLangImport" level="WARNING" enabled="true" />
-        <inspection_tool class="NonFinalStaticVariableUsedInClassInitialization" level="WARNING" enabled="true" />
-        <inspection_tool class="ObsoleteCollection" level="WARNING" enabled="true">
-          <option name="ignoreLibraryArguments" value="false" />
+        <inspection_tool class="HardcodedLineSeparators" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="JavaLangImport" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="NonFinalStaticVariableUsedInClassInitialization" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="ObsoleteCollection" enabled="true" level="WARNING" enabled_by_default="true">
+          <option name="ignoreRequiredObsoleteCollectionTypes" value="false" />
         </inspection_tool>
-        <inspection_tool class="OnDemandImport" level="WARNING" enabled="true" />
-        <inspection_tool class="RedundantImport" level="WARNING" enabled="true" />
-        <inspection_tool class="RedundantMethodOverride" level="WARNING" enabled="true" />
-        <inspection_tool class="SamePackageImport" level="WARNING" enabled="true" />
-        <inspection_tool class="SingleClassImport" level="WARNING" enabled="true" />
-        <inspection_tool class="StaticCollection" level="WARNING" enabled="true">
+        <inspection_tool class="OnDemandImport" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="RedundantImport" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="RedundantMethodOverride" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="SamePackageImport" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="SingleClassImport" enabled="true" level="WARNING" enabled_by_default="true" />
+        <inspection_tool class="StaticCollection" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_ignoreWeakCollections" value="false" />
         </inspection_tool>
-        <inspection_tool class="ThrownExceptionsPerMethod" level="WARNING" enabled="true">
+        <inspection_tool class="ThrownExceptionsPerMethod" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="m_limit" value="3" />
         </inspection_tool>
-        <inspection_tool class="UnusedImport" level="WARNING" enabled="true" />
+        <inspection_tool class="UnusedImport" enabled="true" level="WARNING" enabled_by_default="true" />
       </profile>
     </profiles>
-    <list size="0" />
+    <option name="PROJECT_PROFILE" value="Project Default" />
+    <option name="USE_PROJECT_PROFILE" value="true" />
+    <version value="1.0" />
   </component>
   <component name="JavacSettings">
-    <option name="DEBUGGING_INFO" value="true" />
-    <option name="GENERATE_NO_WARNINGS" value="false" />
-    <option name="DEPRECATION" value="true" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="-target 1.5" />
-    <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -278,10 +279,18 @@
       </item>
     </group>
   </component>
+  <component name="ProjectCodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS">
+      <value>
+        <XML>
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
+      </value>
+    </option>
+  </component>
   <component name="ProjectDetails">
     <option name="projectName" value="jseance" />
   </component>
-  <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectKey">
     <option name="state" value="https://jseance.googlecode.com/svn/trunk/jseance2/jseance.ipr" />
   </component>
@@ -290,15 +299,11 @@
       <module fileurl="file://$PROJECT_DIR$/jseance.iml" filepath="$PROJECT_DIR$/jseance.iml" />
     </modules>
   </component>
+  <component name="ProjectResources">
+    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
-  </component>
-  <component name="RmicSettings">
-    <option name="IS_EANABLED" value="false" />
-    <option name="DEBUGGING_INFO" value="true" />
-    <option name="GENERATE_NO_WARNINGS" value="false" />
-    <option name="GENERATE_IIOP_STUBS" value="false" />
-    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
   </component>
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
@@ -308,59 +313,15 @@
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="libraryTable">
-    <library name="Maven: org.apache.maven:maven-plugin-api:2.0">
+    <library name="Maven: ant:ant:1.6.5">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: log4j:log4j:1.2.14">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: commons-logging:commons-logging:1.1.1">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: commons-lang:commons-lang:2.4">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: rhino:js:1.7R1">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/rhino/js/1.7R1/js-1.7R1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/rhino/js/1.7R1/js-1.7R1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/rhino/js/1.7R1/js-1.7R1-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: args4j:args4j:2.0.14">
@@ -374,26 +335,26 @@
         <root url="jar://$MAVEN_REPOSITORY$/args4j/args4j/2.0.14/args4j-2.0.14-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: ant:ant:1.6.5">
+    <library name="Maven: commons-lang:commons-lang:2.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.testng:testng:jdk15:5.8">
+    <library name="Maven: commons-logging:commons-logging:1.1.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit:3.8.1">
@@ -407,9 +368,50 @@
         <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: log4j:log4j:1.2.14">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.maven:maven-plugin-api:2.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.testng:testng:jdk15:5.8">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-jdk15.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/testng/testng/5.8/testng-5.8-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: rhino:js:1.7R1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/rhino/js/1.7R1/js-1.7R1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/rhino/js/1.7R1/js-1.7R1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/rhino/js/1.7R1/js-1.7R1-sources.jar!/" />
+      </SOURCES>
+    </library>
   </component>
-  <UsedPathMacros>
-    <macro name="MAVEN_REPOSITORY" description="Maven Local Repostiry" />
-  </UsedPathMacros>
 </project>
 

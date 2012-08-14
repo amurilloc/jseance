@@ -34,6 +34,7 @@ import com.CodeSeance.JSeance2.CodeGenXML.ExecutionError;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 public class OutputTest extends TestCase
 {
@@ -64,7 +65,7 @@ public class OutputTest extends TestCase
             expectResult("", false, false);
 
             File fullPath = new File(System.getProperty("java.io.tmpdir") + File.separator + outputFile.toString());
-            String outcome = convertFileToString(fullPath);
+            String outcome = convertFileToString(fullPath, "UTF-8");
 
             if (!"Test".equals(outcome))
             {
@@ -122,8 +123,7 @@ public class OutputTest extends TestCase
     }
 
     @Test
-    public void fileOutputTest_UTF16()
-    {
+    public void fileOutputTest_UTF16() {
         createOutputFile("FILE");
 
         template.append("!Output(\"{FILE}\",\"UTF-16\")!");
@@ -131,7 +131,7 @@ public class OutputTest extends TestCase
         template.append("!End!");
         expectResult("", false, false);
 
-        expectFileOutput("FILE", "þÿ\u0000T\u0000e\u0000s\u0000t");
+        expectFileOutput("FILE", "Test", "UTF-16");
     }
 
     @Test

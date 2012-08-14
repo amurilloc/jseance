@@ -73,7 +73,7 @@ public class TestHelper
 
     public void validateSucess(File outputFile, File errorLogFile, File infoLogFile, File debugLogFile)
     {
-        String result = TestCase.convertFileToString(outputFile);
+        String result = TestCase.convertFileToString(outputFile, "UTF-8");
 
         if (!"A".equals(result))
         {

@@ -1,2 +1,2 @@
-java -jar ../../target/jseance-2.0-beta-2-SNAPSHOT-jar-with-dependencies.jar -errorLogFile "../common/target/jseance-errors.log" -infoLogFile "../common/target/jseance-info.log" -sourcesDir "../common" -targetDir "../common/target" WebPage.jseance
+java -jar ../../target/jseance-2.0-jar-with-dependencies.jar -errorLogFile "../common/target/jseance-errors.log" -infoLogFile "../common/target/jseance-info.log" -sourcesDir "../common" -targetDir "../common/target" WebPage.jseance
  pause
