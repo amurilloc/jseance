@@ -37,8 +37,10 @@ XML Model file (model.xml):
 <?xml version="1.0" encoding="UTF-8"?>
 <RootNode>
  <A attribute1="first ">
-  <B attribute2="second" />
- </A>
+  <B attribute2="second ">
+    <C attribute3="third" />
+  </B>
+</A>
 </RootNode>
 }}}
 
@@ -47,7 +49,8 @@ The JSeance  template:
 @!XMLModel('model.xml', null, 'A.B')!
 @!Output('test.txt')!
     @!Eval(Models['default'].rootNode.A.@attribute1)!
-    @!EvalModels['default'].currentNode.@attribute2)!
+    @!Eval(Models['default'].currentNode.@attribute2)!
+    @!Eval(Model.currentNode.C.@attribute2)!
 @!End!
 }}}
 
@@ -56,7 +59,7 @@ Output file contents (test.txt):
 first second
 }}}
 
-The 'Models' object contains all the models available in the context. Each model has 'currentNode' and 'rootNode' attributes. The 'currentNode' attribute can change depending on the model e4XPath attribute or when an [Functions#For-IfEmpty For-IfEmpty] node is being used.
+The 'Models' object contains all the models available in the context. Each model has 'currentNode' and 'rootNode' attributes. The 'currentNode' attribute can change depending on the model e4XPath attribute or when an [Functions#For-IfEmpty For-IfEmpty] node is being used. Note that the 'Model' object is shorthand for Models['default'].
 
  == Built-In Encoding Functions ==
 
