@@ -59,7 +59,7 @@ Output file contents (test.txt):
 first second third
 }}}
 
-The 'Models' object contains all the models available in the context. Each model has 'currentNode' and 'rootNode' attributes. The 'currentNode' attribute can change depending on the model e4XPath attribute or when an [Functions#For-IfEmpty For-IfEmpty] node is being used. Note that the 'Model' object is shorthand for Models['default'].
+The 'Models' object contains all the models available in the context. Each model has 'currentNode' and 'rootNode' attributes. The 'currentNode' attribute can change depending on the model e4XPath attribute or when an [Functions#For-IfEmpty For-IfEmpty] node is being used. Note that the 'Model' object is short-hand for Models['default'].
 
  == Built-In Encoding Functions ==
 
