@@ -1,0 +1,126 @@
+# What is JSeance? #
+
+JSeance is an structured code generator, it takes a template file and one or more XML model files and produces text output in the form of classes, resources, HTML files, etc.
+
+It supports JavaScript code embedded in templates for flexibility and extensibility. JSeance aims to provide an easy to understand yet feature complete framework to build complex APIs and content from user defined XML files.
+
+![http://JSeance.googlecode.com/svn/wiki/images/process.jpg](http://JSeance.googlecode.com/svn/wiki/images/process.jpg)
+
+# Code Generation Basics #
+
+Code Generation (or code genesis) is the process of generating code artifacts from templates and data files, it enables decoupling of domain-specific information from implementation details.
+
+## Example ##
+The typical process for building a transactional web application goes as following (shortened for simplicity):
+  * Identify business roles, entities and process work flows
+  * Create database schemas
+  * Create data access, security APIs, unit tests, etc.
+  * Create web pages
+
+![http://JSeance.googlecode.com/svn/wiki/images/AutoFeasibilty.jpg](http://JSeance.googlecode.com/svn/wiki/images/AutoFeasibilty.jpg)
+
+What is wrong with this?
+  1. A large portion of the code in this example follows a fairly common pattern and is subject to automatic generation.
+  1. Changes to roles, entities and processes require manual re-work on all layers. For instance, adding an attribute to an object requires changes in many files for the new file to become visible to the end-user.
+
+# JSeance Features #
+
+![http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg](http://JSeance.googlecode.com/svn/wiki/images/features-small.jpg)
+
+  * **Embedded JavaScript<sup>TM</sup> Engine** ([Rhino](http://www.mozilla.org/rhino/)): While the general features of the engine support most common cases, there will be situations where specialized code is required. The embedded full-featured JavaScript Engine allows developers and template designers to achieve specialized code generation behaviors and transformations without requiring external code files.
+
+
+  * **ECMAScript for XML ([E4X](http://en.wikipedia.org/wiki/ECMAScript_for_XML)) Support and Iterators**: Built-in iterators with E4X expressions allow for easy navigation between input model nodes, making cross-model queries possible. E4X provides a simple and expressive syntax for selecting, filtering and locating relevant node information.
+
+  * **Multiple XML Input Models**: Allows the template designer to load several XML files, query and cross-reference each separately. This makes it possible to split domain model aspects into separate files, increasing maintainability and readability. For example, you could separate business object information into a Relations.xml and Attributes.xml XML files, each referring to the same entities but expressing different aspects. A template could access both XML files to generate a database schema or [Hibernate](https://www.hibernate.org/) back end.
+
+  * **Conditional Expressions**: Part of the template XML schema includes If /ElseIf/Else and Switch/Case functionality with rich JavaScript expression syntax. This provides a standard mechanism for expressing choices and conditional clauses within the same template structure, which improves maintainability and readability.
+
+  * **External Includes**: This allows template designers to split large template files into smaller, semi-independent sections which can later be re-used by other templates.
+
+  * **Multiple Output Files**: A template can generate multiple files; the name, location and contents can be customized at runtime based on model data, context information or embedded JavaScript. This allows simultaneous generation of files related to a feature or functionality from a single template.
+
+  * **Runtime Template Parametrization**: Every attribute and text content of a JSeance template element can be embedded with JavaScript to be evaluated at runtime. Input and output file names can be decided based on context and input data. This complements the structured XML template approach with added flexibility for cases where the concrete inputs, outputs and actions need to be discovered at runtime.
+
+# Integration Options #
+The latest jars can be obtained from the [Maven Repository](http://jseance.googlecode.com/svn/maven2/)
+
+JSeance can be integrated into your project in three ways:
+  * Using the Command Line:
+> `java -jar jseance-2.0-jar-with-dependencies.jar [Options] [Template Files...]`
+  * As an [Apache Ant](http://ant.apache.org/) task:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="example" basedir="." default="generate-code">
+ <taskdef name="jseance"
+  classname="com.CodeSeance.JSeance.CodeGenXML.EntryPoints.AntTask"
+  classpath="jseance-2.0-jar-with-dependencies.jar"/>
+ <target name="generate-code">
+  <!-- add the options as jseance node attributes-->
+  <jseance>
+   <fileset dir="./jseance/templates" includes="**/*.xml"/>
+  </jseance>
+ </target>
+</project>
+```
+  * As a [Apache Maven](http://maven.apache.org/) Plugin:
+```
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+...
+ <dependencies>
+  <dependency>
+   <groupId>com.codeseance</groupId>
+   <artifactId>jseance</artifactId>
+   <version>2.0</version>
+  </dependency>
+ </dependencies>
+...
+ <build>
+  <plugins>
+   <plugin>
+    <groupId>com.codeseance</groupId>
+    <artifactId>jseance</artifactId>
+    <version>2.0</version>
+    <configuration>
+     <!-- Options go here as XMLNodes with value as node text -->
+     <includes>
+      <include> **/*.jseance</include>
+     </includes>
+    </configuration>
+    <executions>
+     <execution>
+      <phase>generate-resources</phase>
+      <goals><goal>jseance</goal></goals>
+     </execution>
+    </executions>
+   </plugin>
+   <plugin>
+   <id>jseance.googlecode.com</id>
+   <url>http://jseance.googlecode.com/svn/maven2</url>
+   </plugin>
+  </plugins>
+ </build>
+ <pluginRepositories>
+  <pluginRepository>
+   <id>jseance.googlecode.com</id>
+   <url>http://jseance.googlecode.com/svn/maven2</url>
+   </pluginRepository>
+ </pluginRepositories>
+...
+</project>
+```
+
+Common Options and Defaults:
+| **Option Name** | **Description** | **Default** |
+|:----------------|:----------------|:------------|
+| errorLogFile | Uses the specified filename for error logging | ./jseance-errors.log |
+| infoLogFile | Uses the specified filename for info logging | ./jseance-info.log |
+| debugLogFile | Uses the specified filename for debug logging | null |
+| sourcesDir | Parent directory of the 'templates', 'models' and 'includes' directories | ./jseance |
+| targetDir | Ouput root directory for files | ./target |
+| ignoreReadOnlyOuputFiles | Skips production of ouput files with readonly flag | false |
+| forceRebuild | Skips dependency checks and forces a rebuild | false |
+
+[Next: General Concepts](GeneralConcepts.md)

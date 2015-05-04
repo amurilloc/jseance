@@ -1,0 +1,173 @@
+**Description:** Evaluates the specified JavaScript expression as text.
+
+**Example:**
+The following template:
+```
+The value of adding one plus one is !Eval(1+1)!
+The value of PI is !Eval(Math.PI)!
+```
+
+Produces:
+```
+The value of adding one plus one is 2
+The value of PI is 3.141592653589793
+```
+
+| **Attribute Name** | **Description** | **Type** | **Required** |
+|:-------------------|:----------------|:---------|:-------------|
+| expression | A valid JavaScriptExpression | String | No |
+| escaping | Allows text to be escaped, valid options are: 'xml-attribute', 'xml-value', 'html', 'java', 'javascript' and 'sql' | String | No |
+
+> ## XMLModel ##
+**Description:** Loads an XML model into the context. Model data can be referenced in JavaScript as Models`['name'`] or Models`['default'`] for unnamed models.
+
+**Example:** For loading the following model file:
+
+File: model.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<ExampleModel>
+    <Child attribute1="A"/>  
+</ExampleModel>
+```
+
+And display the value of attribute1:
+File: template.jseance
+```
+@!XMLModel("model.xml")!
+The value of attribute1 is !Eval(Models['default'].currentNode.Child.@attribute1)!
+```
+
+**Note**: The @ before the !XMLModel tag instructs the parser to ignore any whitespace in that line before the instruction as well as the endline proceeding it. It can be used to keep JSeance instruction in a line by themselves without adding extra whitespace of newlines to the template output
+
+| **Parameter** | **Description** | **Type** | **Required** |
+|:--------------|:----------------|:---------|:-------------|
+| fileName | The filename of the model relative to the Models irectory | String | Yes |
+| _name_| Name of the model if specific model references are needed, the last declared model becomes the current model in the context, make sure to define a model names if you are using multiple input models | String | No |
+| _e4XPath_ | The E4X Path of the currentNode, otherwise rootNode becomes the currentNode | String | No |
+| _validate_ | Indicates if the parser should validate the XML file against an XSD schema, either included in the XML file or specified in the xsdFileName parameter | boolean | No |
+| _xsdFileName_ | Indicates the name of the XSD file to use if validate is true, relative to the Models runtime directory | String | No |
+
+> ## Output ##
+
+**Description:** Specifies a file to use as output. All text produced inside the tag will be written  to the specified file.
+
+**Example:** For writing 'Hello World' to a file named 'output.txt':
+```
+@!Output('output.txt')!
+Hello World
+@!End!
+```
+
+| **Attribute Name** | **Description** | **Type** | **Required** |
+|:-------------------|:----------------|:---------|:-------------|
+| fileName | The filename to open, relative to the Target runtime directory | String | Yes |
+| encoding | File eoncoding to use, valid options are: ISO-8859-1, ISO-8859-2, ISO-8859-3, ISO-8859-4, ISO-8859-5, ISO-8859-6, ISO-8859-7, ISO-8859-8, ISO-8859-9, ISO-8859-13, ISO-8859-15, UTF-8, UTF-16, ISO-2022-JP, Shift\_JIS, EUC-JP, US-ASCII, GBK, Big5, ISO-2022-CN, ISO-2022-KR, ISO-8859-15, ISO-8859-15 | String | No |
+| writeXMLHeader | Specifies if an XML header needs to be created for the file | boolean | No |
+
+> ### If-ElseIF-Else ###
+
+**Description:** Allows If, ElseIf and Else functionality within templates.
+
+**Example:** The following template shows the basic structure:
+```
+@!If(1>2)!
+One is greater than two
+@!ElseIf(1==2)!
+One is equal to two
+@!Else!
+Then two is greater than one
+@!End!
+```
+
+| **Tags** | **Attribute Name** | **Description** | **Type** | **Required** |
+|:---------|:-------------------|:----------------|:---------|:-------------|
+| If, ElseIf | jsExpression | The JavaScript expression to evaluate | boolean | Yes |
+
+> ## Switch-Case-Default ##
+
+**Description:** Allows Switch, Case and Default functionality within templates.
+
+**Example:** The following template shows the basic structure:
+```
+@!Switch((new Date()).getDay())!
+    @!Case(0)!
+Sunday
+    @!Case(1)!
+Monday
+    @!Case(2)!
+Tuesday
+    @!Default!
+Some other day
+@!End!
+```
+
+| **Tags** | **Attribute Name** | **Description** | **Type** | **Required** |
+|:---------|:-------------------|:----------------|:---------|:-------------|
+| Case, Switch | jsExpression | The JavaScript expression to evaluate | Object | Yes |
+
+> ## Include ##
+
+**Description:** Includes another template file or JavaScript file ( must end in .js) in the current template.
+
+**Example:** Simple Hello World:
+File: include.jseance
+```
+Hello World
+```
+
+File: template.jseance
+```
+@!Include("include.jseance")!
+```
+
+| **Attribute Name** | **Description** | **Type** | **Required** |
+|:-------------------|:----------------|:---------|:-------------|
+| fileName| File name relative to the Includes directory, needs to end in .js to be interpreted as JavaScript or .jseance to be interpreted as a template | String | Yes |
+
+> ## For-IfEmpty ##
+
+**Description:** Allows for-like iteration over a collection of XMLNodes in an XML model.
+
+**Example:** For displaying a commma-separated list of the Child attributes:
+
+File: model.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<ExampleModel>
+    <Child attribute1="A"/>
+    <Child attribute1="B"/>
+    <Child attribute1="C"/> 
+</ExampleModel>
+```
+
+And display the value of attribute1:
+File: template.jseance
+```
+@!XMLModel("model.xml")!
+@!For('Child', null, ', ')!
+!Eval(Models['default'].currentNode.@attribute1)!
+@!IfEmpty!
+Nothing to display
+@!End!
+```
+
+| **Attribute Name** | **Description** | **Type** | **Required** |
+|:-------------------|:----------------|:---------|:-------------|
+| e4XPath | The e4XPath from the current node to select a group of nodes to iterate from, e4XPath expression is expected to return a nodegroup | e4XPath | Yes |
+| _modelName_ | The name of the model to use | String | No |
+| _separator_ | A separator to use when concatenating data, useful for building text structures such as comma-separated lists | String | No |
+
+> ## Code ##
+
+**Description:** Allows custom JavaScript declarations to be embedded into the template.
+
+**Example:** Simple 'Hello World' with a code section:
+```
+@!Code!
+var a = 'Hello World'!
+@!End!
+!Eval(a)!;
+```
+
+[Prev: General Concepts](GeneralConcepts.md) [Next: JavaScript Support](JavaScriptSupport.md)
